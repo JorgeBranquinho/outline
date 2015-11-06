@@ -1,6 +1,7 @@
 package pa.iscde.outlaw;
 
 import java.awt.Color;
+import java.awt.Panel;
 import java.io.File;
 import java.util.Map;
 import org.eclipse.swt.SWT;
@@ -23,6 +24,7 @@ public class PidescoView1 implements PidescoView {
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
 		viewArea.setLayout(new RowLayout(SWT.VERTICAL));
+		
 		Label label = new Label(viewArea, SWT.NONE);
 		label.setImage(imageMap.get("smiley.png"));
 		Text txtpackage = new Text(viewArea, SWT.WRAP);
