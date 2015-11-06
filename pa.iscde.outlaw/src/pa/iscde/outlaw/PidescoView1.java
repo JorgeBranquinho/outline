@@ -37,7 +37,7 @@ public class PidescoView1 implements PidescoView {
 		File f = services.getOpenedFile();
 		txtclass.setText(f.getName());
 		txtpackage.setText(getPackage(f.getParent()));
-		txtclass.setText("teset");
+		txtclass.setText("teste2");
 		
 	}
 
