@@ -33,11 +33,11 @@ public class PidescoView1 implements PidescoView {
 		txtclass.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
 		txtpackage.setEditable(false);
 		txtpackage.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
-		
 		JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 		File f = services.getOpenedFile();
 		txtclass.setText(f.getName());
 		txtpackage.setText(getPackage(f.getParent()));
+		txtclass.setText("OI");
 		
 	}
 
