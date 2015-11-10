@@ -1,4 +1,4 @@
-package pa.iscde.outlaw;
+package pa.iscde.outlaw.jorge;
 
 import java.util.List;
 
