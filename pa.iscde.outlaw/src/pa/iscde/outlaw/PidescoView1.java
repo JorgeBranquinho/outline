@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
+import pa.iscde.outlaw.ivo.OutlineTreeView;
 import pa.iscde.outlaw.jorge.Visitor;
 import pt.iscte.pidesco.extensibility.PidescoView;
 import pt.iscte.pidesco.javaeditor.internal.JavaEditorActivator;
@@ -56,7 +57,7 @@ public class PidescoView1 implements PidescoView {
 				services.parseFile(f, new Visitor());
 			}
 		});
-
+		//OutlineTreeView otv = new OutlineTreeView(composite);
 	}
 
 	private String getPackage(String parent) {
