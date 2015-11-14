@@ -38,10 +38,10 @@ public class PidescoView1 implements PidescoView {
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));
 
-		CLabel txtpackage = new CLabel(viewArea, SWT.BORDER);
+		CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
 		txtpackage.setImage(imageMap.get("smiley.png"));
 		
-		CLabel txtclass = new CLabel(viewArea, SWT.BORDER);
+		CLabel txtclass = new CLabel(viewArea, SWT.NONE);
 		
 		//Label label = new Label(composite, SWT.NONE);
 		//label.setImage(imageMap.get("smiley.png"));
