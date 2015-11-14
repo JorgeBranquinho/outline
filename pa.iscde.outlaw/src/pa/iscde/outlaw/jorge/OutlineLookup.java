@@ -10,4 +10,6 @@ public interface OutlineLookup {
 	
 	public String getVisibility();
 	
+	public String getOutline();
+	
 }

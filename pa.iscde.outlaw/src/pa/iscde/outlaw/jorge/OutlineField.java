@@ -45,6 +45,10 @@ public class OutlineField implements OutlineLookup{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getOutline() {
+		return getName()+":"+getType();
+	}
 	
 	
 }
