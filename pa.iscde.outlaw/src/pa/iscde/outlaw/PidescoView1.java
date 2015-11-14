@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -34,16 +35,21 @@ public class PidescoView1 implements PidescoView {
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
 		viewArea.setLayout(new RowLayout(SWT.VERTICAL));
 
-		Composite composite = new Composite(viewArea, SWT.NONE);
-		composite.setLayout(new GridLayout(2, true));
+		//Composite composite = new Composite(viewArea, SWT.NONE);
+		//composite.setLayout(new GridLayout(2, true));
 
-		Label label = new Label(composite, SWT.NONE);
-		label.setImage(imageMap.get("smiley.png"));
-		Text txtpackage = new Text(composite, SWT.WRAP);
-		Text txtclass = new Text(viewArea, SWT.WRAP);
-		txtclass.setEditable(false);
+		CLabel txtpackage = new CLabel(viewArea, SWT.BORDER);
+		txtpackage.setImage(imageMap.get("smiley.png"));
+		
+		CLabel txtclass = new CLabel(viewArea, SWT.BORDER);
+		
+		//Label label = new Label(composite, SWT.NONE);
+		//label.setImage(imageMap.get("smiley.png"));
+		//Text txtpackage = new Text(composite, SWT.WRAP);
+		//Text txtclass = new Text(viewArea, SWT.WRAP);
+		//txtclass.setEditable(false);
 		txtclass.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
-		txtpackage.setEditable(false);
+		//txtpackage.setEditable(false);
 		txtpackage.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
 		final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 		final File f = services.getOpenedFile();
