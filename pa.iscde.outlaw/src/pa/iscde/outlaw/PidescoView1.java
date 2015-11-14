@@ -47,17 +47,19 @@ public class PidescoView1 implements PidescoView {
 		txtpackage.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
 		final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 		final File f = services.getOpenedFile();
-		txtclass.setText(f.getName());
-		txtpackage.setText(getPackage(f.getParent()));
-		Button b = new Button(viewArea, SWT.NONE);
-		b.setText("Hanauta Sanchou Yahazu Giri!!");
-		b.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				services.parseFile(f, new Visitor(f.getName()));
-			}
-		});
-		//OutlineTreeView otv = new OutlineTreeView(composite);
+		if(f!=null){
+			txtclass.setText(f.getName());
+			txtpackage.setText(getPackage(f.getParent()));
+			Button b = new Button(viewArea, SWT.NONE);
+			b.setText("Hanauta Sanchou Yahazu Giri!!");
+			b.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					services.parseFile(f, new Visitor(f.getName()));
+				}
+			});
+			//OutlineTreeView otv = new OutlineTreeView(composite);
+		}
 	}
 
 	private String getPackage(String parent) {
