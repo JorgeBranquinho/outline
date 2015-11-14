@@ -1,15 +1,27 @@
 package pa.iscde.outlaw.jorge;
 
-import java.util.List;
-
 public interface OutlineLookup {
 
 	public String getName();
 	
+	public void setName(String name);
+	
 	public String getParent();
+	
+	public void setParent(String parent);
 	
 	public String getVisibility();
 	
+	public void setVisibility(String visibility);
+	
 	public String getOutline();
+	
+	public boolean isStatic();
+	
+	public void setStatic(boolean isStatic);
+	
+	public boolean isFinal();
+	
+	public void setFinal(boolean isFinal);
 	
 }

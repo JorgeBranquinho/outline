@@ -2,7 +2,6 @@ package pa.iscde.outlaw.jorge;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
-
 import org.eclipse.jdt.core.dom.Type;
 
 public class OutlineMethod implements OutlineLookup {
