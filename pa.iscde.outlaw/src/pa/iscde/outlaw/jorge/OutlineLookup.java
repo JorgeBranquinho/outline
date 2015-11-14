@@ -4,12 +4,10 @@ import java.util.List;
 
 public interface OutlineLookup {
 
-	public String toString();
+	public String getName();
 	
-	public List<String> getChild();
+	public String getParent();
 	
-	public List<String> getVisibility();
-	
-	public List<String> getType();
+	public String getVisibility();
 	
 }

@@ -54,7 +54,7 @@ public class PidescoView1 implements PidescoView {
 		b.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				services.parseFile(f, new Visitor());
+				services.parseFile(f, new Visitor(f.getName()));
 			}
 		});
 		//OutlineTreeView otv = new OutlineTreeView(composite);

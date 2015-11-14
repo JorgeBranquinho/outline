@@ -2,18 +2,16 @@ package pa.iscde.outlaw.jorge;
 
 import org.eclipse.jdt.core.dom.Type;
 
-public class OutlineMethod implements OutlineLookup {
+public class OutlineField implements OutlineLookup{
 
 	private String name;
 	private String visibility;
-	private Type returnType;
+	private Type type;
 	private String parent;
-	private boolean isConstructor;
 	
-	public OutlineMethod(String name, Type type, boolean isConstructor) {
+	public OutlineField(String name, Type type) {
 		setName(name);
-		setReturnType(type);
-		setConstructor(isConstructor);
+		setType(type);
 	}
 	
 	public String getParent() {
@@ -24,12 +22,12 @@ public class OutlineMethod implements OutlineLookup {
 		this.parent = parent;
 	}
 	
-	public Type getReturnType() {
-		return returnType;
+	public Type getType() {
+		return type;
 	}
 	
-	public void setReturnType(Type returnType) {
-		this.returnType = returnType;
+	public void setType(Type type) {
+		this.type = type;
 	}
 	
 	public String getVisibility() {
@@ -39,6 +37,7 @@ public class OutlineMethod implements OutlineLookup {
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -46,13 +45,6 @@ public class OutlineMethod implements OutlineLookup {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public boolean isConstructor() {
-		return isConstructor;
-	}
-
-	public void setConstructor(boolean isConstructor) {
-		this.isConstructor = isConstructor;
-	}
+	
 	
 }
