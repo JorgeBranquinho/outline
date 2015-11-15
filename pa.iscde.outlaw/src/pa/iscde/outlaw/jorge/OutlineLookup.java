@@ -14,7 +14,7 @@ public interface OutlineLookup {
 	
 	public void setVisibility(String visibility);
 	
-	public String getOutline();
+	public String toString();
 	
 	public boolean isStatic();
 	

@@ -52,7 +52,7 @@ public class OutlineField implements OutlineLookup{
 		this.name = name;
 	}
 
-	public String getOutline() {
+	public String toString() {
 		return getName()+":"+getType();
 	}
 

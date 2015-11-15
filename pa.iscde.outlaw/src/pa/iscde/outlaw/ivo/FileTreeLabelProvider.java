@@ -1,5 +1,7 @@
 package pa.iscde.outlaw.ivo;
 
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
@@ -8,9 +10,19 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 
+import pa.iscde.outlaw.jorge.OutlineField;
+import pa.iscde.outlaw.jorge.OutlineMethod;
+
 //FALTA ACABAR
 public class FileTreeLabelProvider implements ILabelProvider {
 
+	private ArrayList<OutlineField> fields;
+	private ArrayList<OutlineMethod> methods;
+
+	public FileTreeLabelProvider(ArrayList<OutlineField> fields, ArrayList<OutlineMethod> methods) {
+		this.fields=fields;
+		this.methods=methods;
+	}
 
 	@Override
 	public Image getImage(Object arg0) {

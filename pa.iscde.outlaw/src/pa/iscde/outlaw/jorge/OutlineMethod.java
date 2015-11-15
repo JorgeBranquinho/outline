@@ -82,7 +82,7 @@ public class OutlineMethod implements OutlineLookup {
 		this.arguments = list;
 	}
 
-	public String getOutline() {
+	public String toString() {
 		return getName()+"()"+":"+getReturnType();
 	}
 
