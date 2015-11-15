@@ -20,8 +20,8 @@ public class OutlineTreeView {
 	private ArrayList<OutlineField> fields;
 	private ArrayList<OutlineMethod> methods;
 	private ArrayList<Object> clazz= new ArrayList<Object>();
+	//private String tst= "test";
 	public OutlineTreeView(Composite c, Visitor v){
-		// Add a checkbox to toggle whether the labels preserve case
 
 		this.c=c;
 		this.v=v;
@@ -37,10 +37,11 @@ public class OutlineTreeView {
 		
 		final TreeViewer tv = new TreeViewer(c);
 		tv.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
-		tv.setContentProvider(new FileTreeContentProvider(fields,methods));
-		tv.setLabelProvider(new FileTreeLabelProvider(fields,methods));
+		tv.setContentProvider(new FileTreeContentProvider());
+		tv.setLabelProvider(new FileTreeLabelProvider());
 
 		tv.setInput(clazz);
+		tv.expandAll();
 		
 		
 	}	

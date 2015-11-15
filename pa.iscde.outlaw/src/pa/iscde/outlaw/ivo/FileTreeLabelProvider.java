@@ -16,13 +16,6 @@ import pa.iscde.outlaw.jorge.OutlineMethod;
 //FALTA ACABAR
 public class FileTreeLabelProvider implements ILabelProvider {
 
-	private ArrayList<OutlineField> fields;
-	private ArrayList<OutlineMethod> methods;
-
-	public FileTreeLabelProvider(ArrayList<OutlineField> fields, ArrayList<OutlineMethod> methods) {
-		this.fields=fields;
-		this.methods=methods;
-	}
 
 	@Override
 	public Image getImage(Object arg0) {
@@ -35,12 +28,14 @@ public class FileTreeLabelProvider implements ILabelProvider {
 	public String getText(Object arg0) {
 		
 		if (arg0 instanceof OutlineField) {
+			System.out.println("CALL ME:"+arg0.toString());
 		       return ((OutlineField) arg0).toString();
 		} else if (arg0 instanceof OutlineMethod) {
+			System.out.println("CALL ME:"+arg0.toString());
 		       return ((OutlineMethod) arg0).toString();
 		}
 		
-		return null;
+		return "OI";
 	}
 
 	@Override

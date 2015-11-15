@@ -2,6 +2,8 @@ package pa.iscde.outlaw.ivo;
 
 import java.util.ArrayList;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
@@ -13,13 +15,8 @@ import pa.iscde.outlaw.jorge.Visitor;
 //FALTA ACABAR
 public class FileTreeContentProvider implements ITreeContentProvider  {
 
-	private ArrayList<OutlineField> fields;
-	private ArrayList<OutlineMethod> methods;
+	private static final Object[] EMPTY_ARRAY = new Object[0];
 	
-	public FileTreeContentProvider(ArrayList<OutlineField> fields, ArrayList<OutlineMethod> methods) {
-		this.fields=fields;
-		this.methods=methods;
-	}
 
 	@Override
 	public void dispose() {
@@ -35,7 +32,18 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 
 	@Override
 	public Object[] getChildren(Object arg0) {
-		Object[] clazz = null;
+		/*if (arg0 instanceof OutlineField) {
+			System.out.println("FTC:"+arg0.toString());
+		} else if (arg0 instanceof OutlineMethod) {
+			System.out.println("FTC:"+arg0.toString());
+		}*/
+		System.out.println("GETCHILDREN");
+		if(arg0 instanceof Object){
+			 return ((ArrayList<Object>) arg0).toArray();
+		}
+		return EMPTY_ARRAY;
+		
+		/*Object[] clazz = null;
 		
 		for(int i=0;i<fields.size();i++){
 			clazz[i]=fields.get(i);
@@ -44,33 +52,44 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 			clazz[fields.size()+j]=methods.get(j);
 		}
 		
-		return clazz;
+		return clazz;*/
 	}
 
 	@Override
 	public Object[] getElements(Object arg0) {
-		Object[] clazz= new Object[fields.size()+methods.size()];
 		
-		for(int i=0;i<fields.size();i++){
-			clazz[i]=fields.get(i);
+		System.out.println("getElements");
+		if(arg0 instanceof Object){
+			System.out.println("obj");
+			 return ((ArrayList<Object>) arg0).toArray();
 		}
-		for(int j=0;j<methods.size();j++){
-			clazz[fields.size()+j]=methods.get(j);
-		}
+		return EMPTY_ARRAY;
 		
-		return clazz;
+//		Object[] clazz= new Object[fields.size()+methods.size()];
+//		
+//		for(int i=0;i<fields.size();i++){
+//			clazz[i]=fields.get(i);
+//		}
+//		for(int j=0;j<methods.size();j++){
+//			clazz[fields.size()+j]=methods.get(j);
+//		}
+//		
+//		return clazz;
 	}
 
 	@Override
 	public Object getParent(Object arg0) {
 		// TODO Auto-generated method stub
+		System.out.println("getParent");
 		return null;
 	}
 
 	@Override
 	public boolean hasChildren(Object arg0) {
 		// TODO Auto-generated method stub
-		if(fields.size()!=0 || methods.size()!=0){
+		System.out.println("hasChildren");
+		if(arg0 instanceof OutlineField || arg0 instanceof OutlineMethod){
+			System.out.println("tr");
 			return true;
 		}
 		
