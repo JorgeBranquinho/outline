@@ -13,3 +13,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: pt.iscte.pidesco.javaeditor.internal,
  pt.iscte.pidesco.javaeditor.service
+
