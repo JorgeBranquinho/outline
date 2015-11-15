@@ -1,6 +1,7 @@
 package pa.iscde.outlaw.jorge;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jdt.core.dom.Type;
 
@@ -11,7 +12,7 @@ public class OutlineMethod implements OutlineLookup {
 	private Type returnType;
 	private String parent;
 	private boolean isConstructor;
-	private List<?> arguments;
+	private List<String> arguments;
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isSynchronized;
@@ -74,12 +75,19 @@ public class OutlineMethod implements OutlineLookup {
 		this.isConstructor = isConstructor;
 	}
 
-	public List<?> getArguments() {
+	public List<String> getArguments() {
 		return arguments;
 	}
 
 	public void setArguments(List<?> list) {
-		this.arguments = list;
+		//this.arguments = list;
+		if(!list.isEmpty()){
+			arguments=new ArrayList<String>();
+			for(Object str: list){
+				arguments.add(str.toString().split(" ")[0]);
+				System.out.println(str.toString().split(" ")[0]);
+			}
+		}
 	}
 
 	public String toString() {
