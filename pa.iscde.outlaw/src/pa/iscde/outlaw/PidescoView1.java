@@ -42,7 +42,7 @@ public class PidescoView1 implements PidescoView {
 
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
-		viewArea.setLayout(new RowLayout(SWT.VERTICAL));
+		viewArea.setLayout(new GridLayout(SWT.VERTICAL, false));
 
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));

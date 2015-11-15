@@ -27,14 +27,20 @@ public class FileTreeLabelProvider implements ILabelProvider {
 	@Override
 	public Image getImage(Object arg0) {
 		// TODO Auto-generated method stub
-		Image x= new Image(null, "images\\smiley.png");
+		Image x= new Image(null, "C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\smiley.png");
 		return x;
 	}
 
 	@Override
 	public String getText(Object arg0) {
-		// TODO Auto-generated method stub
-		return "teste";
+		
+		if (arg0 instanceof OutlineField) {
+		       return ((OutlineField) arg0).toString();
+		} else if (arg0 instanceof OutlineMethod) {
+		       return ((OutlineMethod) arg0).toString();
+		}
+		
+		return null;
 	}
 
 	@Override

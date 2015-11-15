@@ -83,7 +83,14 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 	public String toString() {
-		return getName()+"()"+":"+getReturnType();
+		
+//		if(!arguments.isEmpty()){
+//			for(){
+//				
+//			}
+//		}
+		
+		return getName()+"("+arguments.toString()+")"+":"+getReturnType();
 	}
 
 	private void checkProperties(int value){

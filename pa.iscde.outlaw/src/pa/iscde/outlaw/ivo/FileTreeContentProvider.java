@@ -49,7 +49,7 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 
 	@Override
 	public Object[] getElements(Object arg0) {
-		Object[] clazz = null;
+		Object[] clazz= new Object[fields.size()+methods.size()];
 		
 		for(int i=0;i<fields.size();i++){
 			clazz[i]=fields.get(i);
