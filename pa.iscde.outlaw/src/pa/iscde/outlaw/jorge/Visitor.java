@@ -10,7 +10,8 @@ public class Visitor extends ASTVisitor{
 	private String parentClass;
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
-
+	private OutlineClass clazz=new OutlineClass();
+	
 	public Visitor(String parentClass) {
 		setParentClass(parentClass);
 	}
@@ -19,7 +20,7 @@ public class Visitor extends ASTVisitor{
 	public boolean visit(FieldDeclaration node) {
 		//System.out.println(node.toString().replaceAll("[;\\n]", "") + "??" + node.getType());
 		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", ""), node.getType(), 
-				node.getModifiers(), parentClass));
+				node.getModifiers(), clazz));
 		return super.visit(node);
 	}
 
@@ -27,7 +28,7 @@ public class Visitor extends ASTVisitor{
 	public boolean visit(MethodDeclaration node) {
 		//System.out.println(node.getName().toString() + "!!");
 		methods.add(new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
-				node.isConstructor(), node.getModifiers(), node.parameters(), parentClass));
+				node.isConstructor(), node.getModifiers(), node.parameters(), clazz));
 		return super.visit(node);
 	}
 
@@ -53,5 +54,15 @@ public class Visitor extends ASTVisitor{
 
 	public void setParentClass(String parentClass) {
 		this.parentClass = parentClass;
+	}
+
+	public OutlineClass getClazz() {
+		clazz.setFields(fields);
+		clazz.setMethod(methods);
+		return clazz;
+	}
+
+	public void setClazz(OutlineClass clazz) {
+		this.clazz = clazz;
 	}
 }

@@ -10,14 +10,15 @@ public class OutlineMethod implements OutlineLookup {
 	private String name;
 	private String visibility;
 	private Type returnType;
-	private String parent;
+	private OutlineClass parent;
 	private boolean isConstructor;
 	private List<String> arguments = new ArrayList<String>();
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isSynchronized;
+	private boolean isMethod;
 
-	public OutlineMethod(String name, Type type, boolean isConstructor, int modifiers, List<?> list, String parentClass) {
+	public OutlineMethod(String name, Type type, boolean isConstructor, int modifiers, List<?> list, OutlineClass parentClass) {
 		setName(name);
 		setReturnType(type);
 		setConstructor(isConstructor);
@@ -27,11 +28,11 @@ public class OutlineMethod implements OutlineLookup {
 		setParent(parentClass);
 	}
 
-	public String getParent() {
+	public OutlineClass getParent() {
 		return parent;
 	}
 
-	public void setParent(String parent) {
+	public void setParent(OutlineClass parent) {
 		this.parent = parent;
 	}
 
@@ -123,6 +124,16 @@ public class OutlineMethod implements OutlineLookup {
 
 	public void setSynchronized(boolean isSynchronized) {
 		this.isSynchronized = isSynchronized;
+	}
+
+	@Override
+	public boolean isMethod() {
+		return true;
+	}
+
+	@Override
+	public void setMethod(boolean isMethod) {
+		this.isMethod=isMethod;
 	}
 
 }

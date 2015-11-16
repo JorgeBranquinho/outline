@@ -6,9 +6,9 @@ public interface OutlineLookup {
 	
 	public void setName(String name);
 	
-	public String getParent();
+	public OutlineClass getParent();
 	
-	public void setParent(String parent);
+	public void setParent(OutlineClass parent);
 	
 	public String getVisibility();
 	
@@ -23,5 +23,9 @@ public interface OutlineLookup {
 	public boolean isFinal();
 	
 	public void setFinal(boolean isFinal);
+	
+	public boolean isMethod();
+	
+	public void setMethod(boolean isMethod);
 	
 }

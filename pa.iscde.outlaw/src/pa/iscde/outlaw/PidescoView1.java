@@ -47,28 +47,28 @@ public class PidescoView1 implements PidescoView {
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));
 
-		CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
-		txtpackage.setImage(imageMap.get("smiley.png"));
+		//CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
+		//txtpackage.setImage(imageMap.get("smiley.png"));
 		
-		CLabel txtclass = new CLabel(viewArea, SWT.NONE);
+		//CLabel txtclass = new CLabel(viewArea, SWT.NONE);
 		
 		//Label label = new Label(composite, SWT.NONE);
 		//label.setImage(imageMap.get("smiley.png"));
 		//Text txtpackage = new Text(composite, SWT.WRAP);
 		//Text txtclass = new Text(viewArea, SWT.WRAP);
 		//txtclass.setEditable(false);
-		txtclass.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
+		//txtclass.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
 		//txtpackage.setEditable(false);
 		
 		
 		
-		txtpackage.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
+		//txtpackage.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
 		final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 		final File f = services.getOpenedFile();
 		if(f!=null){
 			Visitor v= new Visitor(f.getName());
-			txtclass.setText(f.getName());
-			txtpackage.setText(getPackage(f.getParent()));
+			//txtclass.setText(f.getName());
+			//txtpackage.setText(getPackage(f.getParent()));
 			services.parseFile(f, v);
 			OutlineTreeView otv = new OutlineTreeView(viewArea,v);
 			//Button b = new Button(viewArea, SWT.NONE);

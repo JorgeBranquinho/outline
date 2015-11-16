@@ -18,10 +18,10 @@ public class FileTreeLabelProvider implements ILabelProvider {
 
 
 	@Override
-	public Image getImage(Object arg0) {
+	public Image getImage(Object arg0) {//16x16
 		// TODO Auto-generated method stub
-		Image x= new Image(null, "C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\smiley.png");
-		return x;
+		Image x= new Image(null, "C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\smiley.png");
+		return null;
 	}
 
 	@Override

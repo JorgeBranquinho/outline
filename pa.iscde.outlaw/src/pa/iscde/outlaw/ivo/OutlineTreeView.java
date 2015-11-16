@@ -31,16 +31,19 @@ public class OutlineTreeView {
 		clazz.addAll(fields);
 		clazz.addAll(methods);
 		
-		for(Object o: clazz){
-			System.out.println("|||"+o.toString());
-		}
+//		for(Object o: v.getClazz().getFields()){
+//			System.out.println("|||+"+o.toString());
+//		}
+//		for(Object o: v.getClazz().getMethod()){
+//			System.out.println("|||-"+o.toString());
+//		}
 		
-		final TreeViewer tv = new TreeViewer(c);
-		tv.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
+		TreeViewer tv = new TreeViewer(c);
+		//tv.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 		tv.setContentProvider(new FileTreeContentProvider());
 		tv.setLabelProvider(new FileTreeLabelProvider());
 
-		tv.setInput(clazz);
+		tv.setInput(v.getClazz());
 		tv.expandAll();
 		
 		

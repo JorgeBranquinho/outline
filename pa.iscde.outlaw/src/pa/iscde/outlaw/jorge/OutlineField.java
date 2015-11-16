@@ -8,23 +8,24 @@ public class OutlineField implements OutlineLookup{
 	private String name;
 	private String visibility;
 	private Type type;
-	private String parent;
+	private OutlineClass parent;
 	private boolean isStatic;
 	private boolean isFinal;
+	private boolean isMethod;
 
-	public OutlineField(String name, Type type, int modifiers, String parentClass) {
+	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
 		setName(name);
 		setType(type);
-		setParent(parentClass);
+		setParent(clazz);
 		checkVisibility(modifiers);
 		checkProperties(modifiers);
 	}
 
-	public String getParent() {
+	public OutlineClass getParent() {
 		return parent;
 	}
 
-	public void setParent(String parent) {
+	public void setParent(OutlineClass parent) {
 		this.parent = parent;
 	}
 
@@ -86,6 +87,16 @@ public class OutlineField implements OutlineLookup{
 			setFinal(true);
 		if(Modifier.isStatic(value))
 			setStatic(true);
+	}
+
+	@Override
+	public boolean isMethod() {
+		return false;
+	}
+
+	@Override
+	public void setMethod(boolean isMethod) {
+		this.isMethod=isMethod;
 	}
 
 }
