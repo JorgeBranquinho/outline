@@ -10,6 +10,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 
+import pa.iscde.outlaw.jorge.OutlineClass;
 import pa.iscde.outlaw.jorge.OutlineField;
 import pa.iscde.outlaw.jorge.OutlineMethod;
 
@@ -20,7 +21,9 @@ public class FileTreeLabelProvider implements ILabelProvider {
 	@Override
 	public Image getImage(Object arg0) {//16x16
 		// TODO Auto-generated method stub
-		Image x= new Image(null, "C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\smiley.png");
+		
+		
+		//Image x= new Image(null, "C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\smiley.png");
 		return null;
 	}
 
@@ -33,8 +36,10 @@ public class FileTreeLabelProvider implements ILabelProvider {
 		} else if (arg0 instanceof OutlineMethod) {
 			System.out.println("CALL ME:"+arg0.toString());
 		       return ((OutlineMethod) arg0).toString();
+		} else if(arg0 instanceof OutlineClass){
+			System.out.println("CALL ME:"+arg0.toString());
+		       return ((OutlineClass) arg0).toString();
 		}
-		
 		return "OI";
 	}
 

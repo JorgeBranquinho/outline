@@ -10,40 +10,23 @@ import org.eclipse.swt.widgets.Composite;
 
 import pa.iscde.outlaw.jorge.OutlineField;
 import pa.iscde.outlaw.jorge.OutlineMethod;
+import pa.iscde.outlaw.jorge.OutlineRoot;
 import pa.iscde.outlaw.jorge.Visitor;
 
 //FALTA ACABAR
 public class OutlineTreeView {
 
-	private Composite c;
-	private Visitor v;
-	private ArrayList<OutlineField> fields;
-	private ArrayList<OutlineMethod> methods;
-	private ArrayList<Object> clazz= new ArrayList<Object>();
-	//private String tst= "test";
+	private OutlineRoot root;
 	public OutlineTreeView(Composite c, Visitor v){
 
-		this.c=c;
-		this.v=v;
-		fields=v.getFields();
-		methods=v.getMethods();
-		
-		clazz.addAll(fields);
-		clazz.addAll(methods);
-		
-//		for(Object o: v.getClazz().getFields()){
-//			System.out.println("|||+"+o.toString());
-//		}
-//		for(Object o: v.getClazz().getMethod()){
-//			System.out.println("|||-"+o.toString());
-//		}
+		root= new OutlineRoot();
+		root.setClazz(v.getClazz());
 		
 		TreeViewer tv = new TreeViewer(c);
-		//tv.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 		tv.setContentProvider(new FileTreeContentProvider());
 		tv.setLabelProvider(new FileTreeLabelProvider());
-
-		tv.setInput(v.getClazz());
+		
+		tv.setInput(root);
 		tv.expandAll();
 		
 		

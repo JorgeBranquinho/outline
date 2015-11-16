@@ -93,14 +93,4 @@ public class OutlineField implements OutlineLookup{
 			setStatic(true);
 	}
 
-	@Override
-	public boolean isMethod() {
-		return false;
-	}
-
-	@Override
-	public void setMethod(boolean isMethod) {
-		this.isMethod=isMethod;
-	}
-
 }

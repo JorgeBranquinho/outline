@@ -126,14 +126,4 @@ public class OutlineMethod implements OutlineLookup {
 		this.isSynchronized = isSynchronized;
 	}
 
-	@Override
-	public boolean isMethod() {
-		return true;
-	}
-
-	@Override
-	public void setMethod(boolean isMethod) {
-		this.isMethod=isMethod;
-	}
-
 }

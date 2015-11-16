@@ -24,8 +24,4 @@ public interface OutlineLookup {
 	
 	public void setFinal(boolean isFinal);
 	
-	public boolean isMethod();
-	
-	public void setMethod(boolean isMethod);
-	
 }
