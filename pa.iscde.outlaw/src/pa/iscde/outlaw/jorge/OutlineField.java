@@ -14,11 +14,15 @@ public class OutlineField implements OutlineLookup{
 	private boolean isMethod;
 
 	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
-		setName(name);
+		setName(getFieldName(name));
 		setType(type);
 		setParent(clazz);
 		checkVisibility(modifiers);
 		checkProperties(modifiers);
+	}
+
+	private String getFieldName(String name) {
+		return name.split(" ")[3];
 	}
 
 	public OutlineClass getParent() {
