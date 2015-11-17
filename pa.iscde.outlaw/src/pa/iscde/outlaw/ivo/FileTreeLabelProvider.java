@@ -1,6 +1,7 @@
 package pa.iscde.outlaw.ivo;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
@@ -18,12 +19,24 @@ import pa.iscde.outlaw.jorge.OutlineMethod;
 public class FileTreeLabelProvider implements ILabelProvider {
 
 
+	private Map<String, Image> imageMap;
+
+	public FileTreeLabelProvider(Map<String, Image> imageMap) {
+		this.imageMap=imageMap;
+	}
+
 	@Override
 	public Image getImage(Object arg0) {//16x16
 		// TODO Auto-generated method stub
 		
+		if (arg0 instanceof OutlineField) {
+			return imageMap.get(((OutlineField) arg0).getImg());
+		} else if (arg0 instanceof OutlineMethod) {
+		       return imageMap.get(((OutlineMethod) arg0).getImg());
+		} else if(arg0 instanceof OutlineClass){
+		       return imageMap.get(((OutlineClass) arg0).getImg());
+		}
 		
-		//Image x= new Image(null, "C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\smiley.png");
 		return null;
 	}
 
@@ -31,16 +44,13 @@ public class FileTreeLabelProvider implements ILabelProvider {
 	public String getText(Object arg0) {
 		
 		if (arg0 instanceof OutlineField) {
-			System.out.println("CALL ME:"+arg0.toString());
 		       return ((OutlineField) arg0).toString();
 		} else if (arg0 instanceof OutlineMethod) {
-			System.out.println("CALL ME:"+arg0.toString());
 		       return ((OutlineMethod) arg0).toString();
 		} else if(arg0 instanceof OutlineClass){
-			System.out.println("CALL ME:"+arg0.toString());
 		       return ((OutlineClass) arg0).toString();
 		}
-		return "OI";
+		return "";
 	}
 
 	@Override

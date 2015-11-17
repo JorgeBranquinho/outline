@@ -3,7 +3,10 @@ package pa.iscde.outlaw.jorge;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.swt.graphics.Image;
 
 public class OutlineMethod implements OutlineLookup {
 
@@ -17,6 +20,7 @@ public class OutlineMethod implements OutlineLookup {
 	private boolean isFinal;
 	private boolean isSynchronized;
 	private boolean isMethod;
+	private String imgName;
 
 	public OutlineMethod(String name, Type type, boolean isConstructor, int modifiers, List<?> list, OutlineClass parentClass) {
 		setName(name);
@@ -45,12 +49,37 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 	private void checkVisibility(int value){
-		switch(value){
-		case Modifier.PUBLIC: setVisibility("Public");break;
-		case Modifier.PRIVATE: setVisibility("Private");break;
-		case Modifier.PROTECTED: setVisibility("Protected");break;
-		default: setVisibility("Package private");break;
+		
+		if(Modifier.isPrivate(value)){
+			setVisibility("Private");
+			setImg("method_private_obj.gif");
+		}else if(Modifier.isProtected(value)){
+			setVisibility("Protected");
+			setImg("method_protected_obj.gif");
+		}else{
+			setVisibility("Public");
+			setImg("method_public_obj.gif");
 		}
+		/*
+		switch(value){
+		case Modifier.PUBLIC: 
+			setVisibility("Public");
+			setImg("method_public_obj.gif");
+		break;
+		case Modifier.PRIVATE:
+			setVisibility("Private");
+			setImg("method_private_obj.gif");
+		break;
+		case Modifier.PROTECTED: 
+			setVisibility("Protected");
+			setImg("method_protected_obj.gif");
+		break;
+		default: 
+			System.out.println("DEFV:"+ value);
+			setVisibility("Package private");
+		break;
+		}
+		*/
 	}
 
 	public String getVisibility() {
@@ -90,7 +119,7 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 	public String toString() {
-		return getName()+"("+arguments.toString()+")"+":"+getReturnType();
+		return getName()+"("+arguments.toString().replaceAll("[\\[\\]]", "")+")"+" : "+getReturnType();
 	}
 
 	private void checkProperties(int value){
@@ -125,5 +154,17 @@ public class OutlineMethod implements OutlineLookup {
 	public void setSynchronized(boolean isSynchronized) {
 		this.isSynchronized = isSynchronized;
 	}
+
+	@Override
+	public void setImg(String imgName) {
+		this.imgName=imgName;		
+	}
+
+	@Override
+	public String getImg() {
+		// TODO Auto-generated method stub
+		return imgName;
+	}
+
 
 }

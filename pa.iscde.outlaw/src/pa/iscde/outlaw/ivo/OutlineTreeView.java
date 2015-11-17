@@ -1,9 +1,11 @@
 package pa.iscde.outlaw.ivo;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -17,18 +19,16 @@ import pa.iscde.outlaw.jorge.Visitor;
 public class OutlineTreeView {
 
 	private OutlineRoot root;
-	public OutlineTreeView(Composite c, Visitor v){
+	public OutlineTreeView(Composite c, Visitor v, Map<String, Image> imageMap){
 
 		root= new OutlineRoot();
 		root.setClazz(v.getClazz());
 		
 		TreeViewer tv = new TreeViewer(c);
 		tv.setContentProvider(new FileTreeContentProvider());
-		tv.setLabelProvider(new FileTreeLabelProvider());
+		tv.setLabelProvider(new FileTreeLabelProvider(imageMap));
 		
 		tv.setInput(root);
 		tv.expandAll();
-		
-		
 	}	
 }

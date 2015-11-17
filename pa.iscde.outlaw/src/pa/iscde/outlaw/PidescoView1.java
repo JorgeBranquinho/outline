@@ -70,7 +70,7 @@ public class PidescoView1 implements PidescoView {
 			//txtclass.setText(f.getName());
 			//txtpackage.setText(getPackage(f.getParent()));
 			services.parseFile(f, v);
-			OutlineTreeView otv = new OutlineTreeView(viewArea,v);
+			OutlineTreeView otv = new OutlineTreeView(viewArea,v,imageMap);
 			//Button b = new Button(viewArea, SWT.NONE);
 			//b.setText("Hanauta Sanchou Yahazu Giri!!");
 			/*b.addListener(SWT.Selection, new Listener() {

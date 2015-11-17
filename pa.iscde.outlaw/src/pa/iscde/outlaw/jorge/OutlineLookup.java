@@ -1,5 +1,9 @@
 package pa.iscde.outlaw.jorge;
 
+import java.util.Map;
+
+import org.eclipse.swt.graphics.Image;
+
 public interface OutlineLookup {
 
 	public String getName();
@@ -23,5 +27,9 @@ public interface OutlineLookup {
 	public boolean isFinal();
 	
 	public void setFinal(boolean isFinal);
+	
+	public void setImg(String imgType);
+	
+	public String getImg();
 	
 }

@@ -37,7 +37,7 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 		}
 		
 		if(arg0 instanceof OutlineClass ){
-			System.out.println("GETCHILDREN");
+//			System.out.println("GETCHILDREN");
 			OutlineClass parent = (OutlineClass)arg0;
 			ArrayList<Object> tmplist = new ArrayList<Object>(parent.getFields());
 			tmplist.addAll(parent.getMethod());
@@ -50,13 +50,13 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 	@Override
 	public Object[] getElements(Object arg0) {
 		
-		System.out.print("getElements->");
+//		System.out.print("getElements->");
 		return getChildren(arg0);
 	}
 
 	@Override
 	public Object getParent(Object arg0) {
-		System.out.println("getParent");
+//		System.out.println("getParent");
 		if(arg0 instanceof OutlineClass || arg0 instanceof OutlineRoot)
 			return null;
 		if(arg0 instanceof OutlineMethod )

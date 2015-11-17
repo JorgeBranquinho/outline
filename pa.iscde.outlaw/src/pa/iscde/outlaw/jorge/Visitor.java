@@ -1,5 +1,6 @@
 package pa.iscde.outlaw.jorge;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
@@ -10,15 +11,17 @@ public class Visitor extends ASTVisitor{
 	private String parentClass;
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
-	private OutlineClass clazz=new OutlineClass();
+	private OutlineClass clazz;
 	
 	public Visitor(String parentClass) {
 		setParentClass(parentClass);
+		clazz=new OutlineClass(parentClass);
 	}
 
 	@Override
 	public boolean visit(FieldDeclaration node) {
 		//System.out.println(node.toString().replaceAll("[;\\n]", "") + "??" + node.getType());
+	
 		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", ""), node.getType(), 
 				node.getModifiers(), clazz));
 		return super.visit(node);
@@ -57,6 +60,7 @@ public class Visitor extends ASTVisitor{
 	}
 
 	public OutlineClass getClazz() {
+		
 		clazz.setFields(fields);
 		clazz.setMethod(methods);
 		return clazz;
