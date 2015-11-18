@@ -43,11 +43,10 @@ public class PidescoView1 implements PidescoView {
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
 		viewArea.setLayout(new GridLayout(SWT.VERTICAL, false));
-
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));
-
-		//CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
+		viewArea.setBackground(viewArea.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
 		//txtpackage.setImage(imageMap.get("smiley.png"));
 		
 		//CLabel txtclass = new CLabel(viewArea, SWT.NONE);
@@ -83,6 +82,8 @@ public class PidescoView1 implements PidescoView {
 			
 			
 		}
+		
+		
 	}
 
 	private String getPackage(String parent) {
