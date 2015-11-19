@@ -57,10 +57,11 @@ public class Visitor extends ASTVisitor{
 
 	public void setParentClass(String parentClass) {
 		this.parentClass = parentClass;
+		clazz=new OutlineClass(parentClass);
+		clear();
 	}
 
 	public OutlineClass getClazz() {
-		
 		clazz.setFields(fields);
 		clazz.setMethod(methods);
 		return clazz;
@@ -68,5 +69,11 @@ public class Visitor extends ASTVisitor{
 
 	public void setClazz(OutlineClass clazz) {
 		this.clazz = clazz;
+	}
+	
+	private void clear(){
+		methods.clear();
+		fields.clear();
+		
 	}
 }
