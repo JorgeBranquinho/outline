@@ -1,9 +1,5 @@
 package pa.iscde.outlaw.jorge;
 
-import java.util.Map;
-
-import org.eclipse.swt.graphics.Image;
-
 public interface OutlineLookup {
 
 	public String getName();

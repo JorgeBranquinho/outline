@@ -1,16 +1,9 @@
 package pa.iscde.outlaw.ivo;
 
-import java.util.ArrayList;
 import java.util.Map;
-
-import javax.swing.ImageIcon;
-
-import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
-
 import pa.iscde.outlaw.jorge.OutlineClass;
 import pa.iscde.outlaw.jorge.OutlineField;
 import pa.iscde.outlaw.jorge.OutlineMethod;
@@ -35,6 +28,8 @@ public class FileTreeLabelProvider implements ILabelProvider {
 		       return imageMap.get(((OutlineMethod) arg0).getImg());
 		} else if(arg0 instanceof OutlineClass){
 		       return imageMap.get(((OutlineClass) arg0).getImg());
+		} else if (arg0 instanceof String){
+				return imageMap.get("package.gif");
 		}
 		
 		return null;
@@ -49,6 +44,8 @@ public class FileTreeLabelProvider implements ILabelProvider {
 		       return ((OutlineMethod) arg0).toString();
 		} else if(arg0 instanceof OutlineClass){
 		       return ((OutlineClass) arg0).toString();
+		} else if (arg0 instanceof String){
+				return (String) arg0;
 		}
 		return "";
 	}

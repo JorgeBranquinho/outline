@@ -1,33 +1,12 @@
 package pa.iscde.outlaw;
 
-import java.awt.Color;
-import java.awt.Panel;
 import java.io.File;
 import java.util.Map;
-
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPException;
-
-import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.UserDataHandler;
-
 import pa.iscde.outlaw.ivo.OutlineTreeView;
 import pa.iscde.outlaw.jorge.Visitor;
 import pt.iscte.pidesco.extensibility.PidescoView;
@@ -51,7 +30,7 @@ public class PidescoView1 implements PidescoView {
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));
 		viewArea.setBackground(viewArea.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
+//		CLabel txtpackage = new CLabel(viewArea, SWT.NONE);
 		//txtpackage.setImage(imageMap.get("smiley.png"));
 		
 		//CLabel txtclass = new CLabel(viewArea, SWT.NONE);
@@ -73,8 +52,7 @@ public class PidescoView1 implements PidescoView {
 		final File f = services.getOpenedFile();
 		
 		if(f!=null){
-			System.out.println("OI");
-			v= new Visitor(f.getName());
+			v= new Visitor(f);
 			services.parseFile(f, v);
 			otv = new OutlineTreeView(viewArea,v,imageMap);
 		}else{
@@ -86,7 +64,7 @@ public class PidescoView1 implements PidescoView {
 			public void fileOpened(File file) {
 				// TODO Auto-generated method stub
 				if(v==null){
-					v= new Visitor(file.getName());
+					v= new Visitor(file);
 				}
 				
 				//services.parseFile(f, v);
@@ -147,11 +125,6 @@ public class PidescoView1 implements PidescoView {
 	private void setViewArea(Composite viewArea) {
 		// TODO Auto-generated method stub
 		this.viewArea=viewArea;
-	}
-
-	private String getPackage(String parent) {
-		String[] path=parent.split("\\\\");
-		return path[path.length-1];
 	}
 
 	public Composite getViewArea() {

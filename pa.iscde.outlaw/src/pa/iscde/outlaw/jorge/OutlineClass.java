@@ -1,21 +1,25 @@
 package pa.iscde.outlaw.jorge;
 
 import java.util.ArrayList;
-import java.util.Map;
-
-import org.eclipse.swt.graphics.Image;
 
 public class OutlineClass implements OutlineLookup{
 
 	private ArrayList<OutlineMethod> method = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private String name;
-	private Map<String, Image> imageMap;
+	private OutlineClass parent;
+	//private Map<String, Image> imageMap;
+	private String visibility;
+	private boolean isStatic;
+	private boolean isFinal;
+	private String imgType="class_obj.gif";
+	private boolean isInterface;
+	private String packagezz;
 	
 	
-	public OutlineClass(String parentClass) {
-		// TODO Auto-generated constructor stub
+	public OutlineClass(String parentClass, String packagezz) {
 		setName(parentClass);
+		setPackagezz(packagezz);
 	}
 
 	public ArrayList<OutlineMethod> getMethod() {
@@ -36,62 +40,52 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
 		this.name=name.replace(".java", "");
 	}
 
 	@Override
 	public OutlineClass getParent() {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
 	}
 
 	@Override
 	public void setParent(OutlineClass parent) {
-		// TODO Auto-generated method stub
-		
+		this.parent=parent;
 	}
 
 	@Override
 	public String getVisibility() {
-		// TODO Auto-generated method stub
-		return null;
+		return visibility;
 	}
 
 	@Override
 	public void setVisibility(String visibility) {
-		// TODO Auto-generated method stub
-		
+		this.visibility=visibility;
 	}
 
 	@Override
 	public boolean isStatic() {
-		// TODO Auto-generated method stub
-		return false;
+		return isStatic;
 	}
 
 	@Override
 	public void setStatic(boolean isStatic) {
-		// TODO Auto-generated method stub
-		
+		this.isStatic=isStatic;
 	}
 
 	@Override
 	public boolean isFinal() {
-		// TODO Auto-generated method stub
-		return false;
+		return isFinal;
 	}
 
 	@Override
 	public void setFinal(boolean isFinal) {
-		// TODO Auto-generated method stub
-		
+		this.isFinal=isFinal;
 	}
 	
 	@Override
@@ -101,15 +95,28 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public void setImg(String imgType) {
-		// TODO Auto-generated method stub
-		
-		
+		this.imgType=imgType;
 	}
 
 	@Override
 	public String getImg() {
-		// TODO Auto-generated method stub
-		return "class_obj.gif";
+		return imgType;
+	}
+
+	public boolean isInterface() {
+		return isInterface;
+	}
+
+	public void setInterface(boolean isInterface) {
+		this.isInterface = isInterface;
+	}
+
+	public String getPackagezz() {
+		return packagezz;
+	}
+
+	public void setPackagezz(String packagezz) {
+		this.packagezz = packagezz;
 	}
 
 

@@ -1,10 +1,7 @@
 package pa.iscde.outlaw.jorge;
 
 import java.lang.reflect.Modifier;
-import java.util.Map;
-
 import org.eclipse.jdt.core.dom.Type;
-import org.eclipse.swt.graphics.Image;
 
 public class OutlineField implements OutlineLookup{
 
@@ -14,7 +11,6 @@ public class OutlineField implements OutlineLookup{
 	private OutlineClass parent;
 	private boolean isStatic;
 	private boolean isFinal;
-	private boolean isMethod;
 	private String imgName="";
 	
 	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
@@ -119,7 +115,6 @@ public class OutlineField implements OutlineLookup{
 
 	@Override
 	public String getImg() {
-		// TODO Auto-generated method stub
 		return imgName;
 	}
 

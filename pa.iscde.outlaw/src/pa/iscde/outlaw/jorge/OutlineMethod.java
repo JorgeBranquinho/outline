@@ -3,10 +3,7 @@ package pa.iscde.outlaw.jorge;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.eclipse.jdt.core.dom.Type;
-import org.eclipse.swt.graphics.Image;
 
 public class OutlineMethod implements OutlineLookup {
 
@@ -19,7 +16,6 @@ public class OutlineMethod implements OutlineLookup {
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isSynchronized;
-	private boolean isMethod;
 	private String imgName;
 
 	public OutlineMethod(String name, Type type, boolean isConstructor, int modifiers, List<?> list, OutlineClass parentClass) {
@@ -56,9 +52,12 @@ public class OutlineMethod implements OutlineLookup {
 		}else if(Modifier.isProtected(value)){
 			setVisibility("Protected");
 			setImg("method_protected_obj.gif");
-		}else{
+		}else if(Modifier.isPublic(value)){
 			setVisibility("Public");
 			setImg("method_public_obj.gif");
+		}else{
+			setVisibility("Package private");
+			setImg("package_filter.gif");//n sei se é este o icon
 		}
 		/*
 		switch(value){
@@ -162,7 +161,6 @@ public class OutlineMethod implements OutlineLookup {
 
 	@Override
 	public String getImg() {
-		// TODO Auto-generated method stub
 		return imgName;
 	}
 
