@@ -26,7 +26,6 @@ public class OutlineTreeView {
 
 		root= new OutlineRoot();
 		root.setClazz(v.getClazz());
-		
 		tv = new TreeViewer(c, SWT.NONE);
 		tv.setContentProvider(new FileTreeContentProvider());
 		tv.setLabelProvider(new FileTreeLabelProvider(imageMap));
@@ -39,5 +38,12 @@ public class OutlineTreeView {
 		root.setClazz(clazz);
 		tv.setInput(root);
 		tv.expandAll();
+	}
+	
+	public OutlineTreeView(Composite c,Map<String, Image> imageMap ){
+		root= new OutlineRoot();
+		tv = new TreeViewer(c, SWT.NONE);
+		tv.setContentProvider(new FileTreeContentProvider());
+		tv.setLabelProvider(new FileTreeLabelProvider(imageMap));
 	}
 }

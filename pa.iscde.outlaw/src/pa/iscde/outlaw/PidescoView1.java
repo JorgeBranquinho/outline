@@ -72,16 +72,25 @@ public class PidescoView1 implements PidescoView {
 		
 		final File f = services.getOpenedFile();
 		
-		if(otv==null){
+		if(f!=null){
+			System.out.println("OI");
 			v= new Visitor(f.getName());
 			services.parseFile(f, v);
 			otv = new OutlineTreeView(viewArea,v,imageMap);
+		}else{
+			otv = new OutlineTreeView(viewArea,imageMap);
 		}
-		
+			
 		services.addListener(new JavaEditorListener.Adapter() {
 			@Override
 			public void fileOpened(File file) {
 				// TODO Auto-generated method stub
+				if(v==null){
+					v= new Visitor(file.getName());
+				}
+				
+				//services.parseFile(f, v);
+				
 				if(!v.equals(null)){
 					System.out.println(file.getName());
 					v.setParentClass(file.getName());

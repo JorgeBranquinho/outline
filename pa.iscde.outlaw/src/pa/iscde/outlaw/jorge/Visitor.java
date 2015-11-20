@@ -15,7 +15,7 @@ public class Visitor extends ASTVisitor{
 	
 	public Visitor(String parentClass) {
 		setParentClass(parentClass);
-		clazz=new OutlineClass(parentClass);
+		//clazz=new OutlineClass(parentClass);
 	}
 
 	@Override
