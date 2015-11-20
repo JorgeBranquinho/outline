@@ -26,7 +26,7 @@ public class PidescoView1 implements PidescoView {
 		
 		this.setViewArea(viewArea);
 		this.setImageMap(imageMap);
-		viewArea.setLayout(new GridLayout(SWT.VERTICAL, false));
+//		viewArea.setLayout(new GridLayout(SWT.VERTICAL, false));
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));
 		viewArea.setBackground(viewArea.getDisplay().getSystemColor(SWT.COLOR_WHITE));
