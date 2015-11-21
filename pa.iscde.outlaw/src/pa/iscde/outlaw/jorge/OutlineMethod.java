@@ -45,7 +45,7 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 	private void checkVisibility(int value){
-		
+
 		if(Modifier.isPrivate(value)){
 			setVisibility("Private");
 			setImg("method_private_obj.gif");
@@ -78,7 +78,7 @@ public class OutlineMethod implements OutlineLookup {
 			setVisibility("Package private");
 		break;
 		}
-		*/
+		 */
 	}
 
 	public String getVisibility() {
@@ -112,13 +112,22 @@ public class OutlineMethod implements OutlineLookup {
 		if(!list.isEmpty()){
 			for(Object str: list){
 				arguments.add(str.toString().split(" ")[0]);
-				System.out.println(str.toString().split(" ")[0]);
+				//System.err.println(str.toString().split(" ")[0]);
 			}
 		}
 	}
 
 	public String toString() {
-		return getName()+"("+arguments.toString().replaceAll("[\\[\\]]", "")+")"+" : "+getReturnType();
+		String result=getName()+"(";
+		for(int i=0;i<arguments.size();i++){
+			result+= arguments.get(i);
+			if(i!=arguments.size()-1)
+				result+=", ";
+		}
+		result+=")";
+		if(isConstructor())
+			return result;
+		return result+" : "+getReturnType();
 	}
 
 	private void checkProperties(int value){

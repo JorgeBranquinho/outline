@@ -24,7 +24,7 @@ public class Visitor extends ASTVisitor{
 	@Override
 	public boolean visit(FieldDeclaration node) {
 		//System.out.println(node.toString().replaceAll("[;\\n]", "") + "??" + node.getType());
-		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", ""), node.getType(), 
+		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", "").split("=")[0], node.getType(), 
 				node.getModifiers(), clazz));
 		return super.visit(node);
 	}
