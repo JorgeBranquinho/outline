@@ -8,16 +8,12 @@ import pa.iscde.outlaw.jorge.OutlineField;
 import pa.iscde.outlaw.jorge.OutlineMethod;
 import pa.iscde.outlaw.jorge.OutlineRoot;
 
-
-//FALTA ACABAR
 public class FileTreeContentProvider implements ITreeContentProvider  {
 
 	private static final Object[] EMPTY_ARRAY = new Object[0];
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -32,7 +28,6 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 		}
 		
 		if(arg0 instanceof OutlineClass ){
-//			System.out.println("GETCHILDREN");
 			OutlineClass parent = (OutlineClass)arg0;
 			ArrayList<Object> tmplist = new ArrayList<Object>(parent.getFields());
 			tmplist.addAll(parent.getMethod());
@@ -44,14 +39,11 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 
 	@Override
 	public Object[] getElements(Object arg0) {
-		
-//		System.out.print("getElements->");
 		return getChildren(arg0);
 	}
 
 	@Override
 	public Object getParent(Object arg0) {
-//		System.out.println("getParent");
 		if(arg0 instanceof OutlineClass || arg0 instanceof OutlineRoot)
 			return null;
 		if(arg0 instanceof OutlineMethod )

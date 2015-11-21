@@ -23,7 +23,6 @@ public class OutlineField implements OutlineLookup{
 
 	private String getFieldName(String name) {
 		int argNumber=(name.length() - name.replaceAll(" ", "").length());
-		//System.out.println("FIELDS: "+name.split(" ")[argNumber]);
 		return name.split(" ")[argNumber];
 	}
 
@@ -91,15 +90,6 @@ public class OutlineField implements OutlineLookup{
 			setVisibility("Public");
 			setImg("field_public_obj.gif");
 		}
-		/*
-		case Modifier.PROTECTED: 
-			setVisibility("Protected");
-			setImg("field_protected_obj.gif");
-		break;
-		default: 
-			setVisibility("Package private");
-		break;
-		}*/
 	}
 
 	private void checkProperties(int value){

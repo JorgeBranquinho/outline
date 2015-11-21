@@ -43,7 +43,6 @@ public class OutlineTreeView {
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		tv.remove(root);
+		tv.setInput(null);
 	}
 }

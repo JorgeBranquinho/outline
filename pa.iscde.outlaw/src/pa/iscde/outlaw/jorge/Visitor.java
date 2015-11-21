@@ -25,17 +25,12 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(AnonymousClassDeclaration node) {
-		
-		// TODO Auto-generated method stub
-		
 		System.err.println("NAME: "+node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")));
-		//super.endVisit(node);
 		return super.visit(node);
 		
 	}
 	@Override
 	public boolean visit(FieldDeclaration node) {
-		//System.out.println(node.toString().replaceAll("[;\\n]", "") + "??" + node.getType());
 		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", "").split("=")[0], node.getType(), 
 				node.getModifiers(), clazz));
 		return super.visit(node);
@@ -43,7 +38,6 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		
 		int flags = node.getModifiers();
 		if(Modifier.isPrivate(flags)){
 			clazz.setVisibility("Private");
@@ -63,8 +57,6 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(MethodDeclaration node) {
-		
-		//System.out.println("NODE METH:"+ node.getName());
 		methods.add(new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
 				node.isConstructor(), node.getModifiers(), node.parameters(), clazz));
 		return super.visit(node);
@@ -99,7 +91,6 @@ public class Visitor extends ASTVisitor{
 	public OutlineClass getClazz() {
 		clazz.setFields(fields);
 		clazz.setMethod(methods);
-		//		classPropertiesDone ^= true;
 		return clazz;
 	}
 

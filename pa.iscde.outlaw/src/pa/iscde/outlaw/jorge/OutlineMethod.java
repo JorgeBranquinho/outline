@@ -45,7 +45,6 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 	private void checkVisibility(int value){
-
 		if(Modifier.isPrivate(value)){
 			setVisibility("Private");
 			setImg("method_private_obj.gif");
@@ -57,28 +56,8 @@ public class OutlineMethod implements OutlineLookup {
 			setImg("method_public_obj.gif");
 		}else{
 			setVisibility("Package private");
-			setImg("package_filter.gif");//n sei se é este o icon
+			setImg("package_filter.gif");
 		}
-		/*
-		switch(value){
-		case Modifier.PUBLIC: 
-			setVisibility("Public");
-			setImg("method_public_obj.gif");
-		break;
-		case Modifier.PRIVATE:
-			setVisibility("Private");
-			setImg("method_private_obj.gif");
-		break;
-		case Modifier.PROTECTED: 
-			setVisibility("Protected");
-			setImg("method_protected_obj.gif");
-		break;
-		default: 
-			System.out.println("DEFV:"+ value);
-			setVisibility("Package private");
-		break;
-		}
-		 */
 	}
 
 	public String getVisibility() {
@@ -112,7 +91,6 @@ public class OutlineMethod implements OutlineLookup {
 		if(!list.isEmpty()){
 			for(Object str: list){
 				arguments.add(str.toString().split(" ")[0]);
-				//System.err.println(str.toString().split(" ")[0]);
 			}
 		}
 	}

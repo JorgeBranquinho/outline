@@ -8,7 +8,6 @@ public class OutlineClass implements OutlineLookup{
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private String name;
 	private OutlineClass parent;
-	//private Map<String, Image> imageMap;
 	private String visibility;
 	private boolean isStatic;
 	private boolean isFinal;

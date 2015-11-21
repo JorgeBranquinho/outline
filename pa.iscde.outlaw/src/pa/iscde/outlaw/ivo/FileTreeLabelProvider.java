@@ -8,9 +8,7 @@ import pa.iscde.outlaw.jorge.OutlineClass;
 import pa.iscde.outlaw.jorge.OutlineField;
 import pa.iscde.outlaw.jorge.OutlineMethod;
 
-//FALTA ACABAR
 public class FileTreeLabelProvider implements ILabelProvider {
-
 
 	private Map<String, Image> imageMap;
 
@@ -20,8 +18,6 @@ public class FileTreeLabelProvider implements ILabelProvider {
 
 	@Override
 	public Image getImage(Object arg0) {//16x16
-		// TODO Auto-generated method stub
-		
 		if (arg0 instanceof OutlineField) {
 			return imageMap.get(((OutlineField) arg0).getImg());
 		} else if (arg0 instanceof OutlineMethod) {
@@ -37,7 +33,6 @@ public class FileTreeLabelProvider implements ILabelProvider {
 
 	@Override
 	public String getText(Object arg0) {
-		
 		if (arg0 instanceof OutlineField) {
 		       return ((OutlineField) arg0).toString();
 		} else if (arg0 instanceof OutlineMethod) {
@@ -52,26 +47,19 @@ public class FileTreeLabelProvider implements ILabelProvider {
 
 	@Override
 	public void addListener(ILabelProviderListener arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public boolean isLabelProperty(Object arg0, String arg1) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void removeListener(ILabelProviderListener arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
