@@ -17,7 +17,7 @@ public class Visitor extends ASTVisitor{
 	private File file;
 
 	public Visitor(File file) {
-		this.file=file;
+		this.setFile(file);
 		setParentClass(file.getName());
 	}
 
@@ -77,7 +77,7 @@ public class Visitor extends ASTVisitor{
 
 	public void setParentClass(String parentClass) {
 		this.parentClass = parentClass;
-		clazz=new OutlineClass(parentClass, getPackage(file.getAbsolutePath()));
+		clazz=new OutlineClass(parentClass, getPackage(getFile().getAbsolutePath()));
 		clear();
 	}
 
@@ -102,4 +102,14 @@ public class Visitor extends ASTVisitor{
 		String[] path=parent.split("\\\\");
 		return path[path.length-2];
 	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+	
+	
 }

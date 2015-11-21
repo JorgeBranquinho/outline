@@ -70,7 +70,9 @@ public class PidescoView1 implements PidescoView {
 				//services.parseFile(f, v);
 				
 				if(!v.equals(null)){
+					
 					System.out.println(file.getName());
+					v.setFile(file);
 					v.setParentClass(file.getName());
 					services.parseFile(file, v);
 					System.out.println(v.getClazz().getName());

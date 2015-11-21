@@ -29,6 +29,7 @@ public class OutlineTreeView {
 	
 	public void update(OutlineClass clazz){
 		root.setClazz(clazz);
+		root.setPackagezz(clazz.getPackagezz());
 		tv.setInput(root);
 		tv.expandAll();
 	}
