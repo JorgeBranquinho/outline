@@ -79,7 +79,7 @@ public class PidescoView1 implements PidescoView {
 					v.setParentClass(file.getName());
 					services.parseFile(file, v);
 					//System.out.println(v.getClazz().getName());
-					System.out.println("P_V: "+v.getParentClass());
+//					System.out.println("P_V: "+v.getParentClass());
 					otv.update(v.getClazz());
 				}
 				
@@ -91,6 +91,16 @@ public class PidescoView1 implements PidescoView {
 			public void fileClosed(File file) {
 				// TODO Auto-generated method stub
 				
+			}
+			
+			@Override
+			public void fileSaved(File file) {
+				// TODO Auto-generated method stub
+				super.fileSaved(file);
+				v.setFile(file);
+				v.setParentClass(file.getName());
+				services.parseFile(file, v);
+				otv.update(v.getClazz());
 			}
 		});
 		
@@ -125,7 +135,9 @@ public class PidescoView1 implements PidescoView {
 		private int x=0;
 		
 		private void xpto(int oi){
-			
+			class inin{
+				boolean oi=true;
+			}
 		}
 	}
 	

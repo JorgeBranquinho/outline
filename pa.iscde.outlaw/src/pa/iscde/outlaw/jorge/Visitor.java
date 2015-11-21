@@ -44,10 +44,6 @@ public class Visitor extends ASTVisitor{
 	@Override
 	public boolean visit(TypeDeclaration node) {
 		
-		
-		
-		System.out.println("NODE CLASS:"+ node.getName());
-		System.out.println("IS: "+node.isLocalTypeDeclaration());
 		int flags = node.getModifiers();
 		if(Modifier.isPrivate(flags)){
 			clazz.setVisibility("Private");

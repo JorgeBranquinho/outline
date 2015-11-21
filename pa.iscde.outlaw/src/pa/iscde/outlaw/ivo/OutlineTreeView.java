@@ -32,6 +32,7 @@ public class OutlineTreeView {
 		root.setPackagezz(clazz.getPackagezz());
 		tv.setInput(root);
 		tv.expandAll();
+		
 	}
 	
 	public OutlineTreeView(Composite c,Map<String, Image> imageMap ){
@@ -39,5 +40,10 @@ public class OutlineTreeView {
 		tv = new TreeViewer(c, SWT.NONE);
 		tv.setContentProvider(new FileTreeContentProvider());
 		tv.setLabelProvider(new FileTreeLabelProvider(imageMap));
+	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		tv.remove(root);
 	}
 }
