@@ -23,7 +23,7 @@ public class OutlineField implements OutlineLookup{
 
 	private String getFieldName(String name) {
 		int argNumber=(name.length() - name.replaceAll(" ", "").length());
-		System.out.println("FIELDS: "+name.split(" ")[argNumber]);
+		//System.out.println("FIELDS: "+name.split(" ")[argNumber]);
 		return name.split(" ")[argNumber];
 	}
 

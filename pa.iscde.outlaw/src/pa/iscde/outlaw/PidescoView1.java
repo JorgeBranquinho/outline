@@ -26,7 +26,7 @@ public class PidescoView1 implements PidescoView {
 		
 		this.setViewArea(viewArea);
 		this.setImageMap(imageMap);
-//		viewArea.setLayout(new GridLayout(SWT.VERTICAL, false));
+		//viewArea.setLayout(new GridLayout(SWT.VERTICAL, false));
 		//Composite composite = new Composite(viewArea, SWT.NONE);
 		//composite.setLayout(new GridLayout(2, true));
 		viewArea.setBackground(viewArea.getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -59,23 +59,27 @@ public class PidescoView1 implements PidescoView {
 			otv = new OutlineTreeView(viewArea,imageMap);
 		}
 			
+		
+		
 		services.addListener(new JavaEditorListener.Adapter() {
 			@Override
 			public void fileOpened(File file) {
 				// TODO Auto-generated method stub
 				if(v==null){
 					v= new Visitor(file);
+					
 				}
 				
 				//services.parseFile(f, v);
 				
 				if(!v.equals(null)){
 					
-					System.out.println(file.getName());
+					//System.out.println(file.getName());
 					v.setFile(file);
 					v.setParentClass(file.getName());
 					services.parseFile(file, v);
-					System.out.println(v.getClazz().getName());
+					//System.out.println(v.getClazz().getName());
+					System.out.println("P_V: "+v.getParentClass());
 					otv.update(v.getClazz());
 				}
 				
@@ -117,7 +121,13 @@ public class PidescoView1 implements PidescoView {
 		
 	}
 
-	
+	class Iner{
+		private int x=0;
+		
+		private void xpto(int oi){
+			
+		}
+	}
 	
 	private void setImageMap(Map<String, Image> imageMap) {
 		// TODO Auto-generated method stub
@@ -136,5 +146,7 @@ public class PidescoView1 implements PidescoView {
 	public Map<String, Image> getImageMap() {
 		return imageMap;
 	}
+	
+	
 
 }

@@ -4,7 +4,9 @@ import java.io.File;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
@@ -22,6 +24,16 @@ public class Visitor extends ASTVisitor{
 	}
 
 	@Override
+	public boolean visit(AnonymousClassDeclaration node) {
+		
+		// TODO Auto-generated method stub
+		
+		System.err.println("NAME: "+node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")));
+		//super.endVisit(node);
+		return super.visit(node);
+		
+	}
+	@Override
 	public boolean visit(FieldDeclaration node) {
 		//System.out.println(node.toString().replaceAll("[;\\n]", "") + "??" + node.getType());
 		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", "").split("=")[0], node.getType(), 
@@ -32,6 +44,10 @@ public class Visitor extends ASTVisitor{
 	@Override
 	public boolean visit(TypeDeclaration node) {
 		
+		
+		
+		System.out.println("NODE CLASS:"+ node.getName());
+		System.out.println("IS: "+node.isLocalTypeDeclaration());
 		int flags = node.getModifiers();
 		if(Modifier.isPrivate(flags)){
 			clazz.setVisibility("Private");
@@ -51,6 +67,8 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(MethodDeclaration node) {
+		
+		//System.out.println("NODE METH:"+ node.getName());
 		methods.add(new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
 				node.isConstructor(), node.getModifiers(), node.parameters(), clazz));
 		return super.visit(node);
