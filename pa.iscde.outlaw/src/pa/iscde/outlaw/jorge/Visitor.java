@@ -31,6 +31,7 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
+		
 		int flags = node.getModifiers();
 		if(Modifier.isPrivate(flags)){
 			clazz.setVisibility("Private");
@@ -42,7 +43,7 @@ public class Visitor extends ASTVisitor{
 			clazz.setVisibility("Package private");
 		}
 		
-		clazz.setInterface(Modifier.isInterface(flags));
+		clazz.setInterface(node.isInterface());
 		clazz.setFinal(Modifier.isFinal(flags));
 		clazz.setStatic(Modifier.isStatic(flags));
 		return super.visit(node);

@@ -104,11 +104,15 @@ public class OutlineClass implements OutlineLookup{
 	}
 
 	public boolean isInterface() {
+
 		return isInterface;
 	}
 
 	public void setInterface(boolean isInterface) {
 		this.isInterface = isInterface;
+		if(isInterface){
+			setImg("int_obj.gif");
+		}
 	}
 
 	public String getPackagezz() {
