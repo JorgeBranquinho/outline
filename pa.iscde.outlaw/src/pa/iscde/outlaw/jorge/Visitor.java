@@ -49,6 +49,7 @@ public class Visitor extends ASTVisitor{
 			clazz.setVisibility("Package private");
 		}
 		
+		clazz.setAbstract(Modifier.isAbstract(flags));
 		clazz.setInterface(node.isInterface());
 		clazz.setFinal(Modifier.isFinal(flags));
 		clazz.setStatic(Modifier.isStatic(flags));

@@ -13,6 +13,7 @@ public class OutlineClass implements OutlineLookup{
 	private boolean isFinal;
 	private String imgType="class_obj.gif";
 	private boolean isInterface;
+	private boolean isAbstract;
 	private String packagezz;
 	
 	
@@ -120,6 +121,14 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setPackagezz(String packagezz) {
 		this.packagezz = packagezz;
+	}
+
+	public boolean isAbstract() {
+		return isAbstract;
+	}
+
+	public void setAbstract(boolean isAbstract) {
+		this.isAbstract = isAbstract;
 	}
 
 
