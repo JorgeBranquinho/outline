@@ -15,6 +15,7 @@ public class OutlineClass implements OutlineLookup{
 	private boolean isInterface;
 	private boolean isAbstract;
 	private String packagezz;
+	private boolean isEnum;
 	
 	
 	public OutlineClass(String parentClass, String packagezz) {
@@ -129,6 +130,16 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract;
+	}
+
+	public boolean isEnum() {
+		return isEnum;
+	}
+
+	public void setEnum(boolean isEnum) {
+		this.isEnum = isEnum;
+		if(isEnum)
+			setImg("enum_obj.gif");
 	}
 
 

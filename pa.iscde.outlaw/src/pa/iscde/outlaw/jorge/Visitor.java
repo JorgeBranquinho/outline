@@ -3,8 +3,11 @@ package pa.iscde.outlaw.jorge;
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -22,12 +25,27 @@ public class Visitor extends ASTVisitor{
 		this.setFile(file);
 		setParentClass(file.getName());
 	}
+	@Override
+	public boolean visit(EnumDeclaration node) {
+		int flags = node.getModifiers();
+		if(Modifier.isPublic(flags)){
+			clazz.setVisibility("Public");
+		}else{
+			clazz.setVisibility("Package private");
+		}
+		clazz.setEnum(true);
+		System.out.println(node.getName());
+		for(Object constant: node.enumConstants()){
+			fields.add(new OutlineField(constant.toString(), clazz));
+		}
+		return super.visit(node);
+	}
 
 	@Override
 	public boolean visit(AnonymousClassDeclaration node) {
 		System.err.println("NAME: "+node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")));
 		return super.visit(node);
-		
+
 	}
 	@Override
 	public boolean visit(FieldDeclaration node) {
@@ -48,11 +66,12 @@ public class Visitor extends ASTVisitor{
 		}else{
 			clazz.setVisibility("Package private");
 		}
-		
+
 		clazz.setAbstract(Modifier.isAbstract(flags));
 		clazz.setInterface(node.isInterface());
 		clazz.setFinal(Modifier.isFinal(flags));
 		clazz.setStatic(Modifier.isStatic(flags));
+		clazz.setEnum(false);
 		return super.visit(node);
 	}
 
@@ -104,7 +123,7 @@ public class Visitor extends ASTVisitor{
 		fields.clear();
 
 	}
-	
+
 	private String getPackage(String parent) {
 		String[] path=parent.split("\\\\");
 		return path[path.length-2];
@@ -117,6 +136,6 @@ public class Visitor extends ASTVisitor{
 	public void setFile(File file) {
 		this.file = file;
 	}
-	
-	
+
+
 }

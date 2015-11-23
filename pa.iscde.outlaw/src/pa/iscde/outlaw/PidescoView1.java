@@ -20,8 +20,6 @@ public class PidescoView1 implements PidescoView {
 	private Composite viewArea;
 	private Map<String, Image> imageMap;
 	private OutlineTreeView otv;
-	private int count=0;
-	protected int countO;
 	
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
