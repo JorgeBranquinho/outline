@@ -1,5 +1,7 @@
 package pa.iscde.outlaw.jorge;
 
+import pa.iscde.outlaw.Visibility;
+
 public interface OutlineLookup {
 
 	public String getName();
@@ -10,9 +12,11 @@ public interface OutlineLookup {
 	
 	public void setParent(OutlineClass parent);
 	
-	public String getVisibility();
+	public void checkVisibility(int value);
 	
-	public void setVisibility(String visibility);
+	public void checkProperties(int value);
+	
+	public void setVisibility(Visibility visibility);
 	
 	public String toString();
 	

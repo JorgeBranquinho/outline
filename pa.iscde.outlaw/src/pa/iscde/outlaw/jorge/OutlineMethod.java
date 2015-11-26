@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jdt.core.dom.Type;
 
+import pa.iscde.outlaw.Visibility;
+
 public class OutlineMethod implements OutlineLookup {
 
 	private String name;
-	private String visibility;
+	private Visibility vis= Visibility.PACKAGE_PRIVATE;
 	private Type returnType;
 	private OutlineClass parent;
 	private boolean isConstructor;
@@ -34,6 +36,9 @@ public class OutlineMethod implements OutlineLookup {
 
 	public void setParent(OutlineClass parent) {
 		this.parent = parent;
+		if(name.equals("main")){
+			parent.setMainClass();
+		}
 	}
 
 	public Type getReturnType() {
@@ -43,30 +48,7 @@ public class OutlineMethod implements OutlineLookup {
 	public void setReturnType(Type returnType) {
 		this.returnType = returnType;
 	}
-
-	private void checkVisibility(int value){
-		if(Modifier.isPrivate(value)){
-			setVisibility("Private");
-			setImg("method_private_obj.gif");
-		}else if(Modifier.isProtected(value)){
-			setVisibility("Protected");
-			setImg("method_protected_obj.gif");
-		}else if(Modifier.isPublic(value)){
-			setVisibility("Public");
-			setImg("method_public_obj.gif");
-		}else{
-			setVisibility("Package private");
-			setImg("package_filter.gif");
-		}
-	}
-
-	public String getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -108,14 +90,7 @@ public class OutlineMethod implements OutlineLookup {
 		return result+" : "+getReturnType();
 	}
 
-	private void checkProperties(int value){
-		if(Modifier.isFinal(value))
-			setFinal(true);
-		if(Modifier.isStatic(value))
-			setStatic(true);
-		if(Modifier.isSynchronized(value))
-			setSynchronized(true);
-	}
+
 
 	public boolean isStatic() {
 		return isStatic;
@@ -143,13 +118,58 @@ public class OutlineMethod implements OutlineLookup {
 
 	@Override
 	public void setImg(String imgName) {
-		this.imgName=imgName;		
+		this.imgName=imgName;
+		
+		switch(vis){
+		case PACKAGE_PRIVATE:
+			this.imgName="package_filter.gif";
+			break;
+		case PRIVATE:
+			this.imgName="method_private_obj.gif";
+			break;
+		case PROTECTED:
+			this.imgName="method_protected_obj.gif";
+			break;
+		case PUBLIC:
+			this.imgName="method_public_obj.gif";
+			break;
+			
+		}
 	}
 
 	@Override
 	public String getImg() {
 		return imgName;
 	}
+
+	@Override
+	public void checkVisibility(int value) {
+		if(Modifier.isPrivate(value)){
+			setVisibility(vis.PRIVATE);
+		}else if(Modifier.isProtected(value)){
+			setVisibility(vis.PROTECTED);
+		}else if(Modifier.isPublic(value)){
+			setVisibility(vis.PUBLIC);
+		}else{
+			setVisibility(vis.PACKAGE_PRIVATE);
+		}
+	}
+
+	@Override
+	public void checkProperties(int value){
+		if(Modifier.isFinal(value))
+			setFinal(true);
+		if(Modifier.isStatic(value))
+			setStatic(true);
+		if(Modifier.isSynchronized(value))
+			setSynchronized(true);
+	}
+
+	@Override
+	public void setVisibility(Visibility visibility) {
+		this.vis=visibility;
+	}
+
 
 
 }

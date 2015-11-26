@@ -13,6 +13,8 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import pa.iscde.outlaw.Visibility;
+
 public class Visitor extends ASTVisitor{
 
 	private String parentClass;
@@ -20,18 +22,25 @@ public class Visitor extends ASTVisitor{
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private OutlineClass clazz;
 	private File file;
+	private Visibility vis= Visibility.PACKAGE_PRIVATE;
 
 	public Visitor(File file) {
 		this.setFile(file);
 		setParentClass(file.getName());
 	}
+	
+	@Override
+	public void endVisit(MethodDeclaration node) {
+		super.endVisit(node);
+	}
+	
 	@Override
 	public boolean visit(EnumDeclaration node) {
 		int flags = node.getModifiers();
 		if(Modifier.isPublic(flags)){
-			clazz.setVisibility("Public");
+			clazz.setVisibility(vis.PUBLIC);
 		}else{
-			clazz.setVisibility("Package private");
+			clazz.setVisibility(vis.PACKAGE_PRIVATE);
 		}
 		clazz.setEnum(true);
 		System.out.println(node.getName());
@@ -57,16 +66,17 @@ public class Visitor extends ASTVisitor{
 	@Override
 	public boolean visit(TypeDeclaration node) {
 		int flags = node.getModifiers();
-		if(Modifier.isPrivate(flags)){
-			clazz.setVisibility("Private");
-		}else if(Modifier.isProtected(flags)){
-			clazz.setVisibility("Protected");
-		}else if(Modifier.isPublic(flags)){
-			clazz.setVisibility("Public");
-		}else{
-			clazz.setVisibility("Package private");
-		}
 
+		if(Modifier.isPrivate(flags)){
+			clazz.setVisibility(vis.PRIVATE);
+		}else if(Modifier.isProtected(flags)){
+			clazz.setVisibility(vis.PROTECTED);
+		}else if(Modifier.isPublic(flags)){
+			clazz.setVisibility(vis.PUBLIC);
+		}else{
+			clazz.setVisibility(vis.PACKAGE_PRIVATE);
+		}
+		
 		clazz.setAbstract(Modifier.isAbstract(flags));
 		clazz.setInterface(node.isInterface());
 		clazz.setFinal(Modifier.isFinal(flags));

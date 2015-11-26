@@ -3,10 +3,13 @@ package pa.iscde.outlaw.jorge;
 import java.lang.reflect.Modifier;
 import org.eclipse.jdt.core.dom.Type;
 
+import pa.iscde.outlaw.Visibility;
+
 public class OutlineField implements OutlineLookup{
 
 	private String name;
 	private String visibility;
+	private Visibility vis= Visibility.PACKAGE_PRIVATE;
 	private Type type;
 	private OutlineClass parent;
 	private boolean isStatic;
@@ -55,13 +58,13 @@ public class OutlineField implements OutlineLookup{
 		this.type = type;
 	}
 
-	public String getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
+//	public String getVisibility() {
+//		return visibility;
+//	}
+//
+//	public void setVisibility(String visibility) {
+//		this.visibility = visibility;
+//	}
 
 	public String getName() {
 		return name;
@@ -93,27 +96,26 @@ public class OutlineField implements OutlineLookup{
 		this.isFinal = isFinal;
 	}
 
-	private void checkVisibility(int value){
+	@Override
+	public void checkVisibility(int value){
 		
 		if(Modifier.isProtected(value)){
-			setVisibility("Protected");//00
+			setVisibility(vis.PROTECTED);//00
 			//bitwiseoperand|=0;
-			setImg("field_protected_obj.gif");
 		}else if(Modifier.isPrivate(value)){
-			setVisibility("Private");//01
+			setVisibility(vis.PRIVATE);//01
 			//bitwiseoperand|=1;
-			setImg("field_private_obj.gif");
 		}else if(Modifier.isPublic(value)){
-			setVisibility("Public");//10
+			setVisibility(vis.PUBLIC);//10
 			//bitwiseoperand|=2;
-			setImg("field_public_obj.gif");
 		}else{
-			setVisibility("Package private");//11
+			setVisibility(vis.PACKAGE_PRIVATE);//11
 			//bitwiseoperand|=3;
 		}
 	}
 
-	private void checkProperties(int value){
+	@Override
+	public void checkProperties(int value){
 		if(Modifier.isFinal(value)){
 			setFinal(true);//1xx ou 0xx
 			//bitwiseoperand|=4;
@@ -184,7 +186,22 @@ public class OutlineField implements OutlineLookup{
 		    	
 		    	break;
 		    }
-		}else*/ this.imgName=imgName;
+		}else*/ 
+		switch(vis){
+		case PACKAGE_PRIVATE:
+			this.imgName="class_obj.gif";
+			break;
+		case PRIVATE:
+			this.imgName="field_private_obj.gif";
+			break;
+		case PROTECTED:
+			this.imgName="field_protected_obj.gif";
+			break;
+		case PUBLIC:
+			this.imgName="field_public_obj.gif";
+			break;
+		}
+		//this.imgName=imgName;
 	}
 
 	@Override
@@ -200,6 +217,12 @@ public class OutlineField implements OutlineLookup{
 		this.isConstant = isConstant;
 		if(isConstant)
 			setImg("constant_co.gif");
+	}
+
+	@Override
+	public void setVisibility(Visibility visibility) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

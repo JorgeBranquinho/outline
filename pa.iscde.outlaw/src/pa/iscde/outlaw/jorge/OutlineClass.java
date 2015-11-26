@@ -1,6 +1,9 @@
 package pa.iscde.outlaw.jorge;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import pa.iscde.outlaw.Visibility;
 
 public class OutlineClass implements OutlineLookup{
 
@@ -8,7 +11,7 @@ public class OutlineClass implements OutlineLookup{
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private String name;
 	private OutlineClass parent;
-	private String visibility;
+	private Visibility visibility;
 	private boolean isStatic;
 	private boolean isFinal;
 	private String imgType="class_obj.gif";
@@ -16,6 +19,7 @@ public class OutlineClass implements OutlineLookup{
 	private boolean isAbstract;
 	private String packagezz;
 	private boolean isEnum;
+	private boolean isMainClass;
 	
 	
 	public OutlineClass(String parentClass, String packagezz) {
@@ -60,16 +64,6 @@ public class OutlineClass implements OutlineLookup{
 	}
 
 	@Override
-	public String getVisibility() {
-		return visibility;
-	}
-
-	@Override
-	public void setVisibility(String visibility) {
-		this.visibility=visibility;
-	}
-
-	@Override
 	public boolean isStatic() {
 		return isStatic;
 	}
@@ -97,6 +91,7 @@ public class OutlineClass implements OutlineLookup{
 	@Override
 	public void setImg(String imgType) {
 		this.imgType=imgType;
+		
 	}
 
 	@Override
@@ -142,7 +137,31 @@ public class OutlineClass implements OutlineLookup{
 			setImg("enum_obj.gif");
 	}
 
+	
+	public void setMainClass(){
+		isMainClass=true;
+	}
+	
+	public boolean isMainClass(){
+		return isMainClass;
+	}
 
+	@Override
+	public void checkVisibility(int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkProperties(int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setVisibility(Visibility visibility) {
+		this.visibility=visibility;		
+	}
 	
 	
 }
