@@ -1,4 +1,4 @@
-package pa.iscde.outlaw.jorge;
+package pa.iscde.outlaw.Outline;
 
 public class OutlineRoot {
 

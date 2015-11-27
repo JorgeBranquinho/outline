@@ -1,12 +1,13 @@
-package pa.iscde.outlaw.ivo;
+package pa.iscde.outlaw.TreeView;
 
 import java.util.Map;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
-import pa.iscde.outlaw.jorge.OutlineClass;
-import pa.iscde.outlaw.jorge.OutlineField;
-import pa.iscde.outlaw.jorge.OutlineMethod;
+
+import pa.iscde.outlaw.Outline.OutlineClass;
+import pa.iscde.outlaw.Outline.OutlineField;
+import pa.iscde.outlaw.Outline.OutlineMethod;
 
 public class FileTreeLabelProvider implements ILabelProvider {
 

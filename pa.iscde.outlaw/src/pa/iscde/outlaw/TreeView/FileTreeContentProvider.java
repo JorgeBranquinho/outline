@@ -1,12 +1,13 @@
-package pa.iscde.outlaw.ivo;
+package pa.iscde.outlaw.TreeView;
 
 import java.util.ArrayList;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import pa.iscde.outlaw.jorge.OutlineClass;
-import pa.iscde.outlaw.jorge.OutlineField;
-import pa.iscde.outlaw.jorge.OutlineMethod;
-import pa.iscde.outlaw.jorge.OutlineRoot;
+
+import pa.iscde.outlaw.Outline.OutlineClass;
+import pa.iscde.outlaw.Outline.OutlineField;
+import pa.iscde.outlaw.Outline.OutlineMethod;
+import pa.iscde.outlaw.Outline.OutlineRoot;
 
 public class FileTreeContentProvider implements ITreeContentProvider  {
 
@@ -31,6 +32,7 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 			OutlineClass parent = (OutlineClass)arg0;
 			ArrayList<Object> tmplist = new ArrayList<Object>(parent.getFields());
 			tmplist.addAll(parent.getMethod());
+			tmplist.addAll(parent.getChildren_classes());
 			  return tmplist.toArray();
 		}
 		return EMPTY_ARRAY;

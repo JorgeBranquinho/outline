@@ -7,8 +7,9 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import pa.iscde.outlaw.ivo.OutlineTreeView;
-import pa.iscde.outlaw.jorge.Visitor;
+
+import pa.iscde.outlaw.Outline.Visitor;
+import pa.iscde.outlaw.TreeView.OutlineTreeView;
 import pt.iscte.pidesco.extensibility.PidescoView;
 import pt.iscte.pidesco.javaeditor.internal.JavaEditorActivator;
 import pt.iscte.pidesco.javaeditor.service.JavaEditorListener;

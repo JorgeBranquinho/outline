@@ -1,4 +1,4 @@
-package pa.iscde.outlaw.jorge;
+package pa.iscde.outlaw.Outline;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ public class OutlineClass implements OutlineLookup{
 
 	private ArrayList<OutlineMethod> method = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
+	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
 	private String name;
 	private OutlineClass parent;
 	private Visibility vis;
@@ -20,11 +21,20 @@ public class OutlineClass implements OutlineLookup{
 	private String packagezz;
 	private boolean isEnum;
 	private boolean isMainClass;
+	private boolean isInner;
+	private boolean isAnon;
 	
 	
 	public OutlineClass(String parentClass, String packagezz) {
 		setName(parentClass);
 		setPackagezz(packagezz);
+	}
+	
+	public OutlineClass(String parentClass, String packagezz, boolean isInner, boolean isAnon) {
+		setName(parentClass);
+		setPackagezz(packagezz);
+		setInner(isInner);
+		setAnon(isAnon);
 	}
 
 	public ArrayList<OutlineMethod> getMethod() {
@@ -181,6 +191,30 @@ public class OutlineClass implements OutlineLookup{
 	@Override
 	public void setVisibility(Visibility visibility) {
 		this.vis=visibility;		
+	}
+
+	public boolean isInner() {
+		return isInner;
+	}
+
+	public void setInner(boolean isInner) {
+		this.isInner = isInner;
+	}
+
+	public boolean isAnon() {
+		return isAnon;
+	}
+
+	public void setAnon(boolean isAnon) {
+		this.isAnon = isAnon;
+	}
+
+	public ArrayList<OutlineClass> getChildren_classes() {
+		return children_classes;
+	}
+
+	public void setChildren_classes(ArrayList<OutlineClass> children_classes) {
+		this.children_classes = children_classes;
 	}
 	
 	

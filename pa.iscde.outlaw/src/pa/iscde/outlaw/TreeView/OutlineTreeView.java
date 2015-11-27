@@ -1,13 +1,14 @@
-package pa.iscde.outlaw.ivo;
+package pa.iscde.outlaw.TreeView;
 
 import java.util.Map;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import pa.iscde.outlaw.jorge.OutlineClass;
-import pa.iscde.outlaw.jorge.OutlineRoot;
-import pa.iscde.outlaw.jorge.Visitor;
+
+import pa.iscde.outlaw.Outline.OutlineClass;
+import pa.iscde.outlaw.Outline.OutlineRoot;
+import pa.iscde.outlaw.Outline.Visitor;
 
 public class OutlineTreeView {
 
