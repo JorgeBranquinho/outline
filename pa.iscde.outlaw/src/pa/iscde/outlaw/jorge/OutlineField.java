@@ -118,7 +118,7 @@ public class OutlineField implements OutlineLookup{
 		}else{
 			switch(vis){
 			case PACKAGE_PRIVATE:
-				this.imgName="enum_obj.gif";
+				this.imgName="field_default_obj.png";
 				break;
 			case PRIVATE:
 				this.imgName="field_private_obj.gif";

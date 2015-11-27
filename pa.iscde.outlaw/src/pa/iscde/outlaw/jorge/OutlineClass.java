@@ -90,8 +90,6 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public void setImg() {
-		System.out.println("ISENUM: "+isEnum);
-		System.out.println("ISINT: "+isInterface);
 		if(isEnum){
 			this.imgType="enum_obj.gif";
 		}
@@ -100,13 +98,13 @@ public class OutlineClass implements OutlineLookup{
 		}else{
 			switch(vis){
 			case PACKAGE_PRIVATE:
-				this.imgType="package_filter.gif";
+				this.imgType="class_default_obj.png";
 				break;
 			case PRIVATE:
-				this.imgType="method_private_obj.gif";
+				this.imgType="innerclass_private_obj.png";
 				break;
 			case PROTECTED:
-				this.imgType="method_protected_obj.gif";
+				this.imgType="innerclass_protected_obj.png";
 				break;
 			case PUBLIC:
 				this.imgType="class_obj.gif";
@@ -114,7 +112,6 @@ public class OutlineClass implements OutlineLookup{
 				
 			}
 		}
-		
 	}
 
 	@Override

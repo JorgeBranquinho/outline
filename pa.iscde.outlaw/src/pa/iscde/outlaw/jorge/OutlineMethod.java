@@ -121,7 +121,7 @@ public class OutlineMethod implements OutlineLookup {
 	public void setImg() {
 		switch(vis){
 		case PACKAGE_PRIVATE:
-			this.imgName="package_filter.gif";
+			this.imgName="methdef_obj.png";
 			break;
 		case PRIVATE:
 			this.imgName="method_private_obj.gif";
