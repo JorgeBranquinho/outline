@@ -167,7 +167,7 @@ public class Visitor extends ASTVisitor{
 	private void clear(){
 		methods.clear();
 		fields.clear();
-
+		children_classes.clear();
 	}
 
 	private String getPackage(String parent) {
