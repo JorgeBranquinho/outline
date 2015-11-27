@@ -5,13 +5,17 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IBinding;
+import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IVariableBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
@@ -41,7 +45,7 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(SimpleName node){//ok isto faz coisas....mtas coisas! USAR ISTO!!!
-		System.err.println("-->					" + node.toString());
+		//System.err.println("-->					" + node.toString());
 		if (node.getLocationInParent() == FieldAccess.NAME_PROPERTY)       return true;
 		if (node.getLocationInParent() == QualifiedName.NAME_PROPERTY)       return true;
 		IBinding binding=((Name)node).resolveBinding();
@@ -49,7 +53,7 @@ public class Visitor extends ASTVisitor{
 			IVariableBinding vBinding=(IVariableBinding)binding;
 			//if (vBinding.isField()) {
 				ITypeBinding bc=vBinding.getDeclaringClass();
-				System.out.println("porra po java pq raio n estudamos python..." + bc);
+				//System.out.println("porra po java pq raio n estudamos python..." + bc);
 			//}
 		}
 		return true;
@@ -59,7 +63,7 @@ public class Visitor extends ASTVisitor{
 	public boolean visit(TypeDeclaration node) {
 		int flags = node.getModifiers();
 		if(!node.isPackageMemberTypeDeclaration()){
-			System.err.println("FODASSE ESTA MERDA isto e inner" + node.getName());
+			//System.err.println("FODASSE ESTA MERDA isto e inner" + node.getName());
 			children_classes.add(new OutlineClass(node.getName().toString(), clazz.getName(), true, false));
 		}else{
 			if(Modifier.isPrivate(flags)){
@@ -86,8 +90,8 @@ public class Visitor extends ASTVisitor{
 	public boolean visit(AnonymousClassDeclaration node) {
 		String classname=node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")).toString();
 		children_classes.add(new OutlineClass(classname + " {...}", clazz.getName(), false, true));
-		//return super.visit(node);
-		return false;//aqui com false os metodos desta classe ja nao sao visitados
+		return super.visit(node);
+		//return false;//aqui com false os metodos desta classe ja nao sao visitados
 
 	}
 
@@ -114,7 +118,7 @@ public class Visitor extends ASTVisitor{
 		//aqui devia estar um IBinding (of isaac)
 		//*****
 		String parentname=node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")).toString();
-		System.err.println("fuck this thing in particular___" + parentname);
+		//System.err.println("fuck this thing in particular___" + parentname);
 		fields.add(new OutlineField(node.toString().replaceAll("[;\\n]", "").split("=")[0], node.getType(), 
 				node.getModifiers(), clazz));
 		return super.visit(node);
@@ -122,6 +126,32 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(MethodDeclaration node) {
+		//*****novo
+		Block block = node.getBody();
+        block.accept(new ASTVisitor() {
+            public boolean visit(MethodInvocation node) {
+                System.out.println("Name: " + node.getName());
+
+                Expression expression = node.getExpression();
+                if (expression != null) {
+                    System.out.println("Expr: " + expression.toString());
+                    ITypeBinding typeBinding = expression.resolveTypeBinding();
+                    if (typeBinding != null) {
+                        System.out.println("Type: " + typeBinding.getName());
+                    }
+                }
+                IMethodBinding binding = node.resolveMethodBinding();
+                if (binding != null) {
+                    ITypeBinding type = binding.getDeclaringClass();
+                    if (type != null) {
+                        System.out.println("Decl: " + type.getName());
+                    }
+                }
+
+                return true;
+            }
+        });
+		//******novo
 		methods.add(new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
 				node.isConstructor(), node.getModifiers(), node.parameters(), clazz));
 		return super.visit(node);
