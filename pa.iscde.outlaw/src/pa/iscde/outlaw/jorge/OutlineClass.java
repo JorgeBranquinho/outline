@@ -11,7 +11,7 @@ public class OutlineClass implements OutlineLookup{
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private String name;
 	private OutlineClass parent;
-	private Visibility visibility;
+	private Visibility vis;
 	private boolean isStatic;
 	private boolean isFinal;
 	private String imgType="class_obj.gif";
@@ -89,8 +89,31 @@ public class OutlineClass implements OutlineLookup{
 	}
 
 	@Override
-	public void setImg(String imgType) {
-		this.imgType=imgType;
+	public void setImg() {
+		System.out.println("ISENUM: "+isEnum);
+		System.out.println("ISINT: "+isInterface);
+		if(isEnum){
+			this.imgType="enum_obj.gif";
+		}
+		else if(isInterface){
+			this.imgType="int_obj.gif";
+		}else{
+			switch(vis){
+			case PACKAGE_PRIVATE:
+				this.imgType="package_filter.gif";
+				break;
+			case PRIVATE:
+				this.imgType="method_private_obj.gif";
+				break;
+			case PROTECTED:
+				this.imgType="method_protected_obj.gif";
+				break;
+			case PUBLIC:
+				this.imgType="class_obj.gif";
+				break;
+				
+			}
+		}
 		
 	}
 
@@ -106,9 +129,9 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setInterface(boolean isInterface) {
 		this.isInterface = isInterface;
-		if(isInterface){
-			setImg("int_obj.gif");
-		}
+		//if(isInterface){
+		//	setImg("int_obj.gif");
+		//}
 	}
 
 	public String getPackagezz() {
@@ -133,8 +156,8 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setEnum(boolean isEnum) {
 		this.isEnum = isEnum;
-		if(isEnum)
-			setImg("enum_obj.gif");
+		//if(isEnum)
+		//	setImg("enum_obj.gif");
 	}
 
 	
@@ -160,7 +183,7 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public void setVisibility(Visibility visibility) {
-		this.visibility=visibility;		
+		this.vis=visibility;		
 	}
 	
 	

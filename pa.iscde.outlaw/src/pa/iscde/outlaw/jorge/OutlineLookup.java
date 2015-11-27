@@ -28,7 +28,7 @@ public interface OutlineLookup {
 	
 	public void setFinal(boolean isFinal);
 	
-	public void setImg(String imgType);
+	public void setImg();
 	
 	public String getImg();
 	

@@ -28,6 +28,7 @@ public class OutlineMethod implements OutlineLookup {
 		checkProperties(modifiers);
 		setArguments(list);
 		setParent(parentClass);
+		setImg();
 	}
 
 	public OutlineClass getParent() {
@@ -117,9 +118,7 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 	@Override
-	public void setImg(String imgName) {
-		this.imgName=imgName;
-		
+	public void setImg() {
 		switch(vis){
 		case PACKAGE_PRIVATE:
 			this.imgName="package_filter.gif";
@@ -145,13 +144,13 @@ public class OutlineMethod implements OutlineLookup {
 	@Override
 	public void checkVisibility(int value) {
 		if(Modifier.isPrivate(value)){
-			setVisibility(vis.PRIVATE);
+			setVisibility(Visibility.PRIVATE);
 		}else if(Modifier.isProtected(value)){
-			setVisibility(vis.PROTECTED);
+			setVisibility(Visibility.PROTECTED);
 		}else if(Modifier.isPublic(value)){
-			setVisibility(vis.PUBLIC);
+			setVisibility(Visibility.PUBLIC);
 		}else{
-			setVisibility(vis.PACKAGE_PRIVATE);
+			setVisibility(Visibility.PACKAGE_PRIVATE);
 		}
 	}
 
@@ -167,7 +166,7 @@ public class OutlineMethod implements OutlineLookup {
 
 	@Override
 	public void setVisibility(Visibility visibility) {
-		this.vis=visibility;
+		vis=visibility;
 	}
 
 

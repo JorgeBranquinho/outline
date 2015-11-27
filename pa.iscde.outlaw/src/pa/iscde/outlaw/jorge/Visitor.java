@@ -47,6 +47,7 @@ public class Visitor extends ASTVisitor{
 		for(Object constant: node.enumConstants()){
 			fields.add(new OutlineField(constant.toString(), clazz));
 		}
+		clazz.setImg();
 		return super.visit(node);
 	}
 
@@ -68,13 +69,13 @@ public class Visitor extends ASTVisitor{
 		int flags = node.getModifiers();
 
 		if(Modifier.isPrivate(flags)){
-			clazz.setVisibility(vis.PRIVATE);
+			clazz.setVisibility(Visibility.PRIVATE);
 		}else if(Modifier.isProtected(flags)){
-			clazz.setVisibility(vis.PROTECTED);
+			clazz.setVisibility(Visibility.PROTECTED);
 		}else if(Modifier.isPublic(flags)){
-			clazz.setVisibility(vis.PUBLIC);
+			clazz.setVisibility(Visibility.PUBLIC);
 		}else{
-			clazz.setVisibility(vis.PACKAGE_PRIVATE);
+			clazz.setVisibility(Visibility.PACKAGE_PRIVATE);
 		}
 		
 		clazz.setAbstract(Modifier.isAbstract(flags));
@@ -82,6 +83,7 @@ public class Visitor extends ASTVisitor{
 		clazz.setFinal(Modifier.isFinal(flags));
 		clazz.setStatic(Modifier.isStatic(flags));
 		clazz.setEnum(false);
+		clazz.setImg();
 		return super.visit(node);
 	}
 
