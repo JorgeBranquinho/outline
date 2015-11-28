@@ -61,6 +61,16 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
+		//new
+		final String oi=node.getName().toString();
+		node.accept(new ASTVisitor() {
+			@Override
+			public boolean visit(MethodDeclaration node) {
+				System.err.println(oi + "  " + node.getName());
+				return super.visit(node);
+			}
+		});
+		//new
 		int flags = node.getModifiers();
 		if(!node.isPackageMemberTypeDeclaration()){
 			//System.err.println("FODASSE ESTA MERDA isto e inner" + node.getName());
@@ -127,11 +137,13 @@ public class Visitor extends ASTVisitor{
 	@Override
 	public boolean visit(MethodDeclaration node) {
 		//*****novo
+		/*
 		Block block = node.getBody();
+				final String oi=node.getName().toString();
         block.accept(new ASTVisitor() {
             public boolean visit(MethodInvocation node) {
+            	System.err.println("sou "+oi + " e =" + node.getName());
                 System.out.println("Name: " + node.getName());
-
                 Expression expression = node.getExpression();
                 if (expression != null) {
                     System.out.println("Expr: " + expression.toString());
@@ -151,6 +163,7 @@ public class Visitor extends ASTVisitor{
                 return true;
             }
         });
+        */
 		//******novo
 		methods.add(new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
 				node.isConstructor(), node.getModifiers(), node.parameters(), clazz));
