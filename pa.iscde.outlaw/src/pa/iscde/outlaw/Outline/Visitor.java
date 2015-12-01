@@ -95,6 +95,8 @@ public class Visitor extends ASTVisitor{
 			clazz.setFinal(Modifier.isFinal(flags));
 			clazz.setStatic(Modifier.isStatic(flags));
 			clazz.setEnum(false);
+			clazz.checkProperties(flags);
+			clazz.checkVisibility(flags);
 			clazz.setImg();
 		}
 		return super.visit(node);
@@ -122,6 +124,8 @@ public class Visitor extends ASTVisitor{
 		for(Object constant: node.enumConstants()){
 			fields.add(new OutlineField(constant.toString(), clazz));
 		}
+		clazz.checkProperties(flags);
+		clazz.checkVisibility(flags);
 		clazz.setImg();
 		return super.visit(node);
 	}

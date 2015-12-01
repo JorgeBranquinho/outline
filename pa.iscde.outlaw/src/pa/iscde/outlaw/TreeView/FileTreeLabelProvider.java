@@ -24,13 +24,15 @@ public class FileTreeLabelProvider implements ILabelProvider {
 			return ((OutlineField)arg0).getImg();
 			//return imageMap.get(((OutlineField) arg0).getImg());
 		} else if (arg0 instanceof OutlineMethod) {
-		       return imageMap.get(((OutlineMethod) arg0).getImg());
+		    return ((OutlineMethod) arg0).getImg();   
+			//return imageMap.get(((OutlineMethod) arg0).getImg());
 		} else if(arg0 instanceof OutlineClass){
-		       return imageMap.get(((OutlineClass) arg0).getImg());
+		    return ((OutlineClass) arg0).getImg();  
+			// return imageMap.get(((OutlineClass) arg0).getImg());
 		} else if (arg0 instanceof String){
 			IconMerger im = new IconMerger();
 			//java.awt.Image img = im.merge(new String[]{"final_co.png","field_default_obj.png"});
-			return imageMap.get("Outter.png");
+			return imageMap.get("package.gif");
 				//return imageMap.get("package.gif");
 		}
 		

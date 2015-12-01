@@ -20,6 +20,9 @@ public class OutlineMethod implements OutlineLookup {
 	private boolean isFinal;
 	private boolean isSynchronized;
 	private String imgName;
+	private int argsNumber;
+	private Image image;
+	private IconMerger im= new IconMerger();
 
 	public OutlineMethod(String name, Type type, boolean isConstructor, int modifiers, List<?> list, OutlineClass parentClass) {
 		setName(name);
@@ -120,6 +123,9 @@ public class OutlineMethod implements OutlineLookup {
 
 	@Override
 	public void setImg() {
+		int count=0;
+		//System.out.println("Args Num: "+argsNumber);
+		String[] result = new String[argsNumber];
 		switch(vis){
 		case PACKAGE_PRIVATE:
 			this.imgName="methdef_obj.png";
@@ -135,6 +141,31 @@ public class OutlineMethod implements OutlineLookup {
 			break;
 			
 		}
+		result[count]=imgName;
+		count++;
+		
+		if(isFinal){
+			result[count]="final_co.png";
+			count++;
+		}
+		
+		if(isStatic){
+			result[count]="static_co.png";
+			count++;
+		}
+		
+		if(isSynchronized){
+			result[count]="synch_co.png";
+			count++;
+		}
+		
+		if(isConstructor){
+			result[count]="constr_ovr.png";
+			count++;
+		}
+		
+		image=im.merge(result);
+		
 	}
 
 //	@Override
@@ -153,16 +184,27 @@ public class OutlineMethod implements OutlineLookup {
 		}else{
 			setVisibility(Visibility.PACKAGE_PRIVATE);
 		}
+		argsNumber++;
 	}
 
 	@Override
 	public void checkProperties(int value){
-		if(Modifier.isFinal(value))
+		if(Modifier.isFinal(value)){
 			setFinal(true);
-		if(Modifier.isStatic(value))
+			argsNumber++;
+		}
+		if(Modifier.isStatic(value)){
 			setStatic(true);
-		if(Modifier.isSynchronized(value))
+			argsNumber++;
+		}
+		if(Modifier.isSynchronized(value)){
 			setSynchronized(true);
+			argsNumber++;
+		}
+		
+		if(isConstructor){
+			argsNumber++;
+		}
 	}
 
 	@Override
@@ -173,7 +215,7 @@ public class OutlineMethod implements OutlineLookup {
 	@Override
 	public Image getImg() {
 		// TODO Auto-generated method stub
-		return null;
+		return image;
 	}
 
 

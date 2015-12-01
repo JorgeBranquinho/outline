@@ -18,6 +18,7 @@ public class OutlineField implements OutlineLookup{
 	private boolean isConstant;
 	private IconMerger im = new IconMerger();
 	private Image image;
+	private int argsNumber=0;
 	
 	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
 		setName(getFieldName(name));
@@ -102,24 +103,31 @@ public class OutlineField implements OutlineLookup{
 		}else{
 			setVisibility(Visibility.PACKAGE_PRIVATE);//11
 		}
+		
+		argsNumber++;
 	}
 
 	@Override
 	public void checkProperties(int value){
 		if(Modifier.isFinal(value)){
 			setFinal(true);//1xx ou 0xx
+			argsNumber++;
 		}
 		if(Modifier.isStatic(value)){
 			setStatic(true);//1xxx ou 0xxx
+			argsNumber++;
 		}
 	}
 
 	@Override
 	public void setImg() {
-		String[] result = new String[2];
-		String tmp=imgName;
+		int count=0;
+		//System.out.println("Args Num: "+argsNumber);
+		String[] result = new String[argsNumber];
 		if(isConstant){
 			this.imgName="constant_co.gif";
+			result[count]=imgName;
+			count++;
 		}else{
 			switch(vis){
 			case PACKAGE_PRIVATE:
@@ -135,20 +143,20 @@ public class OutlineField implements OutlineLookup{
 				this.imgName="field_public_obj.gif";
 				break;
 			}
-			result[0]=imgName;
+			result[count]=imgName;
+			count++;
 			
+			if(isFinal){
+				result[count]="final_co.png";
+				count++;
+			}
+			
+			if(isStatic){
+				result[count]="static_co.png";
+			}
 		}
-		if(isFinal){
-			result[1]="final_co.png";
-		}
-		
-		if(isStatic){
-			result[1]="static_co.png";
-		}
-		if(result[1]!=null){
-			image=im.merge(result);
-		}
-		
+		image=im.merge(result);
+			
 	}
 
 //	@Override
@@ -162,8 +170,8 @@ public class OutlineField implements OutlineLookup{
 
 	public void setConstant(boolean isConstant) {
 		this.isConstant = isConstant;
-		//if(isConstant)
-			//setImg("constant_co.gif");
+		if(isConstant)
+			argsNumber++;
 	}
 
 	@Override

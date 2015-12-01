@@ -59,13 +59,27 @@ public class IconMerger {
 				System.out.println("Path: "+path + icons[1]);
 					BufferedImage newoverlay = ImageIO.read(new File(path + icons[1]));
 					
-					Graphics2D g = imagebckg.createGraphics();
-					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));
-		            int x = (imagebckg.getWidth() - newoverlay.getWidth());
-		            int y = (imagebckg.getHeight() - newoverlay.getHeight())/2 ;
-		            g.drawImage(newoverlay, x, y, null);
-		            g.dispose();
-		            ImageIO.write(imagebckg, "PNG", new File(path+"Outter.png"));
+					//Graphics2D g = imagebckg.createGraphics();
+					//g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));
+		            //int x = (imagebckg.getWidth() - newoverlay.getWidth());
+		          //  int y = (imagebckg.getHeight() - newoverlay.getHeight())/2 ;
+		            
+		         // create the new image, canvas size is the max. of both image sizes
+		            int w = Math.max(imagebckg.getWidth(), newoverlay.getWidth());
+		            int h = Math.max(imagebckg.getHeight(), newoverlay.getHeight());
+		            
+		            BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		            
+		            Graphics gt= combined.getGraphics();
+		            
+		           // g.drawImage(newoverlay, x, y, null);
+		            //g.dispose();
+		           // ImageIO.write(imagebckg, "PNG", new File(path+"Outter.png"));
+		            
+		            gt.drawImage(newoverlay, 0, 0, null);
+		            gt.drawImage(imagebckg, 0, 0, null);
+		            
+		            ImageIO.write(combined, "PNG", new File(path+"Outter.png"));
 		            
 		            
 		            //SWT 

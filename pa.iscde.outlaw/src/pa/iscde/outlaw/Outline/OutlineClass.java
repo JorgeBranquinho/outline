@@ -1,6 +1,7 @@
 package pa.iscde.outlaw.Outline;
 
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Image;
@@ -17,7 +18,7 @@ public class OutlineClass implements OutlineLookup{
 	private Visibility vis;
 	private boolean isStatic;
 	private boolean isFinal;
-	private String imgType="class_obj.gif";
+	private String imgName="class_obj.gif";
 	private boolean isInterface;
 	private boolean isAbstract;
 	private String packagezz;
@@ -25,6 +26,9 @@ public class OutlineClass implements OutlineLookup{
 	private boolean isMainClass;
 	private boolean isInner;
 	private boolean isAnon;
+	private int argsNumber;
+	private Image image;
+	private IconMerger im= new IconMerger();
 	
 	
 	public OutlineClass(String parentClass, String packagezz) {
@@ -102,28 +106,39 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public void setImg() {
+		int count=0;
+		//System.out.println("Args Num: "+argsNumber);
+		String[] result = new String[argsNumber];
 		if(isEnum){
-			this.imgType="enum_obj.gif";
+			this.imgName="enum_obj.gif";
+			result[count]=imgName;
+			count++;
 		}
 		else if(isInterface){
-			this.imgType="int_obj.gif";
+			this.imgName="int_obj.gif";
+			result[count]=imgName;
+			count++;
 		}else{
 			switch(vis){
 			case PACKAGE_PRIVATE:
-				this.imgType="class_default_obj.png";
+				this.imgName="class_default_obj.png";
 				break;
 			case PRIVATE:
-				this.imgType="innerclass_private_obj.png";
+				this.imgName="innerclass_private_obj.png";
 				break;
 			case PROTECTED:
-				this.imgType="innerclass_protected_obj.png";
+				this.imgName="innerclass_protected_obj.png";
 				break;
 			case PUBLIC:
-				this.imgType="class_obj.gif";
+				this.imgName="class_obj.gif";
 				break;
 				
 			}
+			result[count]=imgName;
+			count++;
 		}
+		
+		image=im.merge(result);
 	}
 
 //	@Override
@@ -180,14 +195,28 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public void checkVisibility(int value) {
-		// TODO Auto-generated method stub
-		
+		if(Modifier.isPrivate(value)){
+			setVisibility(Visibility.PRIVATE);
+		}else if(Modifier.isProtected(value)){
+			setVisibility(Visibility.PROTECTED);
+		}else if(Modifier.isPublic(value)){
+			setVisibility(Visibility.PUBLIC);
+		}else{
+			setVisibility(Visibility.PACKAGE_PRIVATE);
+		}
+		argsNumber++;
 	}
 
 	@Override
 	public void checkProperties(int value) {
-		// TODO Auto-generated method stub
-		
+		if(Modifier.isFinal(value)){
+			setFinal(true);
+			argsNumber++;
+		}
+		if(Modifier.isStatic(value)){
+			setStatic(true);
+			argsNumber++;
+		}
 	}
 
 	@Override
@@ -222,7 +251,7 @@ public class OutlineClass implements OutlineLookup{
 	@Override
 	public Image getImg() {
 		// TODO Auto-generated method stub
-		return null;
+		return image;
 	}
 	
 	
