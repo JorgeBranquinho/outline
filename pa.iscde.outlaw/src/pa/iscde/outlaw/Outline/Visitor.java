@@ -25,6 +25,7 @@ import pa.iscde.outlaw.Visibility;
 
 public class Visitor extends ASTVisitor{
 
+	protected static OutlineMethod outtmp;
 	private String parentClass;
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
@@ -66,19 +67,21 @@ public class Visitor extends ASTVisitor{
 		int flags = node.getModifiers();
 		if(!node.isPackageMemberTypeDeclaration()){//isto vs isMemberClass
 			OutlineClass tmpNestedClass = new OutlineClass(node.getName().toString(), clazz.getName(), true, false);
+			children_classes.add(tmpNestedClass);
 			node.accept(new ASTVisitor() {
 				@Override
 				public boolean visit(MethodDeclaration node) {
 					OutlineMethod tmpNestedMethod = new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
 							node.isConstructor(), node.getModifiers(), node.parameters(), null);
 					//return super.visit(node);
+					Visitor.this.addToMethodList(children_classes.get(children_classes.size()),tmpNestedMethod);
 					return false;//isto vs super.visit(node) -> evitar q outer class veja os metodos
 				}
 			});
 			//FIXME: ^ retornar o outlinemethod q ta dentro da anon (nao sei como se faz)e add a lista de methods da nested (facil)
 			
 			//TODO:fazer o mesmo para os fields dentro da nested (facil)
-			children_classes.add(tmpNestedClass);
+			
 		}else{
 			if(Modifier.isPrivate(flags)){
 				clazz.setVisibility(Visibility.PRIVATE);
@@ -234,5 +237,9 @@ public class Visitor extends ASTVisitor{
 		this.file = file;
 	}
 
-
+	public void addToMethodList(OutlineClass outlineClass, OutlineMethod out){
+		outlineClass.getMethod().add(out);
+	}
+	
+	
 }
