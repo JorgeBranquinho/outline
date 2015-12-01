@@ -42,8 +42,10 @@ public class Visitor extends ASTVisitor{
 	public void endVisit(MethodDeclaration node) {
 		super.endVisit(node);
 	}*/
-
-	@Override
+	
+	//XXX estes dois metodos não devem ser usados....ignorar
+	
+	/*@Override
 	public boolean visit(SimpleName node){//ok isto faz coisas....mtas coisas! USAR ISTO!!!
 		//System.err.println("-->					" + node.toString());
 		if (node.getLocationInParent() == FieldAccess.NAME_PROPERTY)       return true;
@@ -52,30 +54,31 @@ public class Visitor extends ASTVisitor{
 		if (binding instanceof IVariableBinding) {
 			IVariableBinding vBinding=(IVariableBinding)binding;
 			//if (vBinding.isField()) {
-				ITypeBinding bc=vBinding.getDeclaringClass();
-				//System.out.println("porra po java pq raio n estudamos python..." + bc);
+			ITypeBinding bc=vBinding.getDeclaringClass();
+			//System.out.println("porra po java pq raio n estudamos python..." + bc);
 			//}
 		}
 		return true;
-	}
+	}*/
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		//new
-		System.out.println(node.ANONYMOUS_CLASS_DECLARATION);
-		final String oi=node.getName().toString();
-		node.accept(new ASTVisitor() {
-			@Override
-			public boolean visit(MethodDeclaration node) {
-				System.err.println(oi + "  " + node.getName());
-				return super.visit(node);
-			}
-		});
-		//new
 		int flags = node.getModifiers();
-		if(!node.isPackageMemberTypeDeclaration()){
-			//System.err.println("FODASSE ESTA MERDA isto e inner" + node.getName());
-			children_classes.add(new OutlineClass(node.getName().toString(), clazz.getName(), true, false));
+		if(!node.isPackageMemberTypeDeclaration()){//isto vs isMemberClass
+			OutlineClass tmpNestedClass = new OutlineClass(node.getName().toString(), clazz.getName(), true, false);
+			node.accept(new ASTVisitor() {
+				@Override
+				public boolean visit(MethodDeclaration node) {
+					OutlineMethod tmpNestedMethod = new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
+							node.isConstructor(), node.getModifiers(), node.parameters(), null);
+					//return super.visit(node);
+					return false;//isto vs super.visit(node) -> evitar q outer class veja os metodos
+				}
+			});
+			//FIXME: ^ retornar o outlinemethod q ta dentro da anon (nao sei como se faz)e add a lista de methods da nested (facil)
+			
+			//TODO:fazer o mesmo para os fields dentro da nested (facil)
+			children_classes.add(tmpNestedClass);
 		}else{
 			if(Modifier.isPrivate(flags)){
 				clazz.setVisibility(Visibility.PRIVATE);
@@ -101,9 +104,9 @@ public class Visitor extends ASTVisitor{
 	public boolean visit(AnonymousClassDeclaration node) {
 		String classname=node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")).toString();
 		children_classes.add(new OutlineClass(classname + " {...}", clazz.getName(), false, true));
+		//TODO:ir buscar metodos e fields, (igual ao de cima)
 		return super.visit(node);
 		//return false;//aqui com false os metodos desta classe ja nao sao visitados
-
 	}
 
 	@Override
@@ -164,7 +167,7 @@ public class Visitor extends ASTVisitor{
                 return true;
             }
         });
-        */
+		 */
 		//******novo
 		methods.add(new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
 				node.isConstructor(), node.getModifiers(), node.parameters(), clazz));
