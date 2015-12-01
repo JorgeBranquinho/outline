@@ -21,7 +21,8 @@ public class FileTreeLabelProvider implements ILabelProvider {
 	@Override
 	public Image getImage(Object arg0) {//16x16
 		if (arg0 instanceof OutlineField) {
-			return imageMap.get(((OutlineField) arg0).getImg());
+			return ((OutlineField)arg0).getImg();
+			//return imageMap.get(((OutlineField) arg0).getImg());
 		} else if (arg0 instanceof OutlineMethod) {
 		       return imageMap.get(((OutlineMethod) arg0).getImg());
 		} else if(arg0 instanceof OutlineClass){

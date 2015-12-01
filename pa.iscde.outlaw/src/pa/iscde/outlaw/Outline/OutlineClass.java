@@ -3,6 +3,8 @@ package pa.iscde.outlaw.Outline;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import org.eclipse.swt.graphics.Image;
+
 import pa.iscde.outlaw.Visibility;
 
 public class OutlineClass implements OutlineLookup{
@@ -124,10 +126,10 @@ public class OutlineClass implements OutlineLookup{
 		}
 	}
 
-	@Override
-	public String getImg() {
-		return imgType;
-	}
+//	@Override
+//	public String getImg() {
+//		return imgType;
+//	}
 
 	public boolean isInterface() {
 
@@ -215,6 +217,12 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setChildren_classes(ArrayList<OutlineClass> children_classes) {
 		this.children_classes = children_classes;
+	}
+
+	@Override
+	public Image getImg() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

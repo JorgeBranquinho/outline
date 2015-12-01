@@ -49,8 +49,9 @@ public class IconMerger {
 //		return null;
 //	}
 	
-	public String merge(String[] icons){
+	public Image merge(String[] icons){
 		System.out.println("x"+icons.length);
+		Image image;
 		if(icons.length>1){
 			try {
 				BufferedImage imagebckg = ImageIO.read(new File(path + icons[0]));
@@ -60,15 +61,15 @@ public class IconMerger {
 					
 					Graphics2D g = imagebckg.createGraphics();
 					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));
-		            int x = (imagebckg.getWidth() - newoverlay.getWidth()) / 2;
-		            int y = (imagebckg.getHeight() - newoverlay.getHeight()) / 2;
+		            int x = (imagebckg.getWidth() - newoverlay.getWidth());
+		            int y = (imagebckg.getHeight() - newoverlay.getHeight())/2 ;
 		            g.drawImage(newoverlay, x, y, null);
 		            g.dispose();
 		            ImageIO.write(imagebckg, "PNG", new File(path+"Outter.png"));
 		            
 		            
-		            //SWT MAYBE
-		            Image image = new Image(Display.getCurrent(), path+"Outter.png");
+		            //SWT 
+		            image = new Image(Display.getCurrent(), path+"Outter.png");
 					
 		            
 		            /*int w = Math.max(imagebckg.getWidth(), newoverlay.getWidth());
@@ -80,13 +81,15 @@ public class IconMerger {
 					g.drawImage(newoverlay, 0, 0, null);
 					boolean x = ImageIO.write(combined, "PNG", new File("combined.png"));*/
 				//}
-				return path+"Outter.png";//bufferedImagetoImage(imagebckg);
+		        return image;    
+				//return path+"Outter.png";//bufferedImagetoImage(imagebckg);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		else{
-			return path + icons[0];
+			image = new Image(Display.getCurrent(), path + icons[0]);
+			return image;
 		}
 		return null;
 	}

@@ -1,5 +1,7 @@
 package pa.iscde.outlaw.Outline;
 
+import org.eclipse.swt.graphics.Image;
+
 import pa.iscde.outlaw.Visibility;
 
 public interface OutlineLookup {
@@ -30,6 +32,8 @@ public interface OutlineLookup {
 	
 	public void setImg();
 	
-	public String getImg();
+	//public String getImg();
+	
+	public Image getImg();
 	
 }

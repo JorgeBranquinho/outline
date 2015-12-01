@@ -2,6 +2,7 @@ package pa.iscde.outlaw.Outline;
 
 import java.lang.reflect.Modifier;
 import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.swt.graphics.Image;
 
 import pa.iscde.outlaw.Visibility;
 
@@ -16,6 +17,7 @@ public class OutlineField implements OutlineLookup{
 	private String imgName="";
 	private boolean isConstant;
 	private IconMerger im = new IconMerger();
+	private Image image;
 	
 	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
 		setName(getFieldName(name));
@@ -144,15 +146,15 @@ public class OutlineField implements OutlineLookup{
 			result[1]="static_co.png";
 		}
 		if(result[1]!=null){
-			im.merge(result);
+			image=im.merge(result);
 		}
 		
 	}
 
-	@Override
-	public String getImg() {
-		return imgName;
-	}
+//	@Override
+//	public String getImg() {
+//		return imgName;
+//	}
 
 	public boolean isConstant() {
 		return isConstant;
@@ -169,6 +171,12 @@ public class OutlineField implements OutlineLookup{
 		// TODO Auto-generated method stub
 		vis=visibility;
 		
+	}
+
+	@Override
+	public Image getImg() {
+		// TODO Auto-generated method stub
+		return image;
 	}
 
 

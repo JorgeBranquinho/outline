@@ -4,6 +4,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.swt.graphics.Image;
 
 import pa.iscde.outlaw.Visibility;
 
@@ -136,10 +137,10 @@ public class OutlineMethod implements OutlineLookup {
 		}
 	}
 
-	@Override
-	public String getImg() {
-		return imgName;
-	}
+//	@Override
+//	public String getImg() {
+//		return imgName;
+//	}
 
 	@Override
 	public void checkVisibility(int value) {
@@ -167,6 +168,12 @@ public class OutlineMethod implements OutlineLookup {
 	@Override
 	public void setVisibility(Visibility visibility) {
 		vis=visibility;
+	}
+
+	@Override
+	public Image getImg() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
