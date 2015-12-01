@@ -62,6 +62,7 @@ public class Visitor extends ASTVisitor{
 	@Override
 	public boolean visit(TypeDeclaration node) {
 		//new
+		System.out.println(node.ANONYMOUS_CLASS_DECLARATION);
 		final String oi=node.getName().toString();
 		node.accept(new ASTVisitor() {
 			@Override

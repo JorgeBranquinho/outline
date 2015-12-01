@@ -5,6 +5,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
+import pa.iscde.outlaw.Outline.IconMerger;
 import pa.iscde.outlaw.Outline.OutlineClass;
 import pa.iscde.outlaw.Outline.OutlineField;
 import pa.iscde.outlaw.Outline.OutlineMethod;
@@ -26,7 +27,10 @@ public class FileTreeLabelProvider implements ILabelProvider {
 		} else if(arg0 instanceof OutlineClass){
 		       return imageMap.get(((OutlineClass) arg0).getImg());
 		} else if (arg0 instanceof String){
-				return imageMap.get("package.gif");
+			IconMerger im = new IconMerger();
+			java.awt.Image img = im.merge(new String[]{"field_default_obj.png", "constant_co_f.gif"});
+			return imageMap.get("Outter.png");
+				//return imageMap.get("package.gif");
 		}
 		
 		return null;
