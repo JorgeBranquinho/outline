@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 public class IconMerger {
 
-	static String path="C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\";
+	static String path="C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\";
 	
 //	public java.awt.Image merge(String[] icons){
 //		System.out.println("x"+icons.length);
