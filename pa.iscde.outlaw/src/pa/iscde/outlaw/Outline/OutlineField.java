@@ -15,6 +15,7 @@ public class OutlineField implements OutlineLookup{
 	private boolean isFinal;
 	private String imgName="";
 	private boolean isConstant;
+	private IconMerger im = new IconMerger();
 	
 	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
 		setName(getFieldName(name));
@@ -113,6 +114,8 @@ public class OutlineField implements OutlineLookup{
 
 	@Override
 	public void setImg() {
+		String[] result = new String[2];
+		String tmp=imgName;
 		if(isConstant){
 			this.imgName="constant_co.gif";
 		}else{
@@ -130,8 +133,19 @@ public class OutlineField implements OutlineLookup{
 				this.imgName="field_public_obj.gif";
 				break;
 			}
+			result[0]=imgName;
+			
+		}
+		if(isFinal){
+			result[1]="final_co.png";
 		}
 		
+		if(isStatic){
+			result[1]="static_co.png";
+		}
+		if(result[1]!=null){
+			im.merge(result);
+		}
 		
 	}
 
