@@ -37,13 +37,18 @@ public class Visitor extends ASTVisitor{
 				@Override
 				public boolean visit(MethodDeclaration node) {
 					OutlineMethod tmpNestedMethod = new OutlineMethod(node.getName().toString(), node.getReturnType2(), 
-							node.isConstructor(), node.getModifiers(), node.parameters(), null);
+							node.isConstructor(), node.getModifiers(), node.parameters(), children_classes.get(children_classes.size()-1));
 					Visitor.this.addToMethodList(children_classes.get(children_classes.size()-1),tmpNestedMethod);
 					return false;
 				}
+				@Override
+				public boolean visit(FieldDeclaration node) {
+					OutlineField tmpNestedField = new OutlineField(node.toString().replaceAll("[;\\n]", "").split("=")[0], node.getType(), 
+							node.getModifiers(), children_classes.get(children_classes.size()-1));
+					Visitor.this.addToFieldList(children_classes.get(children_classes.size()-1),tmpNestedField);
+					return false;
+				}
 			});
-			//TODO:fazer o mesmo para os fields dentro da nested (facil)
-			
 		}else{
 			if(Modifier.isPrivate(flags)){
 				clazz.setVisibility(Visibility.PRIVATE);
@@ -82,7 +87,6 @@ public class Visitor extends ASTVisitor{
 			}
 		});
 		//TODO:ir buscar metodos e fields, (igual ao de cima)
-		//return super.visit(node);
 		return false;//aqui com false os metodos desta classe ja nao sao visitados
 	}
 
@@ -178,5 +182,7 @@ public class Visitor extends ASTVisitor{
 		outlineClass.getMethod().add(out);
 	}
 	
-	
+	public void addToFieldList(OutlineClass outlineClass, OutlineField out){
+		outlineClass.getFields().add(out);
+	}
 }
