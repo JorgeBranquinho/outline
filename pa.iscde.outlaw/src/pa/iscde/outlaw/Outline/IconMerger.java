@@ -50,7 +50,6 @@ public class IconMerger {
 //	}
 	
 	public Image merge(String[] icons){
-		System.out.println("x"+icons.length);
 		Image image;
 		if(icons.length>1){
 			try {

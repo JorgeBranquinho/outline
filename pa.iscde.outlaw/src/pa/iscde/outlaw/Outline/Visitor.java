@@ -3,6 +3,8 @@ package pa.iscde.outlaw.Outline;
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
@@ -85,8 +87,16 @@ public class Visitor extends ASTVisitor{
 				Visitor.this.addToMethodList(children_classes.get(children_classes.size()-1),tmpNestedMethod);
 				return false;
 			}
+			@Override
+			public boolean visit(FieldDeclaration node) {
+				OutlineField tmpNestedField = new OutlineField(node.toString().replaceAll("[;\\n]", "").split("=")[0], node.getType(), 
+						node.getModifiers(), children_classes.get(children_classes.size()-1));
+				Visitor.this.addToFieldList(children_classes.get(children_classes.size()-1),tmpNestedField);
+				return false;
+			}
 		});
 		//TODO:ir buscar metodos e fields, (igual ao de cima)
+
 		return false;//aqui com false os metodos desta classe ja nao sao visitados
 	}
 
@@ -149,10 +159,36 @@ public class Visitor extends ASTVisitor{
 	}
 
 	public OutlineClass getClazz() {
+		//FIXME
+		RemoveDuplicateMethods();
+		//TODO:getDuplicateFields();
+		//XXX
 		clazz.setFields(fields);
 		clazz.setMethod(methods);
 		clazz.setChildren_classes(children_classes);
 		return clazz;
+	}
+
+	private void RemoveDuplicateMethods() {
+		ArrayList<OutlineMethod> rmvmethods = new ArrayList<OutlineMethod>();
+		for(OutlineClass oc: children_classes)
+			rmvmethods.addAll(oc.getMethod());//isto devia ser recursivo para os "netos"
+
+		System.out.println(rmvmethods.toString());
+		System.err.println("-------------");
+		System.out.println(methods.toString());
+		boolean mudou=methods.removeAll(rmvmethods);
+		if(mudou) System.err.println("hahahahahahahahah");
+		/*for (Iterator<OutlineMethod> iter = methods.listIterator(); iter.hasNext(); ) {
+			OutlineMethod nextmethod = iter.next();
+			for (Iterator<OutlineMethod> iterm = rmvmethods.listIterator(); iter.hasNext(); ) {
+				OutlineMethod rmmethod = iterm.next();
+				if (rmmethod.equals(nextmethod)) {
+					iter.remove();
+					break;
+				}
+			}
+		}*/
 	}
 
 	public void setClazz(OutlineClass clazz) {
@@ -181,7 +217,7 @@ public class Visitor extends ASTVisitor{
 	public void addToMethodList(OutlineClass outlineClass, OutlineMethod out){
 		outlineClass.getMethod().add(out);
 	}
-	
+
 	public void addToFieldList(OutlineClass outlineClass, OutlineField out){
 		outlineClass.getFields().add(out);
 	}
