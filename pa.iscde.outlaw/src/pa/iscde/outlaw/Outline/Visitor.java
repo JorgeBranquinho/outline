@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
@@ -12,12 +13,18 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 import pa.iscde.outlaw.Visibility;
 
 public class Visitor extends ASTVisitor{
 
-	protected static OutlineMethod outtmp;
+	//protected static OutlineMethod outtmp;
 	private String parentClass;
+	private List<OutlineMethod> removedMethods = Lists.newArrayList();
+	private List<OutlineField> removedFields = Lists.newArrayList();
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
@@ -95,7 +102,7 @@ public class Visitor extends ASTVisitor{
 				return false;
 			}
 		});
-		//TODO:ir buscar metodos e fields, (igual ao de cima)
+		//TODO:isto devia estar dentro do metodo q chamou
 
 		return false;//aqui com false os metodos desta classe ja nao sao visitados
 	}
@@ -159,36 +166,46 @@ public class Visitor extends ASTVisitor{
 	}
 
 	public OutlineClass getClazz() {
-		//FIXME
-		RemoveDuplicateMethods();
-		//TODO:getDuplicateFields();
-		//XXX
+		RemoveDuplicates();
 		clazz.setFields(fields);
 		clazz.setMethod(methods);
 		clazz.setChildren_classes(children_classes);
 		return clazz;
 	}
 
-	private void RemoveDuplicateMethods() {
-		ArrayList<OutlineMethod> rmvmethods = new ArrayList<OutlineMethod>();
-		for(OutlineClass oc: children_classes)
-			rmvmethods.addAll(oc.getMethod());//isto devia ser recursivo para os "netos"
-
-		System.out.println(rmvmethods.toString());
-		System.err.println("-------------");
-		System.out.println(methods.toString());
-		boolean mudou=methods.removeAll(rmvmethods);
-		if(mudou) System.err.println("hahahahahahahahah");
-		/*for (Iterator<OutlineMethod> iter = methods.listIterator(); iter.hasNext(); ) {
-			OutlineMethod nextmethod = iter.next();
-			for (Iterator<OutlineMethod> iterm = rmvmethods.listIterator(); iter.hasNext(); ) {
-				OutlineMethod rmmethod = iterm.next();
-				if (rmmethod.equals(nextmethod)) {
-					iter.remove();
-					break;
+	private void RemoveDuplicates() {
+		final ArrayList<OutlineMethod> childrenMethods = new ArrayList<OutlineMethod>();
+		final ArrayList<OutlineField> childrenFields = new ArrayList<OutlineField>();
+		for(OutlineClass oc: children_classes){
+			childrenMethods.addAll(oc.getMethod());//TODO:isto devia ser recursivo para os "netos"
+			childrenFields.addAll(oc.getFields());
+		}
+		Iterables.removeIf(methods, new Predicate<OutlineMethod>(){
+			@Override
+			public boolean apply(OutlineMethod input) {
+				for (Iterator<OutlineMethod> iter = childrenMethods.listIterator(); iter.hasNext(); ) {
+					if(input.toString().equals(iter.next().toString())){
+						Visitor.this.addToRemovedMethods(input);
+						continue;
+					}
 				}
+				return false;
 			}
-		}*/
+		});
+		Iterables.removeIf(fields, new Predicate<OutlineField>(){
+			@Override
+			public boolean apply(OutlineField input) {
+				for (Iterator<OutlineField> iter = childrenFields.listIterator(); iter.hasNext(); ) {
+					if(input.toString().equals(iter.next().toString())){
+						Visitor.this.addToRemovedFields(input);
+						continue;
+					}
+				}
+				return false;
+			}
+		});
+		methods.removeAll(removedMethods);
+		fields.removeAll(removedFields);
 	}
 
 	public void setClazz(OutlineClass clazz) {
@@ -220,5 +237,13 @@ public class Visitor extends ASTVisitor{
 
 	public void addToFieldList(OutlineClass outlineClass, OutlineField out){
 		outlineClass.getFields().add(out);
+	}
+
+	public void addToRemovedMethods(OutlineMethod out){
+		removedMethods.add(out);
+	}
+
+	public void addToRemovedFields(OutlineField out){
+		removedFields.add(out);
 	}
 }
