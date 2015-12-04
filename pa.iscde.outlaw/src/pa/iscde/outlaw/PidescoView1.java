@@ -37,8 +37,10 @@ public class PidescoView1 implements PidescoView {
 			v= new Visitor(f);
 			services.parseFile(f, v);
 			otv = new OutlineTreeView(viewArea,v,imageMap);
+			otv.setServices(services);//a
 		}else{
 			otv = new OutlineTreeView(viewArea,imageMap);
+			otv.setServices(services);//a
 		}
 			
 		services.addListener(new JavaEditorListener.Adapter() {

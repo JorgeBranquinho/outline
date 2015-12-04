@@ -34,6 +34,7 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
+		//System.err.println(node.getStartPosition() +"   "+ node.getName());
 		int flags = node.getModifiers();
 		if(!node.isPackageMemberTypeDeclaration()){
 			OutlineClass tmpNestedClass = new OutlineClass(node.getName().toString(), clazz.getName(), true, false);
