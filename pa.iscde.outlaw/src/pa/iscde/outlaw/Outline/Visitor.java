@@ -5,20 +5,16 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
 import pa.iscde.outlaw.Visibility;
-
 public class Visitor extends ASTVisitor{
 
 	//protected static OutlineMethod outtmp;
@@ -102,7 +98,7 @@ public class Visitor extends ASTVisitor{
 				return false;
 			}
 		});
-		//TODO:isto devia estar dentro do metodo q chamou
+		//TODO:isto devia estar dentro do metodo q chamou -> idk como se faz
 
 		return false;//aqui com false os metodos desta classe ja nao sao visitados
 	}
@@ -173,13 +169,19 @@ public class Visitor extends ASTVisitor{
 		return clazz;
 	}
 
+	private void recursiveGetChildrenMethodsAndFields(OutlineClass oc, ArrayList<OutlineMethod> childrenMethods, ArrayList<OutlineField> childrenFields){
+		childrenMethods.addAll(oc.getMethod());
+		childrenFields.addAll(oc.getFields());
+		if(oc.getChildren_classes().isEmpty()) return;
+		for(OutlineClass coc: children_classes)
+			recursiveGetChildrenMethodsAndFields(coc, childrenMethods, childrenFields);
+	}
+	
 	private void RemoveDuplicates() {
 		final ArrayList<OutlineMethod> childrenMethods = new ArrayList<OutlineMethod>();
 		final ArrayList<OutlineField> childrenFields = new ArrayList<OutlineField>();
-		for(OutlineClass oc: children_classes){
-			childrenMethods.addAll(oc.getMethod());//TODO:isto devia ser recursivo para os "netos"
-			childrenFields.addAll(oc.getFields());
-		}
+		for(OutlineClass oc: children_classes)
+			recursiveGetChildrenMethodsAndFields(oc, childrenMethods, childrenFields);
 		Iterables.removeIf(methods, new Predicate<OutlineMethod>(){
 			@Override
 			public boolean apply(OutlineMethod input) {
@@ -247,3 +249,4 @@ public class Visitor extends ASTVisitor{
 		removedFields.add(out);
 	}
 }
+//FIXME: nao faz bem inners de inners :c
