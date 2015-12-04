@@ -1,6 +1,9 @@
 package pa.iscde.outlaw.TreeView;
 
 import java.util.Map;
+
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -14,7 +17,7 @@ public class OutlineTreeView {
 
 	private OutlineRoot root;
 	private TreeViewer tv;
-	
+
 	public OutlineTreeView(Composite c, Visitor v, Map<String, Image> imageMap){
 
 		root= new OutlineRoot();
@@ -23,19 +26,25 @@ public class OutlineTreeView {
 		tv = new TreeViewer(c, SWT.NONE);
 		tv.setContentProvider(new FileTreeContentProvider());
 		tv.setLabelProvider(new FileTreeLabelProvider(imageMap));
-		
+
 		tv.setInput(root);
 		tv.expandAll();
+		tv.addDoubleClickListener(new IDoubleClickListener(){
+			public void doubleClick(DoubleClickEvent event){
+				System.err.println("fds finalmente achei esta porra");
+				System.err.println(event.getSelection());
+			}
+		});
 	}
-	
+
 	public void update(OutlineClass clazz){
 		root.setClazz(clazz);
 		root.setPackagezz(clazz.getPackagezz());
 		tv.setInput(root);
 		tv.expandAll();
-		
+
 	}
-	
+
 	public OutlineTreeView(Composite c,Map<String, Image> imageMap ){
 		root= new OutlineRoot();
 		tv = new TreeViewer(c, SWT.NONE);
