@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="textext" name="Test Extension" schema="schema/textext.exsd"/>
+   <extension-point id="filter" name="filter" schema="schema/filter.exsd"/>
    <extension
          id="id1"
          name="Outline"
