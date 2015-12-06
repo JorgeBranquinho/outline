@@ -155,7 +155,7 @@ public class OutlineField implements OutlineLookup{
 				result[count]="static_co.png";
 			}
 		}
-		image=im.merge(result);
+		image=im.merge(result, 10, 0);
 			
 	}
 

@@ -109,6 +109,7 @@ public class OutlineClass implements OutlineLookup{
 		int count=0;
 		//System.out.println("Args Num: "+argsNumber);
 		String[] result = new String[argsNumber];
+		
 		if(isEnum){
 			this.imgName="enum_obj.gif";
 			result[count]=imgName;
@@ -137,14 +138,13 @@ public class OutlineClass implements OutlineLookup{
 			result[count]=imgName;
 			count++;
 		}
+		if(isMainClass){
+			result[count]="run_co.png";
+			count++;
+		}
 		
-		image=im.merge(result);
+		image=im.merge(result, 10, 0);
 	}
-
-//	@Override
-//	public String getImg() {
-//		return imgType;
-//	}
 
 	public boolean isInterface() {
 
@@ -153,9 +153,6 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setInterface(boolean isInterface) {
 		this.isInterface = isInterface;
-		//if(isInterface){
-		//	setImg("int_obj.gif");
-		//}
 	}
 
 	public String getPackagezz() {
@@ -180,13 +177,12 @@ public class OutlineClass implements OutlineLookup{
 
 	public void setEnum(boolean isEnum) {
 		this.isEnum = isEnum;
-		//if(isEnum)
-		//	setImg("enum_obj.gif");
 	}
 
 	
 	public void setMainClass(){
 		isMainClass=true;
+		argsNumber++;
 	}
 	
 	public boolean isMainClass(){
@@ -215,6 +211,10 @@ public class OutlineClass implements OutlineLookup{
 		}
 		if(Modifier.isStatic(value)){
 			setStatic(true);
+			argsNumber++;
+		}
+		if(Modifier.isAbstract(value)){
+			setAbstract(true);
 			argsNumber++;
 		}
 	}
@@ -250,7 +250,6 @@ public class OutlineClass implements OutlineLookup{
 
 	@Override
 	public Image getImg() {
-		// TODO Auto-generated method stub
 		return image;
 	}
 	

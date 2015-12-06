@@ -43,6 +43,7 @@ public class OutlineMethod implements OutlineLookup {
 		this.parent = parent;
 		if(name.equals("main")){
 			parent.setMainClass();
+			parent.setImg();
 		}
 	}
 
@@ -164,7 +165,7 @@ public class OutlineMethod implements OutlineLookup {
 			count++;
 		}
 		
-		image=im.merge(result);
+		image=im.merge(result, 10, 0);
 		
 	}
 

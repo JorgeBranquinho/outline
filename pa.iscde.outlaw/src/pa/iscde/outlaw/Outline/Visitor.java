@@ -56,20 +56,7 @@ public class Visitor extends ASTVisitor{
 				}
 			});
 		}else{
-			if(Modifier.isPrivate(flags)){
-				clazz.setVisibility(Visibility.PRIVATE);
-			}else if(Modifier.isProtected(flags)){
-				clazz.setVisibility(Visibility.PROTECTED);
-			}else if(Modifier.isPublic(flags)){
-				clazz.setVisibility(Visibility.PUBLIC);
-			}else{
-				clazz.setVisibility(Visibility.PACKAGE_PRIVATE);
-			}
-
-			clazz.setAbstract(Modifier.isAbstract(flags));
 			clazz.setInterface(node.isInterface());
-			clazz.setFinal(Modifier.isFinal(flags));
-			clazz.setStatic(Modifier.isStatic(flags));
 			clazz.setEnum(false);
 			clazz.checkProperties(flags);
 			clazz.checkVisibility(flags);
