@@ -21,8 +21,9 @@ public class OutlineTreeView {
 	private TreeViewer tv;
 	private JavaEditorServices services;
 
-	public OutlineTreeView(Composite c, Visitor v, Map<String, Image> imageMap){
+	public OutlineTreeView(Composite c, Visitor v, Map<String, Image> imageMap, final JavaEditorServices services){
 
+		this.services=services;
 		root= new OutlineRoot();
 		root.setClazz(v.getClazz());
 		root.setPackagezz(v.getClazz().getPackagezz());
@@ -34,7 +35,6 @@ public class OutlineTreeView {
 		tv.expandAll();
 		tv.addDoubleClickListener(new IDoubleClickListener(){
 			public void doubleClick(DoubleClickEvent event){
-				System.err.println("fds finalmente achei esta porra");
 				System.err.println(event.getSelection());
 				File f=services.getOpenedFile();
 				if(f==null)return;
@@ -52,7 +52,8 @@ public class OutlineTreeView {
 
 	}
 
-	public OutlineTreeView(Composite c,Map<String, Image> imageMap ){
+	public OutlineTreeView(Composite c,Map<String, Image> imageMap, JavaEditorServices services ){
+		this.services=services;
 		root= new OutlineRoot();
 		tv = new TreeViewer(c, SWT.NONE);
 		tv.setContentProvider(new FileTreeContentProvider());
@@ -63,7 +64,4 @@ public class OutlineTreeView {
 		tv.setInput(null);
 	}
 
-	public void setServices(JavaEditorServices services) {
-		this.services=services;
-	}
 }
