@@ -1,6 +1,5 @@
 package pa.iscde.outlaw.Outline;
 
-import java.awt.image.BufferedImage;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
@@ -16,12 +15,17 @@ public class OutlineClass implements OutlineLookup{
 	private String name;
 	private OutlineClass parent;
 	private Visibility vis;
+	
 	private boolean isStatic;
 	private boolean isFinal;
+	
 	private String imgName="class_obj.gif";
+	
 	private boolean isInterface;
 	private boolean isAbstract;
+	
 	private String packagezz;
+	
 	private boolean isEnum;
 	private boolean isMainClass;
 	private boolean isInner;
@@ -47,7 +51,7 @@ public class OutlineClass implements OutlineLookup{
 		return method;
 	}
 	
-	public void setMethod(ArrayList<OutlineMethod> method) {
+	void setMethod(ArrayList<OutlineMethod> method) {
 		this.method = method;
 	}
 	
@@ -55,7 +59,7 @@ public class OutlineClass implements OutlineLookup{
 		return fields;
 	}
 	
-	public void setFields(ArrayList<OutlineField> fields) {
+	void setFields(ArrayList<OutlineField> fields) {
 		this.fields = fields;
 	}
 
@@ -64,8 +68,7 @@ public class OutlineClass implements OutlineLookup{
 		return name;
 	}
 
-	@Override
-	public void setName(String name) {
+	void setName(String name) {
 		this.name=name.replace(".java", "");
 	}
 
@@ -74,8 +77,7 @@ public class OutlineClass implements OutlineLookup{
 		return parent;
 	}
 
-	@Override
-	public void setParent(OutlineClass parent) {
+	void setParent(OutlineClass parent) {
 		this.parent=parent;
 	}
 
@@ -84,8 +86,7 @@ public class OutlineClass implements OutlineLookup{
 		return isStatic;
 	}
 
-	@Override
-	public void setStatic(boolean isStatic) {
+	void setStatic(boolean isStatic) {
 		this.isStatic=isStatic;
 	}
 
@@ -94,8 +95,7 @@ public class OutlineClass implements OutlineLookup{
 		return isFinal;
 	}
 
-	@Override
-	public void setFinal(boolean isFinal) {
+	void setFinal(boolean isFinal) {
 		this.isFinal=isFinal;
 	}
 	
@@ -104,10 +104,8 @@ public class OutlineClass implements OutlineLookup{
 		return getName();
 	}
 
-	@Override
-	public void setImg() {
+	void setImg() {
 		int count=0;
-		//System.out.println("Args Num: "+argsNumber);
 		String[] result = new String[argsNumber];
 		
 		if(isEnum){
@@ -146,12 +144,13 @@ public class OutlineClass implements OutlineLookup{
 		image=im.merge(result, 10, 0);
 	}
 
+	@Override
 	public boolean isInterface() {
 
 		return isInterface;
 	}
 
-	public void setInterface(boolean isInterface) {
+	void setInterface(boolean isInterface) {
 		this.isInterface = isInterface;
 	}
 
@@ -159,33 +158,35 @@ public class OutlineClass implements OutlineLookup{
 		return packagezz;
 	}
 
-	public void setPackagezz(String packagezz) {
+	void setPackagezz(String packagezz) {
 		this.packagezz = packagezz;
 	}
 
+	@Override
 	public boolean isAbstract() {
 		return isAbstract;
 	}
 
-	public void setAbstract(boolean isAbstract) {
+	void setAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract;
 	}
 
+	@Override
 	public boolean isEnum() {
 		return isEnum;
 	}
 
-	public void setEnum(boolean isEnum) {
+	void setEnum(boolean isEnum) {
 		this.isEnum = isEnum;
 	}
 
 	
-	public void setMainClass(){
+	void setMainClass(){
 		isMainClass=true;
 		argsNumber++;
 	}
 	
-	public boolean isMainClass(){
+	boolean isMainClass(){
 		return isMainClass;
 	}
 
@@ -219,24 +220,25 @@ public class OutlineClass implements OutlineLookup{
 		}
 	}
 
-	@Override
-	public void setVisibility(Visibility visibility) {
+	void setVisibility(Visibility visibility) {
 		this.vis=visibility;		
 	}
 
+	@Override
 	public boolean isInner() {
 		return isInner;
 	}
 
-	public void setInner(boolean isInner) {
+	void setInner(boolean isInner) {
 		this.isInner = isInner;
 	}
 
+	@Override
 	public boolean isAnon() {
 		return isAnon;
 	}
 
-	public void setAnon(boolean isAnon) {
+	void setAnon(boolean isAnon) {
 		this.isAnon = isAnon;
 	}
 
@@ -244,13 +246,28 @@ public class OutlineClass implements OutlineLookup{
 		return children_classes;
 	}
 
-	public void setChildren_classes(ArrayList<OutlineClass> children_classes) {
+	void setChildren_classes(ArrayList<OutlineClass> children_classes) {
 		this.children_classes = children_classes;
 	}
 
 	@Override
 	public Image getImg() {
 		return image;
+	}
+
+	@Override
+	public boolean isConstant() {
+		return false;
+	}
+
+	@Override
+	public boolean isConstructor() {
+		return false;
+	}
+
+	@Override
+	public boolean isSynchronized() {
+		return false;
 	}
 	
 	

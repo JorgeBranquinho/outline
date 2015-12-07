@@ -40,54 +40,59 @@ public class OutlineField implements OutlineLookup{
 		setImg();
 	}
 
-	private String getFieldName(String name) {
+	String getFieldName(String name) {
 		int argNumber=(name.length() - name.replaceAll(" ", "").length());
 		return name.split(" ")[argNumber];
 	}
 
+	@Override
 	public OutlineClass getParent() {
 		return parent;
 	}
 
-	public void setParent(OutlineClass parent) {
+	void setParent(OutlineClass parent) {
 		this.parent = parent;
 	}
 
-	public Type getType() {
+	Type getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	void setType(Type type) {
 		this.type = type;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public String toString() {
 		if(isConstant)
 			return getName();
 		return getName()+" : "+getType();
 	}
 
+	@Override
 	public boolean isStatic() {
 		return isStatic;
 	}
 
-	public void setStatic(boolean isStatic) {
+	void setStatic(boolean isStatic) {
 		this.isStatic = isStatic;
 	}
 
+	@Override
 	public boolean isFinal() {
 		return isFinal;
 	}
 
-	public void setFinal(boolean isFinal) {
+	void setFinal(boolean isFinal) {
 		this.isFinal = isFinal;
 	}
 
@@ -119,10 +124,8 @@ public class OutlineField implements OutlineLookup{
 		}
 	}
 
-	@Override
-	public void setImg() {
+	 void setImg() {
 		int count=0;
-		//System.out.println("Args Num: "+argsNumber);
 		String[] result = new String[argsNumber];
 		if(isConstant){
 			this.imgName="constant_co.gif";
@@ -158,33 +161,61 @@ public class OutlineField implements OutlineLookup{
 		image=im.merge(result, 10, 0);
 			
 	}
-
-//	@Override
-//	public String getImg() {
-//		return imgName;
-//	}
-
+	 
+	@Override
 	public boolean isConstant() {
 		return isConstant;
 	}
 
-	public void setConstant(boolean isConstant) {
+	void setConstant(boolean isConstant) {
 		this.isConstant = isConstant;
-		if(isConstant)
+		if(isConstant){
 			argsNumber++;
+		}
 	}
 
-	@Override
-	public void setVisibility(Visibility visibility) {
-		// TODO Auto-generated method stub
+	void setVisibility(Visibility visibility) {
 		vis=visibility;
-		
 	}
 
 	@Override
 	public Image getImg() {
-		// TODO Auto-generated method stub
 		return image;
+	}
+
+	@Override
+	public boolean isInterface() {
+		return false;
+	}
+
+	@Override
+	public boolean isAbstract() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnum() {
+		return false;
+	}
+
+	@Override
+	public boolean isInner() {
+		return false;
+	}
+
+	@Override
+	public boolean isAnon() {
+		return false;
+	}
+
+	@Override
+	public boolean isConstructor() {
+		return false;
+	}
+
+	@Override
+	public boolean isSynchronized() {
+		return false;
 	}
 
 

@@ -48,25 +48,25 @@ public class PidescoView1 implements PidescoView {
 			otv = new OutlineTreeView(viewArea,imageMap, services);
 		}
 		
-		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
-		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.test.textext");
-		IExtension[] extensions = extensionPoint.getExtensions();
-		for(IExtension e : extensions) {
-		    IConfigurationElement[] confElements = e.getConfigurationElements();
-		    System.err.println(e.getContributor().getName());
-		    for(IConfigurationElement c : confElements) {
-		        String s = c.getAttribute("name");
-		        System.out.println(s);
-		        try {
-		            Object o = c.createExecutableExtension("class");
-		            ((OutlineFilter)o).showClassFilter();
-		            //((OutlineFilter)o).showFieldFilter();
-		            //((OutlineFilter)o).showMethodFilter();
-		        } catch (CoreException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		}
+//		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
+//		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.test.textext");
+//		IExtension[] extensions = extensionPoint.getExtensions();
+//		for(IExtension e : extensions) {
+//		    IConfigurationElement[] confElements = e.getConfigurationElements();
+//		    System.err.println(e.getContributor().getName());
+//		    for(IConfigurationElement c : confElements) {
+//		        String s = c.getAttribute("name");
+//		        System.out.println(s);
+//		        try {
+//		            Object o = c.createExecutableExtension("class");
+//		            ((OutlineFilter)o).showClassFilter();
+//		            //((OutlineFilter)o).showFieldFilter();
+//		            //((OutlineFilter)o).showMethodFilter();
+//		        } catch (CoreException e1) {
+//		            e1.printStackTrace();
+//		        }
+//		    }
+//		}
 			
 		services.addListener(new JavaEditorListener.Adapter() {
 

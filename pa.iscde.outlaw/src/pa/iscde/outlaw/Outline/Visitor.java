@@ -19,12 +19,16 @@ public class Visitor extends ASTVisitor{
 
 	//protected static OutlineMethod outtmp;
 	private String parentClass;
+	
 	private List<OutlineMethod> removedMethods = Lists.newArrayList();
 	private List<OutlineField> removedFields = Lists.newArrayList();
+	
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
+	
 	private OutlineClass clazz;
+	
 	private File file;
 
 	public Visitor(File file) {

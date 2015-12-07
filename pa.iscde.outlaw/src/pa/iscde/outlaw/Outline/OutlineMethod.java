@@ -35,11 +35,12 @@ public class OutlineMethod implements OutlineLookup {
 		setImg();
 	}
 
+	@Override
 	public OutlineClass getParent() {
 		return parent;
 	}
 
-	public void setParent(OutlineClass parent) {
+	void setParent(OutlineClass parent) {
 		this.parent = parent;
 		if(name.equals("main")){
 			parent.setMainClass();
@@ -47,35 +48,38 @@ public class OutlineMethod implements OutlineLookup {
 		}
 	}
 
-	public Type getReturnType() {
+	
+	Type getReturnType() {
 		return returnType;
 	}
 
-	public void setReturnType(Type returnType) {
+	void setReturnType(Type returnType) {
 		this.returnType = returnType;
 	}
 	
+	@Override
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public boolean isConstructor() {
 		return isConstructor;
 	}
 
-	public void setConstructor(boolean isConstructor) {
+	void setConstructor(boolean isConstructor) {
 		this.isConstructor = isConstructor;
 	}
 
-	public List<String> getArguments() {
+	List<String> getArguments() {
 		return arguments;
 	}
 
-	public void setArguments(List<?> list) {
+	void setArguments(List<?> list) {
 		if(!list.isEmpty()){
 			for(Object str: list){
 				arguments.add(str.toString().split(" ")[0]);
@@ -83,6 +87,7 @@ public class OutlineMethod implements OutlineLookup {
 		}
 	}
 
+	@Override
 	public String toString() {
 		String result=getName()+"(";
 		for(int i=0;i<arguments.size();i++){
@@ -97,35 +102,35 @@ public class OutlineMethod implements OutlineLookup {
 	}
 
 
-
+	@Override
 	public boolean isStatic() {
 		return isStatic;
 	}
 
-	public void setStatic(boolean isStatic) {
+	void setStatic(boolean isStatic) {
 		this.isStatic = isStatic;
 	}
 
+	@Override
 	public boolean isFinal() {
 		return isFinal;
 	}
 
-	public void setFinal(boolean isFinal) {
+	void setFinal(boolean isFinal) {
 		this.isFinal = isFinal;
 	}
 
+	@Override
 	public boolean isSynchronized() {
 		return isSynchronized;
 	}
 
-	public void setSynchronized(boolean isSynchronized) {
+	void setSynchronized(boolean isSynchronized) {
 		this.isSynchronized = isSynchronized;
 	}
 
-	@Override
-	public void setImg() {
+	 void setImg() {
 		int count=0;
-		//System.out.println("Args Num: "+argsNumber);
 		String[] result = new String[argsNumber];
 		switch(vis){
 		case PACKAGE_PRIVATE:
@@ -169,11 +174,6 @@ public class OutlineMethod implements OutlineLookup {
 		
 	}
 
-//	@Override
-//	public String getImg() {
-//		return imgName;
-//	}
-
 	@Override
 	public void checkVisibility(int value) {
 		if(Modifier.isPrivate(value)){
@@ -208,15 +208,43 @@ public class OutlineMethod implements OutlineLookup {
 		}
 	}
 
-	@Override
-	public void setVisibility(Visibility visibility) {
+	void setVisibility(Visibility visibility) {
 		vis=visibility;
 	}
 
 	@Override
 	public Image getImg() {
-		// TODO Auto-generated method stub
 		return image;
+	}
+
+	@Override
+	public boolean isInterface() {
+		return false;
+	}
+
+	@Override
+	public boolean isAbstract() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnum() {
+		return false;
+	}
+
+	@Override
+	public boolean isInner() {
+		return false;
+	}
+
+	@Override
+	public boolean isAnon() {
+		return false;
+	}
+
+	@Override
+	public boolean isConstant() {
+		return false;
 	}
 
 
