@@ -2,6 +2,13 @@ package pa.iscde.outlaw;
 
 import java.io.File;
 import java.util.Map;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Image;
@@ -39,6 +46,26 @@ public class PidescoView1 implements PidescoView {
 			otv = new OutlineTreeView(viewArea,v,imageMap, services);
 		}else{
 			otv = new OutlineTreeView(viewArea,imageMap, services);
+		}
+		
+		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
+		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.test.textext");
+		IExtension[] extensions = extensionPoint.getExtensions();
+		for(IExtension e : extensions) {
+		    IConfigurationElement[] confElements = e.getConfigurationElements();
+		    System.err.println(e.getContributor().getName());
+		    for(IConfigurationElement c : confElements) {
+		        String s = c.getAttribute("name");
+		        System.out.println(s);
+		        try {
+		            Object o = c.createExecutableExtension("class");
+		            ((OutlineFilter)o).showClassFilter();
+		            //((OutlineFilter)o).showFieldFilter();
+		            //((OutlineFilter)o).showMethodFilter();
+		        } catch (CoreException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
 		}
 			
 		services.addListener(new JavaEditorListener.Adapter() {
