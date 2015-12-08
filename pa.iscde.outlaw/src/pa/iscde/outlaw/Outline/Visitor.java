@@ -15,20 +15,16 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import pa.iscde.outlaw.Visibility;
+
 public class Visitor extends ASTVisitor{
 
-	//protected static OutlineMethod outtmp;
 	private String parentClass;
-	
 	private List<OutlineMethod> removedMethods = Lists.newArrayList();
 	private List<OutlineField> removedFields = Lists.newArrayList();
-	
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
-	
 	private OutlineClass clazz;
-	
 	private File file;
 
 	public Visitor(File file) {
@@ -38,7 +34,6 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		//System.err.println(node.getStartPosition() +"   "+ node.getName());
 		int flags = node.getModifiers();
 		if(!node.isPackageMemberTypeDeclaration()){
 			OutlineClass tmpNestedClass = new OutlineClass(node.getName().toString(), clazz.getName(), true, false);
@@ -91,8 +86,7 @@ public class Visitor extends ASTVisitor{
 			}
 		});
 		//TODO:isto devia estar dentro do metodo q chamou -> idk como se faz
-
-		return false;//aqui com false os metodos desta classe ja nao sao visitados
+		return false;
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package pa.iscde.outlaw.TreeView;
 import java.util.ArrayList;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-
 import pa.iscde.outlaw.Outline.OutlineClass;
 import pa.iscde.outlaw.Outline.OutlineField;
 import pa.iscde.outlaw.Outline.OutlineMethod;
@@ -59,5 +58,4 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 	public boolean hasChildren(Object arg0) {
 		return getChildren(arg0).length > 0;
 	}
-
 }

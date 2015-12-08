@@ -4,8 +4,6 @@ import java.util.Map;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
-
-import pa.iscde.outlaw.Outline.IconMerger;
 import pa.iscde.outlaw.Outline.OutlineClass;
 import pa.iscde.outlaw.Outline.OutlineField;
 import pa.iscde.outlaw.Outline.OutlineMethod;
@@ -19,21 +17,15 @@ public class FileTreeLabelProvider implements ILabelProvider {
 	}
 
 	@Override
-	public Image getImage(Object arg0) {//16x16
+	public Image getImage(Object arg0) {
 		if (arg0 instanceof OutlineField) {
 			return ((OutlineField)arg0).getImg();
-			//return imageMap.get(((OutlineField) arg0).getImg());
 		} else if (arg0 instanceof OutlineMethod) {
 		    return ((OutlineMethod) arg0).getImg();   
-			//return imageMap.get(((OutlineMethod) arg0).getImg());
 		} else if(arg0 instanceof OutlineClass){
 		    return ((OutlineClass) arg0).getImg();  
-			// return imageMap.get(((OutlineClass) arg0).getImg());
 		} else if (arg0 instanceof String){
-			IconMerger im = new IconMerger();
-			//java.awt.Image img = im.merge(new String[]{"final_co.png","field_default_obj.png"});
 			return imageMap.get("package.gif");
-				//return imageMap.get("package.gif");
 		}
 		
 		return null;

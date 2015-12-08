@@ -6,9 +6,9 @@ import pa.iscde.outlaw.Outline.OutlineMethod;
 
 public interface OutlineFilter {
 
-	public OutlineMethod showMethodFilter();
+	public boolean showMethodFilter(OutlineMethod om);
 	
-	public OutlineField showFieldFilter();
+	public boolean showFieldFilter(OutlineField of);
 	
-	public OutlineClass showClassFilter();
+	public boolean showClassFilter(OutlineClass oc);
 }

@@ -2,9 +2,7 @@ package pa.iscde.outlaw.Outline;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-
 import org.eclipse.swt.graphics.Image;
-
 import pa.iscde.outlaw.Visibility;
 
 public class OutlineClass implements OutlineLookup{
@@ -15,25 +13,18 @@ public class OutlineClass implements OutlineLookup{
 	private String name;
 	private OutlineClass parent;
 	private Visibility vis;
-	
 	private boolean isStatic;
 	private boolean isFinal;
-	
 	private String imgName="class_obj.gif";
-	
 	private boolean isInterface;
 	private boolean isAbstract;
-	
 	private String packagezz;
-	
 	private boolean isEnum;
 	private boolean isMainClass;
 	private boolean isInner;
 	private boolean isAnon;
 	private int argsNumber;
 	private Image image;
-	private IconMerger im= new IconMerger();
-	
 	
 	public OutlineClass(String parentClass, String packagezz) {
 		setName(parentClass);
@@ -68,7 +59,7 @@ public class OutlineClass implements OutlineLookup{
 		return name;
 	}
 
-	void setName(String name) {
+	public void setName(String name) {
 		this.name=name.replace(".java", "");
 	}
 
@@ -141,7 +132,7 @@ public class OutlineClass implements OutlineLookup{
 			count++;
 		}
 		
-		image=im.merge(result, 10, 0);
+		image=new IconMerger().merge(result, 10, 0);
 	}
 
 	@Override
@@ -269,6 +260,5 @@ public class OutlineClass implements OutlineLookup{
 	public boolean isSynchronized() {
 		return false;
 	}
-	
 	
 }

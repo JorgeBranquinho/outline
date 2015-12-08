@@ -1,8 +1,8 @@
 package pa.iscde.outlaw;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -10,11 +10,14 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-
+import org.eclipse.swt.widgets.Label;
 import pa.iscde.outlaw.Outline.Visitor;
 import pa.iscde.outlaw.TreeView.OutlineTreeView;
 import pt.iscte.pidesco.extensibility.PidescoView;
@@ -28,18 +31,21 @@ public class PidescoView1 implements PidescoView {
 	private Composite viewArea;
 	private Map<String, Image> imageMap;
 	private OutlineTreeView otv;
-	
+	private ArrayList<FilterView> filterviews = new ArrayList<FilterView>();
+	private ArrayList<Button> buttons = new ArrayList<Button>();
+	private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
+
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
-		
+
 		this.setViewArea(viewArea);
 		this.setImageMap(imageMap);
 		viewArea.setBackground(viewArea.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
-		final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
-		
+		viewArea.setLayout(new GridLayout());
+
 		final File f = services.getOpenedFile();
-		
+
 		if(f!=null){
 			v= new Visitor(f);
 			services.parseFile(f, v);
@@ -47,27 +53,9 @@ public class PidescoView1 implements PidescoView {
 		}else{
 			otv = new OutlineTreeView(viewArea,imageMap, services);
 		}
-		
-//		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
-//		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.test.textext");
-//		IExtension[] extensions = extensionPoint.getExtensions();
-//		for(IExtension e : extensions) {
-//		    IConfigurationElement[] confElements = e.getConfigurationElements();
-//		    System.err.println(e.getContributor().getName());
-//		    for(IConfigurationElement c : confElements) {
-//		        String s = c.getAttribute("name");
-//		        System.out.println(s);
-//		        try {
-//		            Object o = c.createExecutableExtension("class");
-//		            ((OutlineFilter)o).showClassFilter();
-//		            //((OutlineFilter)o).showFieldFilter();
-//		            //((OutlineFilter)o).showMethodFilter();
-//		        } catch (CoreException e1) {
-//		            e1.printStackTrace();
-//		        }
-//		    }
-//		}
-			
+
+		ApplyFilter();
+
 		services.addListener(new JavaEditorListener.Adapter() {
 
 			@Override
@@ -75,26 +63,20 @@ public class PidescoView1 implements PidescoView {
 
 				if(v==null){
 					v= new Visitor(file);
-					
+
 				}
-				
+
 				if(!v.equals(null)){
 
 					v.setFile(file);
 					v.setParentClass(file.getName());
 					services.parseFile(file, v);
-
 					otv.update(v.getClazz());
+					ApplyFilter();
 				}
 
 			}
-			
-			@Override
-			public void fileClosed(File file) {
-				
-				//otv.clear();
-			}
-			
+
 			@Override
 			public void fileSaved(File file) {
 				super.fileSaved(file);
@@ -102,10 +84,60 @@ public class PidescoView1 implements PidescoView {
 				v.setParentClass(file.getName());
 				services.parseFile(file, v);
 				otv.update(v.getClazz());
+				ApplyFilter();
 			}
 		});
+	}
 
-		
+	private void ApplyFilter(){
+		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
+		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.outlaw.filter");//test.textext
+		IExtension[] extensions = extensionPoint.getExtensions();
+		for(IExtension e : extensions) {
+			IConfigurationElement[] confElements = e.getConfigurationElements();
+			for(IConfigurationElement c : confElements) {
+				try {
+					filterviews.add(new FilterView(e.getContributor().getName(), ((OutlineFilter)c.createExecutableExtension("class"))));
+				} catch (CoreException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		if(filterviews.size()>0){
+			Label separator = new Label(viewArea, SWT.HORIZONTAL | SWT.SEPARATOR);
+			separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			for(final FilterView fv: filterviews){
+				Button b = new Button(viewArea, SWT.CHECK);
+				b.setText(fv.getViewName());
+				buttons.add(b);
+				b.addSelectionListener(new SelectionListener() {
+					private boolean selected=false;
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						selected=!selected;
+						if(otv==null)return;
+						if(selected){
+							for(Button b: buttons){
+								if(b!=e.getSource())
+									b.setEnabled(false);
+							}
+							otv.setNewFilter(fv.getViewFilter());
+						}else{
+							for(Button b: buttons){
+								b.setEnabled(true);
+							}
+							File openedfile = services.getOpenedFile();
+							v.setFile(openedfile);
+							v.setParentClass(openedfile.getName());
+							services.parseFile(openedfile, v);
+							otv.update(v.getClazz());
+						}
+					}
+					@Override
+					public void widgetDefaultSelected(SelectionEvent e) {}
+				});
+			}
+		}
 	}
 
 	private void setImageMap(Map<String, Image> imageMap) {

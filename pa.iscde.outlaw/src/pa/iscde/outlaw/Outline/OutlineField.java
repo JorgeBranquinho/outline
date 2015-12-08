@@ -3,7 +3,6 @@ package pa.iscde.outlaw.Outline;
 import java.lang.reflect.Modifier;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.swt.graphics.Image;
-
 import pa.iscde.outlaw.Visibility;
 
 public class OutlineField implements OutlineLookup{
@@ -98,28 +97,26 @@ public class OutlineField implements OutlineLookup{
 
 	@Override
 	public void checkVisibility(int value){
-		
 		if(Modifier.isProtected(value)){
-			setVisibility(Visibility.PROTECTED);//00
+			setVisibility(Visibility.PROTECTED);
 		}else if(Modifier.isPrivate(value)){
-			setVisibility(Visibility.PRIVATE);//01
+			setVisibility(Visibility.PRIVATE);
 		}else if(Modifier.isPublic(value)){
-			setVisibility(Visibility.PUBLIC);//10
+			setVisibility(Visibility.PUBLIC);
 		}else{
-			setVisibility(Visibility.PACKAGE_PRIVATE);//11
+			setVisibility(Visibility.PACKAGE_PRIVATE);
 		}
-		
 		argsNumber++;
 	}
 
 	@Override
 	public void checkProperties(int value){
 		if(Modifier.isFinal(value)){
-			setFinal(true);//1xx ou 0xx
+			setFinal(true);
 			argsNumber++;
 		}
 		if(Modifier.isStatic(value)){
-			setStatic(true);//1xxx ou 0xxx
+			setStatic(true);
 			argsNumber++;
 		}
 	}
@@ -148,12 +145,10 @@ public class OutlineField implements OutlineLookup{
 			}
 			result[count]=imgName;
 			count++;
-			
 			if(isFinal){
 				result[count]="final_co.png";
 				count++;
 			}
-			
 			if(isStatic){
 				result[count]="static_co.png";
 			}
@@ -217,6 +212,4 @@ public class OutlineField implements OutlineLookup{
 	public boolean isSynchronized() {
 		return false;
 	}
-
-
 }
