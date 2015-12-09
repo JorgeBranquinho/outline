@@ -34,6 +34,16 @@ public interface OutlineLookup {
 	
 	public boolean isSynchronized();
 	
+	public boolean isPckgprivate();
+	
+	public boolean isPrivate();
+	
+	public boolean isProtected();
+	
+	public boolean isPublic();
+	
 	public Image getImg();
+	
+	public void setImgPath(String path);
 	
 }

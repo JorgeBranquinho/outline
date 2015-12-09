@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="filter" name="filter" schema="schema/filter.exsd"/>
+   <extension-point id="icon" name="icon" schema="schema/icon.exsd"/>
    <extension
          id="id1"
          name="Outline"

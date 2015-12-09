@@ -3,7 +3,7 @@
 <schema targetNamespace="pa.iscde.outlaw" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="pa.iscde.outlaw" id="filter" name="filter"/>
+         <meta.schema plugin="pa.iscde.outlaw" id="icon" name="icon"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="item"/>
+            <element ref="icon"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,7 +47,7 @@
       </complexType>
    </element>
 
-   <element name="item">
+   <element name="icon">
       <complexType>
          <attribute name="class" type="string">
             <annotation>

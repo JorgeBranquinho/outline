@@ -18,6 +18,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+
+import pa.iscde.outlaw.Outline.OutlineClass;
+import pa.iscde.outlaw.Outline.OutlineField;
+import pa.iscde.outlaw.Outline.OutlineMethod;
 import pa.iscde.outlaw.Outline.Visitor;
 import pa.iscde.outlaw.TreeView.OutlineTreeView;
 import pt.iscte.pidesco.extensibility.PidescoView;
@@ -34,6 +38,7 @@ public class PidescoView1 implements PidescoView {
 	private ArrayList<FilterView> filterviews = new ArrayList<FilterView>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
+	private ArrayList<IconChange> iconchange = new ArrayList<IconChange>();
 
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
@@ -46,12 +51,13 @@ public class PidescoView1 implements PidescoView {
 
 		final File f = services.getOpenedFile();
 
-		if(f!=null){
-			v= new Visitor(f);
+		if (f != null) {
+			v = new Visitor(f);
 			services.parseFile(f, v);
-			otv = new OutlineTreeView(viewArea,v,imageMap, services);
-		}else{
-			otv = new OutlineTreeView(viewArea,imageMap, services);
+			IconChange();
+			otv = new OutlineTreeView(viewArea, v, imageMap, services);
+		} else {
+			otv = new OutlineTreeView(viewArea, imageMap, services);
 		}
 
 		ApplyFilter();
@@ -60,17 +66,17 @@ public class PidescoView1 implements PidescoView {
 
 			@Override
 			public void fileOpened(File file) {
-
-				if(v==null){
-					v= new Visitor(file);
+				if (v == null) {
+					v = new Visitor(file);
 
 				}
 
-				if(!v.equals(null)){
+				if (!v.equals(null)) {
 
 					v.setFile(file);
 					v.setParentClass(file.getName());
 					services.parseFile(file, v);
+					IconChange();
 					otv.update(v.getClazz());
 					ApplyFilter();
 				}
@@ -83,47 +89,101 @@ public class PidescoView1 implements PidescoView {
 				v.setFile(file);
 				v.setParentClass(file.getName());
 				services.parseFile(file, v);
+				IconChange();
 				otv.update(v.getClazz());
 				ApplyFilter();
 			}
 		});
 	}
 
-	private void ApplyFilter(){
+	private void IconChange() {
 		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
-		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.outlaw.filter");//test.textext
+		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.outlaw.icon");// test.textext
 		IExtension[] extensions = extensionPoint.getExtensions();
-		for(IExtension e : extensions) {
+		for (IExtension e : extensions) {
 			IConfigurationElement[] confElements = e.getConfigurationElements();
-			for(IConfigurationElement c : confElements) {
+			for (IConfigurationElement c : confElements) {
 				try {
-					filterviews.add(new FilterView(e.getContributor().getName(), ((OutlineFilter)c.createExecutableExtension("class"))));
+					iconchange.add(
+							new IconChange(c.getAttribute("name"), (OutlineIcon) c.createExecutableExtension("class")));
+				} catch (CoreException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+
+		if (iconchange.size() > 0) {
+			for (IconChange ic : iconchange) {
+				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.CLASS)) {
+					ic.getCreateExecutableExtension().isVisible(v.getClazz());
+					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
+						ic.getCreateExecutableExtension().isVisible(oc);
+					}
+				}
+				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.FIELD)) {
+					for(OutlineField of: v.getFields()){
+						ic.getCreateExecutableExtension().isVisible(of);
+					}
+					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
+						for (OutlineField of : oc.getFields()) {
+							ic.getCreateExecutableExtension().isVisible(of);
+						}
+					}
+
+				}
+				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.METHOD)) {
+					for(OutlineMethod om: v.getMethods()){
+						ic.getCreateExecutableExtension().isVisible(om);
+					}
+					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
+						for (OutlineMethod om : oc.getMethods()) {
+							ic.getCreateExecutableExtension().isVisible(om);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void ApplyFilter() {
+		IExtensionRegistry extRegistry = Platform.getExtensionRegistry();
+		IExtensionPoint extensionPoint = extRegistry.getExtensionPoint("pa.iscde.outlaw.filter");// test.textext
+		IExtension[] extensions = extensionPoint.getExtensions();
+		for (IExtension e : extensions) {
+			IConfigurationElement[] confElements = e.getConfigurationElements();
+			for (IConfigurationElement c : confElements) {
+				try {
+					filterviews.add(new FilterView(c.getAttribute("name"),
+							((OutlineFilter) c.createExecutableExtension("class"))));
 				} catch (CoreException e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
-		if(filterviews.size()>0){
+		if (filterviews.size() > 0) {
 			Label separator = new Label(viewArea, SWT.HORIZONTAL | SWT.SEPARATOR);
 			separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			for(final FilterView fv: filterviews){
+			for (final FilterView fv : filterviews) {
 				Button b = new Button(viewArea, SWT.CHECK);
 				b.setText(fv.getViewName());
 				buttons.add(b);
 				b.addSelectionListener(new SelectionListener() {
-					private boolean selected=false;
+					private boolean selected = false;
+
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						selected=!selected;
-						if(otv==null)return;
-						if(selected){
-							for(Button b: buttons){
-								if(b!=e.getSource())
+						selected = !selected;
+						if (otv == null)
+							return;
+						if (selected) {
+							for (Button b : buttons) {
+								if (b != e.getSource())
 									b.setEnabled(false);
 							}
 							otv.setNewFilter(fv.getViewFilter());
-						}else{
-							for(Button b: buttons){
+						} else {
+							for (Button b : buttons) {
 								b.setEnabled(true);
 							}
 							File openedfile = services.getOpenedFile();
@@ -133,19 +193,21 @@ public class PidescoView1 implements PidescoView {
 							otv.update(v.getClazz());
 						}
 					}
+
 					@Override
-					public void widgetDefaultSelected(SelectionEvent e) {}
+					public void widgetDefaultSelected(SelectionEvent e) {
+					}
 				});
 			}
 		}
 	}
 
 	private void setImageMap(Map<String, Image> imageMap) {
-		this.imageMap=imageMap;
+		this.imageMap = imageMap;
 	}
 
 	private void setViewArea(Composite viewArea) {
-		this.viewArea=viewArea;
+		this.viewArea = viewArea;
 	}
 
 	public Composite getViewArea() {

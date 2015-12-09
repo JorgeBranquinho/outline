@@ -23,8 +23,16 @@ public class OutlineClass implements OutlineLookup{
 	private boolean isMainClass;
 	private boolean isInner;
 	private boolean isAnon;
+	private boolean isPckgprivate;
+	private boolean isPrivate;
+	private boolean isProtected;
+	private boolean isPublic;
 	private int argsNumber;
 	private Image image;
+	private boolean flag=false;
+	private String newPath="";
+	private int modifiers;
+
 	
 	public OutlineClass(String parentClass, String packagezz) {
 		setName(parentClass);
@@ -38,7 +46,7 @@ public class OutlineClass implements OutlineLookup{
 		setAnon(isAnon);
 	}
 
-	public ArrayList<OutlineMethod> getMethod() {
+	public ArrayList<OutlineMethod> getMethods() {
 		return method;
 	}
 	
@@ -95,7 +103,7 @@ public class OutlineClass implements OutlineLookup{
 		return getName();
 	}
 
-	void setImg() {
+	public void setImg() {
 		int count=0;
 		String[] result = new String[argsNumber];
 		
@@ -120,6 +128,7 @@ public class OutlineClass implements OutlineLookup{
 				this.imgName="innerclass_protected_obj.png";
 				break;
 			case PUBLIC:
+				System.out.println("Classe name: "+this.getName());
 				this.imgName="class_obj.gif";
 				break;
 				
@@ -132,9 +141,20 @@ public class OutlineClass implements OutlineLookup{
 			count++;
 		}
 		
-		image=new IconMerger().merge(result, 10, 0);
+		if(!newPath.equals("")){
+			result[0]=newPath;
+			flag=true;
+		}
+		System.out.println("Result size: "+result.length);
+		image=new IconMerger().merge(result, 10, 0,flag);
 	}
 
+	@Override
+	public void setImgPath(String newPath){
+		this.newPath=newPath;
+		setImg();
+	}
+	
 	@Override
 	public boolean isInterface() {
 
@@ -185,14 +205,18 @@ public class OutlineClass implements OutlineLookup{
 	public void checkVisibility(int value) {
 		if(Modifier.isPrivate(value)){
 			setVisibility(Visibility.PRIVATE);
+			setPrivate(true);
 		}else if(Modifier.isProtected(value)){
 			setVisibility(Visibility.PROTECTED);
+			setProtected(true);
 		}else if(Modifier.isPublic(value)){
 			setVisibility(Visibility.PUBLIC);
+			setPublic(true);
 		}else{
 			setVisibility(Visibility.PACKAGE_PRIVATE);
+			setPckgprivate(true);
 		}
-		argsNumber++;
+		
 	}
 
 	@Override
@@ -212,7 +236,8 @@ public class OutlineClass implements OutlineLookup{
 	}
 
 	void setVisibility(Visibility visibility) {
-		this.vis=visibility;		
+		this.vis=visibility;
+		argsNumber++;
 	}
 
 	@Override
@@ -259,6 +284,59 @@ public class OutlineClass implements OutlineLookup{
 	@Override
 	public boolean isSynchronized() {
 		return false;
+	}
+
+	void setPckgprivate(boolean isPckgprivate){
+		this.isPckgprivate=isPckgprivate;
+	}
+	
+	@Override
+	public boolean isPckgprivate() {
+		return isPckgprivate;
+	}
+
+	void setPrivate(boolean isPrivate){
+		this.isPrivate=isPrivate;
+	}
+	
+	@Override
+	public boolean isPrivate() {
+		return isPrivate;
+	}
+
+	void setProtected(boolean isProtected){
+		this.isProtected=isProtected;
+	}
+	
+	@Override
+	public boolean isProtected() {
+		return isProtected;
+	}
+
+	void setPublic(boolean isPublic){
+		this.isPublic=isPublic;
+	}
+	
+	@Override
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setModifiers(int modifiers) {
+		this.modifiers=modifiers;
+	}
+
+	public void performChecks() {
+		System.out.println("Name: "+getName());
+		if(modifiers!=0){
+			checkProperties(modifiers);
+			checkVisibility(modifiers);
+		}
+		else{
+			setVisibility(Visibility.PUBLIC);
+			setPublic(true);
+		}
+		setImg();		
 	}
 	
 }

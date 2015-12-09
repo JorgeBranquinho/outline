@@ -13,11 +13,18 @@ public class OutlineField implements OutlineLookup{
 	private OutlineClass parent;
 	private boolean isStatic;
 	private boolean isFinal;
+	private boolean isPublic;
+	private boolean isProtected;
+	private boolean isPrivate;
+	private boolean isPckgprivate;
 	private String imgName="";
 	private boolean isConstant;
 	private IconMerger im = new IconMerger();
 	private Image image;
 	private int argsNumber=0;
+	private String newPath="";
+	private boolean flag=false;
+
 	
 	public OutlineField(String name, Type type, int modifiers, OutlineClass clazz) {
 		setName(getFieldName(name));
@@ -97,14 +104,18 @@ public class OutlineField implements OutlineLookup{
 
 	@Override
 	public void checkVisibility(int value){
-		if(Modifier.isProtected(value)){
-			setVisibility(Visibility.PROTECTED);
-		}else if(Modifier.isPrivate(value)){
+		if(Modifier.isPrivate(value)){
 			setVisibility(Visibility.PRIVATE);
+			setPrivate(true);
+		}else if(Modifier.isProtected(value)){
+			setVisibility(Visibility.PROTECTED);
+			setProtected(true);
 		}else if(Modifier.isPublic(value)){
 			setVisibility(Visibility.PUBLIC);
+			setPublic(true);
 		}else{
 			setVisibility(Visibility.PACKAGE_PRIVATE);
+			setPckgprivate(true);
 		}
 		argsNumber++;
 	}
@@ -153,10 +164,21 @@ public class OutlineField implements OutlineLookup{
 				result[count]="static_co.png";
 			}
 		}
-		image=im.merge(result, 10, 0);
+		if(!newPath.equals("")){
+			result[0]=newPath;
+			flag=true;
+		}
+		
+		image=im.merge(result, 10, 0,flag);
 			
 	}
-	 
+	
+	@Override
+	public void setImgPath(String newPath){
+		this.newPath=newPath;
+		setImg();
+	}
+	
 	@Override
 	public boolean isConstant() {
 		return isConstant;
@@ -211,5 +233,41 @@ public class OutlineField implements OutlineLookup{
 	@Override
 	public boolean isSynchronized() {
 		return false;
+	}
+	
+	void setPckgprivate(boolean isPckgprivate){
+		this.isPckgprivate=isPckgprivate;
+	}
+	
+	@Override
+	public boolean isPckgprivate() {
+		return isPckgprivate;
+	}
+
+	void setPrivate(boolean isPrivate){
+		this.isPrivate=isPrivate;
+	}
+	
+	@Override
+	public boolean isPrivate() {
+		return isPrivate;
+	}
+
+	void setProtected(boolean isProtected){
+		this.isProtected=isProtected;
+	}
+	
+	@Override
+	public boolean isProtected() {
+		return isProtected;
+	}
+
+	void setPublic(boolean isPublic){
+		this.isPublic=isPublic;
+	}
+	
+	@Override
+	public boolean isPublic() {
+		return isPublic;
 	}
 }

@@ -24,6 +24,7 @@ public class Visitor extends ASTVisitor{
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
+	private ArrayList<OutlineClass> all_classes = new ArrayList<OutlineClass>();
 	private OutlineClass clazz;
 	private File file;
 
@@ -34,9 +35,9 @@ public class Visitor extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		int flags = node.getModifiers();
 		if(!node.isPackageMemberTypeDeclaration()){
 			OutlineClass tmpNestedClass = new OutlineClass(node.getName().toString(), clazz.getName(), true, false);
+			tmpNestedClass.performChecks();
 			children_classes.add(tmpNestedClass);
 			node.accept(new ASTVisitor() {
 				@Override
@@ -55,11 +56,10 @@ public class Visitor extends ASTVisitor{
 				}
 			});
 		}else{
+			clazz.setModifiers(node.getModifiers());
+			clazz.performChecks();
 			clazz.setInterface(node.isInterface());
 			clazz.setEnum(false);
-			clazz.checkProperties(flags);
-			clazz.checkVisibility(flags);
-			clazz.setImg();
 		}
 		return super.visit(node);
 	}
@@ -68,6 +68,7 @@ public class Visitor extends ASTVisitor{
 	public boolean visit(AnonymousClassDeclaration node) {
 		String classname=node.getParent().toString().subSequence(0, node.getParent().toString().indexOf("{")).toString();
 		OutlineClass tmpAnonClass = new OutlineClass(classname + " {...}", clazz.getName(), false, true);
+		tmpAnonClass.performChecks();
 		children_classes.add(tmpAnonClass);
 		node.accept(new ASTVisitor() {
 			@Override
@@ -156,7 +157,7 @@ public class Visitor extends ASTVisitor{
 	}
 
 	private void recursiveGetChildrenMethodsAndFields(OutlineClass oc, ArrayList<OutlineMethod> childrenMethods, ArrayList<OutlineField> childrenFields){
-		childrenMethods.addAll(oc.getMethod());
+		childrenMethods.addAll(oc.getMethods());
 		childrenFields.addAll(oc.getFields());
 		if(oc.getChildren_classes().isEmpty()) return;
 		for(OutlineClass coc: children_classes)
@@ -220,7 +221,7 @@ public class Visitor extends ASTVisitor{
 	}
 
 	public void addToMethodList(OutlineClass outlineClass, OutlineMethod out){
-		outlineClass.getMethod().add(out);
+		outlineClass.getMethods().add(out);
 	}
 
 	public void addToFieldList(OutlineClass outlineClass, OutlineField out){

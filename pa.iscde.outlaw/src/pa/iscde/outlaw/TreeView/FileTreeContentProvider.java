@@ -30,7 +30,7 @@ public class FileTreeContentProvider implements ITreeContentProvider  {
 		if(arg0 instanceof OutlineClass ){
 			OutlineClass parent = (OutlineClass)arg0;
 			ArrayList<Object> tmplist = new ArrayList<Object>(parent.getFields());
-			tmplist.addAll(parent.getMethod());
+			tmplist.addAll(parent.getMethods());
 			tmplist.addAll(parent.getChildren_classes());
 			  return tmplist.toArray();
 		}

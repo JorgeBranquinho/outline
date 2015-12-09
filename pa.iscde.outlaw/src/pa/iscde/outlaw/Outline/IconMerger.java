@@ -10,12 +10,12 @@ import org.eclipse.swt.widgets.Display;
 
 public class IconMerger {
 
-	static String path = "C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\";
+	static String path = "C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\";
 
 
-	public Image merge(String[] icons, int offset_x, int offset_y) {
+	public Image merge(String[] icons, int offset_x, int offset_y, boolean flag) {
 		Image image;
-		if (icons.length > 1) {
+		if (icons.length > 1 && !flag) {
 			try {
 				BufferedImage imagebckg = ImageIO.read(new File(path + icons[0]));
 				BufferedImage newoverlay = ImageIO.read(new File(path + icons[1]));

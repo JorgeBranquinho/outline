@@ -19,10 +19,17 @@ public class OutlineMethod implements OutlineLookup {
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isSynchronized;
+	private boolean isPublic;
+	private boolean isProtected;
+	private boolean isPrivate;
+	private boolean isPckgprivate;
 	private String imgName;
 	private int argsNumber;
 	private Image image;
 	private IconMerger im= new IconMerger();
+	private boolean flag=false;
+	private String newPath="";
+
 
 	public OutlineMethod(String name, Type type, boolean isConstructor, int modifiers, List<?> list, OutlineClass parentClass) {
 		setName(name);
@@ -170,20 +177,35 @@ public class OutlineMethod implements OutlineLookup {
 			count++;
 		}
 		
-		image=im.merge(result, 10, 0);
+		if(!newPath.equals("")){
+			result[0]=newPath;
+			flag=true;
+		}
+		
+		image=im.merge(result, 10, 0,flag);
 		
 	}
 
+	 @Override
+	 public void setImgPath(String newPath){
+			this.newPath=newPath;
+			setImg();
+		}
+	 
 	@Override
 	public void checkVisibility(int value) {
 		if(Modifier.isPrivate(value)){
 			setVisibility(Visibility.PRIVATE);
+			setPrivate(true);
 		}else if(Modifier.isProtected(value)){
 			setVisibility(Visibility.PROTECTED);
+			setProtected(true);
 		}else if(Modifier.isPublic(value)){
 			setVisibility(Visibility.PUBLIC);
+			setPublic(true);
 		}else{
 			setVisibility(Visibility.PACKAGE_PRIVATE);
+			setPckgprivate(true);
 		}
 		argsNumber++;
 	}
@@ -247,6 +269,40 @@ public class OutlineMethod implements OutlineLookup {
 		return false;
 	}
 
+	void setPckgprivate(boolean isPckgprivate){
+		this.isPckgprivate=isPckgprivate;
+	}
+	
+	@Override
+	public boolean isPckgprivate() {
+		return isPckgprivate;
+	}
 
+	void setPrivate(boolean isPrivate){
+		this.isPrivate=isPrivate;
+	}
+	
+	@Override
+	public boolean isPrivate() {
+		return isPrivate;
+	}
+
+	void setProtected(boolean isProtected){
+		this.isProtected=isProtected;
+	}
+	
+	@Override
+	public boolean isProtected() {
+		return isProtected;
+	}
+
+	void setPublic(boolean isPublic){
+		this.isPublic=isPublic;
+	}
+	
+	@Override
+	public boolean isPublic() {
+		return isPublic;
+	}
 
 }
