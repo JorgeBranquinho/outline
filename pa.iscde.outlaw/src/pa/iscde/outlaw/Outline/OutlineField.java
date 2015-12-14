@@ -7,6 +7,7 @@ import pa.iscde.outlaw.Visibility;
 
 public class OutlineField implements OutlineLookup{
 
+	private String path = "C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\";
 	private String name;
 	private Visibility vis= Visibility.PACKAGE_PRIVATE;
 	private Type type;

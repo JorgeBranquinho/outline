@@ -8,12 +8,17 @@ import javax.imageio.ImageIO;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
+import pa.iscde.outlaw.PidescoView1;
+import pt.iscte.pidesco.extensibility.PidescoView;
+
 public class IconMerger {
 
-	static String path = "C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\";
+	
 
 
 	public Image merge(String[] icons, int offset_x, int offset_y, boolean flag) {
+		
+		String path=PidescoView1.path;
 		Image image;
 		if (icons.length > 1 && !flag) {
 			try {

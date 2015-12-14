@@ -7,6 +7,7 @@ import pa.iscde.outlaw.Visibility;
 
 public class OutlineClass implements OutlineLookup{
 
+	
 	private ArrayList<OutlineMethod> method = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
@@ -145,7 +146,6 @@ public class OutlineClass implements OutlineLookup{
 			result[0]=newPath;
 			flag=true;
 		}
-		System.out.println("Result size: "+result.length);
 		image=new IconMerger().merge(result, 10, 0,flag);
 	}
 
