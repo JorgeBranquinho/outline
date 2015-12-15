@@ -129,7 +129,6 @@ public class OutlineClass implements OutlineLookup{
 				this.imgName="innerclass_protected_obj.png";
 				break;
 			case PUBLIC:
-				System.out.println("Classe name: "+this.getName());
 				this.imgName="class_obj.gif";
 				break;
 				
@@ -327,7 +326,6 @@ public class OutlineClass implements OutlineLookup{
 	}
 
 	public void performChecks() {
-		System.out.println("Name: "+getName());
 		if(modifiers!=0){
 			checkProperties(modifiers);
 			checkVisibility(modifiers);

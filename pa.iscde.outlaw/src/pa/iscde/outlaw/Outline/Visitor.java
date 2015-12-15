@@ -24,7 +24,6 @@ public class Visitor extends ASTVisitor{
 	private ArrayList<OutlineMethod> methods = new ArrayList<OutlineMethod>();
 	private ArrayList<OutlineField> fields = new ArrayList<OutlineField>();
 	private ArrayList<OutlineClass> children_classes = new ArrayList<OutlineClass>();
-	private ArrayList<OutlineClass> all_classes = new ArrayList<OutlineClass>();
 	private OutlineClass clazz;
 	private File file;
 
@@ -102,7 +101,6 @@ public class Visitor extends ASTVisitor{
 		for(Object constant: node.enumConstants()){
 			fields.add(new OutlineField(constant.toString(), clazz));
 		}
-		clazz.checkProperties(flags);
 		clazz.checkVisibility(flags);
 		clazz.setImg();
 		return super.visit(node);
