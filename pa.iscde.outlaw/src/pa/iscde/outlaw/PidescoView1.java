@@ -33,13 +33,13 @@ public class PidescoView1 implements PidescoView {
 
 	private Visitor v;
 	private Composite viewArea;
-	private Map<String, Image> imageMap;
+	public static Map<String, Image> imageMap;
 	private OutlineTreeView otv;
 	private ArrayList<FilterView> filterviews = new ArrayList<FilterView>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 	private ArrayList<IconChange> iconchange = new ArrayList<IconChange>();
-	public static String path="C:\\Users\\Mr.Ivo\\git\\outline\\pa.iscde.outlaw\\images\\";
+	public static String path="C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\";
 
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
@@ -79,7 +79,6 @@ public class PidescoView1 implements PidescoView {
 					services.parseFile(file, v);
 					IconChange();
 					otv.update(v.getClazz());
-					ApplyFilter();
 				}
 
 			}
@@ -92,7 +91,6 @@ public class PidescoView1 implements PidescoView {
 				services.parseFile(file, v);
 				IconChange();
 				otv.update(v.getClazz());
-				ApplyFilter();
 			}
 		});
 	}
@@ -116,7 +114,7 @@ public class PidescoView1 implements PidescoView {
 
 		if (iconchange.size() > 0) {
 			for (IconChange ic : iconchange) {
-				path=ic.getCreateExecutableExtension().setImgPath(ic.getImgPath());
+				path=ic.getCreateExecutableExtension().setImgPath(ic.getImgPath());//isto ta mal
 				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.CLASS)) {
 					ic.getCreateExecutableExtension().isVisible(v.getClazz());
 					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
@@ -146,6 +144,7 @@ public class PidescoView1 implements PidescoView {
 				}
 			}
 		}
+		System.err.println(path);
 	}
 
 	private void ApplyFilter() {

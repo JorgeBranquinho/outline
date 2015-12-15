@@ -13,11 +13,7 @@ import pt.iscte.pidesco.extensibility.PidescoView;
 
 public class IconMerger {
 
-	
-
-
 	public Image merge(String[] icons, int offset_x, int offset_y, boolean flag) {
-		
 		String path=PidescoView1.path;
 		Image image;
 		if (icons.length > 1 && !flag) {
@@ -33,13 +29,13 @@ public class IconMerger {
 				ImageIO.write(combined, "PNG", new File(path + "Outter.png"));
 				image = new Image(Display.getCurrent(), path + "Outter.png");
 				return image;
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException | NullPointerException e) {
+				image = new Image(Display.getCurrent(), path + icons[0]);
+				return image;
 			}
 		} else {
 			image = new Image(Display.getCurrent(), path + icons[0]);
 			return image;
 		}
-		return null;
 	}
 }
