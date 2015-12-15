@@ -13,7 +13,6 @@ public class IconChange {
 	}
 
 	private void setPath(String path) {
-		// TODO Auto-generated method stub
 		this.path=path;
 	}
 

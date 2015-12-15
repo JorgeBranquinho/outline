@@ -39,11 +39,10 @@ public class PidescoView1 implements PidescoView {
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 	private ArrayList<IconChange> iconchange = new ArrayList<IconChange>();
-	public static String path="C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\";
+	public static String path=PidescoView1.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "\\images\\";//"C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\";
 
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
-
 		this.setViewArea(viewArea);
 		this.setImageMap(imageMap);
 		viewArea.setBackground(viewArea.getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -114,7 +113,7 @@ public class PidescoView1 implements PidescoView {
 
 		if (iconchange.size() > 0) {
 			for (IconChange ic : iconchange) {
-				path=ic.getCreateExecutableExtension().setImgPath(ic.getImgPath());//isto ta mal
+				path=ic.getImgPath();
 				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.CLASS)) {
 					ic.getCreateExecutableExtension().isVisible(v.getClazz());
 					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
