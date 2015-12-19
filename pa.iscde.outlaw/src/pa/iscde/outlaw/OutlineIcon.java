@@ -6,6 +6,6 @@ public interface OutlineIcon {
 
 	public OutlineType getType();
 	
-	public boolean isVisible(OutlineLookup o);
+	public boolean setIcon(OutlineLookup o);
 	
 }
