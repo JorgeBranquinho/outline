@@ -8,11 +8,11 @@ Require-Bundle: com.google.guava;bundle-version="15.0.0",
  pt.iscte.pidesco;bundle-version="0.1.0",
  org.eclipse.swt;bundle-version="3.104.1",
  org.eclipse.jdt.core,
- org.eclipse.jface;bundle-version="3.11.0"
+ org.eclipse.jface;bundle-version="3.11.0",
+ pt.iscte.pidesco.javaeditor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.resources,
- pt.iscte.pidesco.javaeditor.internal,
  pt.iscte.pidesco.javaeditor.service
 Export-Package: pa.iscde.outlaw,
  pa.iscde.outlaw.Outline
