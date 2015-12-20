@@ -39,7 +39,7 @@ public class PidescoView1 implements PidescoView {
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 	private ArrayList<IconChange> iconchange = new ArrayList<IconChange>();
-	public static String path;//"C:\\Users\\Asus\\git\\outline\\pa.iscde.outlaw\\images\\";
+	public static String path;
 
 	@Override
 	public void createContents(Composite viewArea, Map<String, Image> imageMap) {
@@ -110,7 +110,6 @@ public class PidescoView1 implements PidescoView {
 					iconchange.add(
 							new IconChange(c.getAttribute("name"), (OutlineIcon) c.createExecutableExtension("class"),c.getAttribute("imgpath")));
 				} catch (CoreException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
