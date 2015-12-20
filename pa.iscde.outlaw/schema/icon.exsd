@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="pa.iscde.outlaw" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="null" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="pa.iscde.outlaw" id="icon" name="icon"/>
+         <meta.schema plugin="null" id="icon" name="icon"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point allows the user to change the icons of ISCDEs Outline view.
       </documentation>
    </annotation>
 
@@ -49,27 +49,30 @@
 
    <element name="icon">
       <complexType>
-         <attribute name="class" type="string">
+         <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The class that is going to implement the interface &quot;OutlineIcon&quot;.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn=":pa.iscde.outlaw.OutlineIcon"/>
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="name" type="string">
+         <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  Name of the class that implements the &quot;OutlineIcon&quot; interface.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="imgpath" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The path to the folder that contains the new images to be used.
+
+Note: Must use &quot;\\&quot; or &quot;/&quot; in the path, this is because this path is used directly.
+   All images must be 16x16.
                </documentation>
             </annotation>
          </attribute>
@@ -90,18 +93,30 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         public class Test implements OutlineIcon{
+
+    @Override
+    public OutlineType getType() {
+        return OutlineType.METHOD;
+    }
+
+    @Override
+    public boolean setIcon(OutlineLookup o) {
+        
+        
+        if(o.isPublic()){
+            o.setImgPath(&quot;new_public_m.gif&quot;);
+        }
+            
+        return true;
+    }
+
+}
+
+Following the example above, we can see that using the getType method, our user defined that only &quot;OutlineLookup&quot; objects of type &quot;Method&quot; will have their icon changed. In the setIcon method, we can see that in this particular case, only methods that are public are going to have their icon changed.
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         [Enter API information here.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
