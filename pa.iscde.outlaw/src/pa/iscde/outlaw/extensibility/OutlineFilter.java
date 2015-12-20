@@ -3,7 +3,7 @@
  * @author Jorge Branquinho
  *
  */
-package pa.iscde.outlaw;
+package pa.iscde.outlaw.extensibility;
 
 import pa.iscde.outlaw.Outline.OutlineClass;
 import pa.iscde.outlaw.Outline.OutlineField;

@@ -3,7 +3,7 @@
  * @author Mr.Ivo
  *
  */
-package pa.iscde.outlaw;
+package pa.iscde.outlaw.extensibility;
 
 import pa.iscde.outlaw.Outline.OutlineLookup;
 

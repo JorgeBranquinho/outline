@@ -55,7 +55,7 @@
                   The class that is going to implement the interface &quot;OutlineIcon&quot;.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":pa.iscde.outlaw.OutlineIcon"/>
+                  <meta.attribute kind="java" basedOn=":pa.iscde.outlaw.extensibility.OutlineIcon"/>
                </appinfo>
             </annotation>
          </attribute>

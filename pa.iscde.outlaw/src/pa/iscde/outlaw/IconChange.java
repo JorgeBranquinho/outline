@@ -1,5 +1,7 @@
 package pa.iscde.outlaw;
 
+import pa.iscde.outlaw.extensibility.OutlineIcon;
+
 public class IconChange {
 
 	private String name;

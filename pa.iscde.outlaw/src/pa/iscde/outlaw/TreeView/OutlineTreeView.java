@@ -9,12 +9,13 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import pa.iscde.outlaw.OutlineFilter;
+
 import pa.iscde.outlaw.Outline.OutlineClass;
 import pa.iscde.outlaw.Outline.OutlineField;
 import pa.iscde.outlaw.Outline.OutlineMethod;
 import pa.iscde.outlaw.Outline.OutlineRoot;
 import pa.iscde.outlaw.Outline.Visitor;
+import pa.iscde.outlaw.extensibility.OutlineFilter;
 import pt.iscte.pidesco.javaeditor.service.JavaEditorServices;
 
 public class OutlineTreeView {

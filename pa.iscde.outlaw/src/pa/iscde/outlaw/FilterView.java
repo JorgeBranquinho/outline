@@ -1,5 +1,7 @@
 package pa.iscde.outlaw;
 
+import pa.iscde.outlaw.extensibility.OutlineFilter;
+
 public class FilterView {
 
 	private String viewName;
