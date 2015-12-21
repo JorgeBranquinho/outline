@@ -28,7 +28,6 @@ import pa.iscde.outlaw.extensibility.OutlineFilter;
 import pa.iscde.outlaw.extensibility.OutlineIcon;
 import pa.iscde.outlaw.extensibility.OutlineType;
 import pt.iscte.pidesco.extensibility.PidescoView;
-import pt.iscte.pidesco.javaeditor.internal.JavaEditorActivator;
 import pt.iscte.pidesco.javaeditor.service.JavaEditorListener;
 import pt.iscte.pidesco.javaeditor.service.JavaEditorServices;
 
@@ -40,7 +39,8 @@ public class PidescoView1 implements PidescoView {
 	private OutlineTreeView otv;
 	private ArrayList<FilterView> filterviews = new ArrayList<FilterView>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
-	private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
+	private final JavaEditorServices services = Activator.getActivator().getService();
+	//private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 	private ArrayList<IconChange> iconchange = new ArrayList<IconChange>();
 	public static String path;
 

@@ -17,4 +17,5 @@ Import-Package: org.eclipse.core.resources,
 Export-Package: pa.iscde.outlaw,
  pa.iscde.outlaw.Outline,
  pa.iscde.outlaw.extensibility
+Bundle-Activator: pa.iscde.outlaw.Activator
 
