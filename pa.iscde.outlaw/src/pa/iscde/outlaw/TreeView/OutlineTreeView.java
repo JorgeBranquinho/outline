@@ -60,55 +60,84 @@ public class OutlineTreeView {
 		tv.setInput(null);
 	}
 
-	public void setNewFilter(OutlineFilter viewFilter) {
-		testClassFilter(viewFilter, root.getClazz());
+	public void setNewFilter(ArrayList<OutlineFilter> activefilters) {
+		boolean toRemove;
+		testClassFilter(activefilters, root.getClazz());
 		ArrayList<OutlineClass> classesToRemove = new ArrayList<OutlineClass>();
 		for(OutlineClass childclass: root.getClazz().getChildren_classes()){
-			if(!viewFilter.showClassFilter(childclass))
+			toRemove=false;
+			for(OutlineFilter filter: activefilters)
+				if(!filter.showClassFilter(childclass))
+					toRemove=true;
+			if(toRemove)
 				classesToRemove.add(childclass);
 		}
 		root.getClazz().getChildren_classes().removeAll(classesToRemove);
 		ArrayList<OutlineField> fieldsToRemove = new ArrayList<OutlineField>();
 		for(OutlineField childfield: root.getClazz().getFields()){
-			if(!viewFilter.showFieldFilter(childfield))
+			toRemove=false;
+			for(OutlineFilter filter: activefilters)
+				if(!filter.showFieldFilter(childfield))
+					toRemove=true;
+			if(toRemove)
 				fieldsToRemove.add(childfield);
 		}
 		root.getClazz().getFields().removeAll(fieldsToRemove);
 		ArrayList<OutlineMethod> methodsToRemove = new ArrayList<OutlineMethod>();
 		for(OutlineMethod childmethod: root.getClazz().getMethods()){
-			if(!viewFilter.showMethodFilter(childmethod))
+			toRemove=false;
+			for(OutlineFilter filter: activefilters)
+				if(!filter.showMethodFilter(childmethod))
+					toRemove=true;
+			if(toRemove)
 				methodsToRemove.add(childmethod);
 		}
 		root.getClazz().getMethods().removeAll(methodsToRemove);
-		if(!viewFilter.showClassFilter(root.getClazz())){
+		toRemove=false;
+		for(OutlineFilter filter: activefilters)
+			if(!filter.showClassFilter(root.getClazz()))
+				toRemove=true;
+		if(toRemove)
 			root.getClazz().setName("("+root.getClazz().getName()+")");
-		}
 		tv.setInput(root);
 		tv.expandAll();
 	}
 
 
-	private void testClassFilter(OutlineFilter viewFilter, OutlineClass oc) {
+	private void testClassFilter(ArrayList<OutlineFilter> activefilters, OutlineClass oc) {
+		boolean toRemove;
 		ArrayList<OutlineClass> orphans = new ArrayList<OutlineClass>();
 		for(OutlineClass child: oc.getChildren_classes()){
-			if(!viewFilter.showClassFilter(child)){
+			toRemove=false;
+			for(OutlineFilter filter: activefilters)
+				if(!filter.showClassFilter(child))
+					toRemove=true;
+			if(toRemove){
 				oc.getFields().addAll(child.getFields());
 				oc.getMethods().addAll(child.getMethods());
 				orphans= child.getChildren_classes();
 			}
 			ArrayList<OutlineField> fieldsToRemove = new ArrayList<OutlineField>();
 			for(OutlineField childfield: child.getFields()){
-				if(!viewFilter.showFieldFilter(childfield))
+				toRemove=false;
+				for(OutlineFilter filter: activefilters)
+					if(!filter.showFieldFilter(childfield))
+						toRemove=true;
+				if(toRemove)
 					fieldsToRemove.add(childfield);
 			}
 			child.getFields().removeAll(fieldsToRemove);
 			ArrayList<OutlineMethod> methodsToRemove = new ArrayList<OutlineMethod>();
 			for(OutlineMethod childmethod: child.getMethods()){
-				if(!viewFilter.showMethodFilter(childmethod))
+				toRemove=false;
+				for(OutlineFilter filter: activefilters)
+					if(!filter.showMethodFilter(childmethod))
+						toRemove=true;
+				if(toRemove)
 					methodsToRemove.add(childmethod);
 			}
 			child.getMethods().removeAll(methodsToRemove);
-			testClassFilter(viewFilter, child);
+			testClassFilter(activefilters, child);
 		}
 		oc.getChildren_classes().addAll(orphans);
 	}

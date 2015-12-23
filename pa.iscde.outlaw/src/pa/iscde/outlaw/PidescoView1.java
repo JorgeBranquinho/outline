@@ -38,9 +38,9 @@ public class PidescoView1 implements PidescoView {
 	public static Map<String, Image> imageMap;
 	private OutlineTreeView otv;
 	private ArrayList<FilterView> filterviews = new ArrayList<FilterView>();
+	private ArrayList<OutlineFilter> activefilters = new ArrayList<OutlineFilter>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private final JavaEditorServices services = Activator.getActivator().getService();
-	//private final JavaEditorServices services = JavaEditorActivator.getInstance().getServices();
 	private ArrayList<IconChange> iconchange = new ArrayList<IconChange>();
 	public static String path;
 
@@ -175,23 +175,15 @@ public class PidescoView1 implements PidescoView {
 				b.setText(fv.getViewName());
 				buttons.add(b);
 				b.addSelectionListener(new SelectionListener() {
-					private boolean selected = false;
-
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						selected = !selected;
 						if (otv == null)
 							return;
-						if (selected) {
-							for (Button b : buttons) {
-								if (b != e.getSource())
-									b.setEnabled(false);
-							}
-							otv.setNewFilter(fv.getViewFilter());
+						if (((Button)e.getSource()).getSelection()) {
+							activefilters.add(fv.getViewFilter());
+							otv.setNewFilter(activefilters);
 						} else {
-							for (Button b : buttons) {
-								b.setEnabled(true);
-							}
+							activefilters.remove(fv.getViewFilter());
 							resetImgPath();
 							File openedfile = services.getOpenedFile();
 							v.setFile(openedfile);
@@ -199,12 +191,12 @@ public class PidescoView1 implements PidescoView {
 							services.parseFile(openedfile, v);
 							IconChange();
 							otv.update(v.getClazz());
+							otv.setNewFilter(activefilters);
 						}
 					}
 
 					@Override
-					public void widgetDefaultSelected(SelectionEvent e) {
-					}
+					public void widgetDefaultSelected(SelectionEvent e) {}
 				});
 			}
 		}
