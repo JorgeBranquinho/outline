@@ -67,8 +67,10 @@ public class OutlineTreeView {
 		for(OutlineClass childclass: root.getClazz().getChildren_classes()){
 			toRemove=false;
 			for(OutlineFilter filter: activefilters)
-				if(!filter.showClassFilter(childclass))
+				if(!filter.showClassFilter(childclass)){
 					toRemove=true;
+					break;
+				}
 			if(toRemove)
 				classesToRemove.add(childclass);
 		}
@@ -77,8 +79,10 @@ public class OutlineTreeView {
 		for(OutlineField childfield: root.getClazz().getFields()){
 			toRemove=false;
 			for(OutlineFilter filter: activefilters)
-				if(!filter.showFieldFilter(childfield))
+				if(!filter.showFieldFilter(childfield)){
 					toRemove=true;
+					break;
+				}
 			if(toRemove)
 				fieldsToRemove.add(childfield);
 		}
@@ -87,16 +91,20 @@ public class OutlineTreeView {
 		for(OutlineMethod childmethod: root.getClazz().getMethods()){
 			toRemove=false;
 			for(OutlineFilter filter: activefilters)
-				if(!filter.showMethodFilter(childmethod))
+				if(!filter.showMethodFilter(childmethod)){
 					toRemove=true;
+					break;
+				}
 			if(toRemove)
 				methodsToRemove.add(childmethod);
 		}
 		root.getClazz().getMethods().removeAll(methodsToRemove);
 		toRemove=false;
 		for(OutlineFilter filter: activefilters)
-			if(!filter.showClassFilter(root.getClazz()))
+			if(!filter.showClassFilter(root.getClazz())){
 				toRemove=true;
+				break;
+			}
 		if(toRemove)
 			root.getClazz().setName("("+root.getClazz().getName()+")");
 		tv.setInput(root);
@@ -110,8 +118,10 @@ public class OutlineTreeView {
 		for(OutlineClass child: oc.getChildren_classes()){
 			toRemove=false;
 			for(OutlineFilter filter: activefilters)
-				if(!filter.showClassFilter(child))
+				if(!filter.showClassFilter(child)){
 					toRemove=true;
+					break;
+				}
 			if(toRemove){
 				oc.getFields().addAll(child.getFields());
 				oc.getMethods().addAll(child.getMethods());
@@ -121,8 +131,10 @@ public class OutlineTreeView {
 			for(OutlineField childfield: child.getFields()){
 				toRemove=false;
 				for(OutlineFilter filter: activefilters)
-					if(!filter.showFieldFilter(childfield))
+					if(!filter.showFieldFilter(childfield)){
 						toRemove=true;
+						break;
+					}
 				if(toRemove)
 					fieldsToRemove.add(childfield);
 			}
@@ -131,8 +143,10 @@ public class OutlineTreeView {
 			for(OutlineMethod childmethod: child.getMethods()){
 				toRemove=false;
 				for(OutlineFilter filter: activefilters)
-					if(!filter.showMethodFilter(childmethod))
+					if(!filter.showMethodFilter(childmethod)){
 						toRemove=true;
+						break;
+					}
 				if(toRemove)
 					methodsToRemove.add(childmethod);
 			}
