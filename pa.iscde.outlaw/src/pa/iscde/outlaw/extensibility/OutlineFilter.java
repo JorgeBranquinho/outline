@@ -14,7 +14,8 @@ public interface OutlineFilter {
 	/**
 	 * This method allows filtering which OutlineMethods will be represented in the outline, 
 	 * by applying all sorts of test to the parameter (e.g. return type, arguments, etc)
-	 * @param om - the OutlineMethod to be tested.
+	 * @param om - the OutlineMethod to be tested. This parameter is resolved by the outline (using visitor),
+	 * so it should never be null in any case.
 	 * @return a boolean value: true if the parameter should be represented in the outline 
 	 * and false if it shouldn't.
 	 */
@@ -22,8 +23,9 @@ public interface OutlineFilter {
 	
 	/**
 	 * This method allows filtering which OutlineField will be represented in the outline, 
-	 * by applying all sorts of test to the parameter (e.g. type, visibility, etc)
-	 * @param om - the OutlineField to be tested.
+	 * by applying all sorts of test to the parameter (e.g. type, visibility, etc).
+	 * @param om - the OutlineField to be tested. This parameter is resolved by the outline (using visitor), 
+	 * so it should never be null in any case.
 	 * @return a boolean value: true if the parameter should be represented in the outline 
 	 * and false if it shouldn't.
 	 */
@@ -32,7 +34,8 @@ public interface OutlineFilter {
 	/**
 	 * This method allows filtering which OutlineClass will be represented in the outline, 
 	 * by applying all sorts of test to the parameter (e.g. visibility, check if is Enum, etc)
-	 * @param om - the OutlineClass to be tested.
+	 * @param om - the OutlineClass to be tested. This parameter is resolved by the outline (using visitor),
+	 * so it should never be null in any case.
 	 * @return a boolean value: true if the parameter should be represented in the outline 
 	 * and false if it shouldn't.
 	 */
