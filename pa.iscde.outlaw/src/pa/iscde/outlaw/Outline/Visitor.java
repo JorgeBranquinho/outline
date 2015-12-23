@@ -206,7 +206,8 @@ public class Visitor extends ASTVisitor{
 	}
 
 	private String getPackage(String parent) {
-		String[] path=parent.split("\\\\");
+		String[] path=parent.split(File.separator+""+File.separator);
+		
 		return path[path.length-2];
 	}
 
