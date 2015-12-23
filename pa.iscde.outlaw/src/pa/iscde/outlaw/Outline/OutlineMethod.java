@@ -186,7 +186,6 @@ public class OutlineMethod implements OutlineLookup {
 		
 	}
 
-	 @Override
 	 public void setImgPath(String newPath){
 			this.newPath=newPath;
 			setImg();

@@ -11,17 +11,18 @@ import pa.iscde.outlaw.Outline.OutlineLookup;
 public interface OutlineIcon {
 	/**
 	 * Description: By using this method there is no need to cast the object because,
-	 *  we will already know what type it is going to be (e.g. Class, Method, Field).
-	 * @return The Object type that is going to have its icon changed, using the Enum "OutlineType"
+	 * we will already know what type it is going to be (e.g. Class, Method, Field).
+	 *  The Enum "OutlineType" has three choices, Class, Method and Field.
+	 *  WARNING: This Method cannot return null. It must return one of the OutlineType types.
+	 * @return The Object type that is going to have its icon changed.
 	 */
 	public OutlineType getType();
 	/**
 	 * Description: The user can check any type of visibility or property before applying the change.
-	 * Important: The only way to change the icon is by calling the setImgPath("file_name"),
-	 * where file_name is the name of the image.
-	 * @param o Object of type OutlineLookup that can be used to do any additional checks, or to just change the icon. 
-	 * @return boolean
+	 *  WARNING: This Method cannot return null. It must return one of the OutlineType types.
+	 * @param o Object of type OutlineLookup that can be used to do any additional checks. 
+	 * @return The image name of the new image to be used.
 	 */
-	public boolean setIcon(OutlineLookup o);
+	public String setIcon(OutlineLookup o);
 	
 }

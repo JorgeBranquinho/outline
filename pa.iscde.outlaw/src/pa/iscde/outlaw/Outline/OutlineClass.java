@@ -104,7 +104,7 @@ public class OutlineClass implements OutlineLookup{
 		return getName();
 	}
 
-	public void setImg() {
+	void setImg() {
 		int count=0;
 		String[] result = new String[argsNumber];
 		
@@ -148,7 +148,6 @@ public class OutlineClass implements OutlineLookup{
 		image=new IconMerger().merge(result, 10, 0,flag);
 	}
 
-	@Override
 	public void setImgPath(String newPath){
 		this.newPath=newPath;
 		setImg();
@@ -321,11 +320,11 @@ public class OutlineClass implements OutlineLookup{
 		return isPublic;
 	}
 
-	public void setModifiers(int modifiers) {
+	void setModifiers(int modifiers) {
 		this.modifiers=modifiers;
 	}
 
-	public void performChecks() {
+	void performChecks() {
 		if(modifiers!=0){
 			checkProperties(modifiers);
 			checkVisibility(modifiers);

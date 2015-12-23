@@ -44,6 +44,5 @@ public interface OutlineLookup {
 	
 	public Image getImg();
 	
-	public void setImgPath(String path);
 	
 }

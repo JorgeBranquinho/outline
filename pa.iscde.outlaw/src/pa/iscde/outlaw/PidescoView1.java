@@ -122,29 +122,29 @@ public class PidescoView1 implements PidescoView {
 			for (IconChange ic : iconchange) {
 				path=ic.getImgPath();
 				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.CLASS)) {
-					ic.getCreateExecutableExtension().setIcon(v.getClazz());
+					v.getClazz().setImgPath(ic.getCreateExecutableExtension().setIcon(v.getClazz()));
 					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
-						ic.getCreateExecutableExtension().setIcon(oc);
+						oc.setImgPath(ic.getCreateExecutableExtension().setIcon(oc));
 					}
 				}
 				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.FIELD)) {
 					for(OutlineField of: v.getFields()){
-						ic.getCreateExecutableExtension().setIcon(of);
+						of.setImgPath(ic.getCreateExecutableExtension().setIcon(of));
 					}
 					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
 						for (OutlineField of : oc.getFields()) {
-							ic.getCreateExecutableExtension().setIcon(of);
+							of.setImgPath(ic.getCreateExecutableExtension().setIcon(of));
 						}
 					}
 
 				}
 				if (ic.getCreateExecutableExtension().getType().equals(OutlineType.METHOD)) {
 					for(OutlineMethod om: v.getMethods()){
-						ic.getCreateExecutableExtension().setIcon(om);
+						om.setImgPath(ic.getCreateExecutableExtension().setIcon(om));
 					}
 					for (OutlineClass oc : v.getClazz().getChildren_classes()) {
 						for (OutlineMethod om : oc.getMethods()) {
-							ic.getCreateExecutableExtension().setIcon(om);
+							om.setImgPath(ic.getCreateExecutableExtension().setIcon(om));
 						}
 					}
 				}

@@ -105,10 +105,10 @@ Note: Must use &quot;\\&quot; or &quot;/&quot; in the path, this is because this
         
         
         if(o.isPublic()){
-            o.setImgPath(&quot;new_public_m.gif&quot;);
+            return &quot;new_public_m.gif&quot;;
         }
             
-        return true;
+        return &quot;&quot;;
     }
 
 }
