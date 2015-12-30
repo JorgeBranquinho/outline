@@ -18,7 +18,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-
+import extensions.DeepSearchEventImplementation;
 import pa.iscde.outlaw.Outline.OutlineClass;
 import pa.iscde.outlaw.Outline.OutlineField;
 import pa.iscde.outlaw.Outline.OutlineMethod;
@@ -52,6 +52,8 @@ public class PidescoView1 implements PidescoView {
 		resetImgPath();
 		viewArea.setLayout(new GridLayout());
 
+		new DeepSearchEventImplementation();//extencao deepsearch
+		
 		final File f = services.getOpenedFile();
 
 		if (f != null) {
