@@ -12,5 +12,11 @@
             icon="smiley.png">
       </view>
    </extension>
+   <extension
+         point="pa.iscde.checkstyle.check">
+      <check
+            class="extensions.MyCheckStyle">
+      </check>
+   </extension>
 
 </plugin>

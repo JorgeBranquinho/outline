@@ -10,7 +10,9 @@ Require-Bundle: com.google.guava;bundle-version="15.0.0",
  org.eclipse.jdt.core,
  org.eclipse.jface;bundle-version="3.11.0",
  pt.iscte.pidesco.javaeditor,
- pa.iscde.deepsearch;bundle-version="0.0.1"
+ pa.iscde.deepsearch;bundle-version="0.0.1",
+ pa.iscde.checkstyle;bundle-version="0.0.1",
+ pa.iscde.checkstyle
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.resources,
